@@ -1,0 +1,121 @@
+{
+  "Hero": {
+    "title": "Leaders of Gaming World",
+    "subtitle": "As a professional e-sport team and gaming agency, we bring championship spirit to every project",
+    "learnMore": "Learn More",
+    "contact": "Get in Touch"
+  },
+  "Stats": {
+    "championships": "Championships",
+    "players": "Professional Players",
+    "projects": "Successful Projects"
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "players": "Players",
+    "matches": "Matches",
+    "news": "News",
+    "contact": "Contact",
+    "admin": "Admin Panel"
+  },
+  "Contact": {
+    "title": "Get in Touch with Us",
+    "subtitle": "Contact us to get professional support for your projects",
+    "name": "Your Name",
+    "email": "Your Email",
+    "subject": "Subject",
+    "message": "Your Message",
+    "send": "Send Message"
+  },
+  "Services": {
+    "title": "Our Service Areas",
+    "subtitle": "We provide all the services you need for success in the gaming world under one roof",
+    "viewAll": "View All Services",
+    "learnMore": "Learn More",
+    "esports": {
+      "title": "Professional E-Sports",
+      "description": "Player management, team coaching and tournament organization services.",
+      "features": ["Player Scouting", "Team Training", "Strategy Development"]
+    },
+    "tournaments": {
+      "title": "Tournament Organization",
+      "description": "Professional tournament organization and event management.",
+      "features": ["Tournament Planning", "Live Broadcasting", "Sponsor Management"]
+    },
+    "streaming": {
+      "title": "Content Creation",
+      "description": "Streaming, video production and social media management.",
+      "features": ["Live Streaming", "Video Editing", "Social Media"]
+    },
+    "coaching": {
+      "title": "Player Coaching", 
+      "description": "Individual and team coaching for performance improvement.",
+      "features": ["Individual Training", "Team Strategies", "Performance Analysis"]
+    },
+    "branding": {
+      "title": "Brand Management",
+      "description": "Player and team brand value creation services.",
+      "features": ["Personal Branding", "Sponsorship Deals", "PR Management"]
+    },
+    "consulting": {
+      "title": "Consulting",
+      "description": "Gaming industry consulting and strategic planning.",
+      "features": ["Strategic Planning", "Market Analysis", "Business Development"]
+    }
+  },
+  "About": {
+    "title": "Who Are We?",
+    "description": "As AIM Agency, we set out with the vision of being a pioneering agency in the e-sports world. We make a difference in the gaming sector with our staff consisting of professional players and our experienced team.",
+    "values": {
+      "excellence": {
+        "title": "Excellence",
+        "description": "We aim for the highest quality standards in every project."
+      },
+      "success": {
+        "title": "Success",
+        "description": "Our customers' success is our priority."
+      },
+      "innovation": {
+        "title": "Innovation", 
+        "description": "We follow and implement innovations in the gaming world."
+      },
+      "teamwork": {
+        "title": "Teamwork",
+        "description": "We achieve great successes with strong teamwork."
+      }
+    }
+  },
+  "News": {
+    "title": "Latest News",
+    "subtitle": "Latest developments in the e-sports world and latest news from our team",
+    "readMore": "Read More",
+    "viewAll": "View All News"
+  },
+  "Sponsors": {
+    "title": "Our Trusted Partners",
+    "subtitle": "Our valuable sponsors who are with us on our journey to success",
+    "partnership": "Would You Like to Partner with Us?",
+    "partnershipDesc": "Contact us for a strong partnership in the e-sports world",
+    "getInTouch": "Get in Touch"
+  },
+  "Footer": {
+    "company": "AIM Agency",
+    "description": "Leading agency in the e-sports world. Professional player management, tournament organization and gaming content production.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "legal": "Legal",
+    "rights": "All rights reserved.",
+    "links": {
+      "about": "About",
+      "services": "Services",
+      "players": "Players", 
+      "matches": "Matches",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    }
+  }
+}

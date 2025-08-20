@@ -1,0 +1,15 @@
+{
+  "title": "Our Players",
+  "subtitle": "Meet our professional players who are making a difference in the e-sports world",
+  "viewProfile": "View Profile",
+  "stats": {
+    "rank": "Rank",
+    "wins": "Wins",
+    "losses": "Losses",
+    "winRate": "Win Rate",
+    "tournaments": "Tournaments",
+    "achievements": "Achievements"
+  },
+  "noPlayers": "No players available at the moment.",
+  "loading": "Loading players..."
+} 

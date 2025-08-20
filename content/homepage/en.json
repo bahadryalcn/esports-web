@@ -1,0 +1,70 @@
+{
+  "seo": {
+    "title": "AIM Agency - Professional E-sport Team Management",
+    "description": "Professional team management, player development and consulting services in the e-sports world.",
+    "image": "/images/og-image-en.jpg"
+  },
+  "components": [
+    {
+      "_template": "hero",
+      "headline": "Rising to the Top in E-sports World",
+      "subtext": "Take your e-sports career to the next level with professional team management and player development",
+      "buttonText": "Discover Our Services",
+      "buttonLink": "/en/services",
+      "backgroundImage": "/images/hero-bg.jpg"
+    },
+    {
+      "_template": "services",
+      "title": "Our Services",
+      "subtitle": "All the services you need to achieve success in the e-sports world"
+    },
+    {
+      "_template": "about",
+      "title": "About Us",
+      "content": "As AIM Agency, we work for the success of our players and teams with years of experience in the e-sports sector. With our professional approach and expert team, we help you reach the peak you aim for in your e-sports career.",
+      "image": "/images/about-image.jpg",
+      "stats": [
+        {
+          "value": "50+",
+          "label": "Successful Players"
+        },
+        {
+          "value": "25+",
+          "label": "Tournaments Won"
+        },
+        {
+          "value": "100+",
+          "label": "Projects Completed"
+        },
+        {
+          "value": "5+",
+          "label": "Years of Experience"
+        }
+      ]
+    },
+    {
+      "_template": "news",
+      "title": "Latest News",
+      "subtitle": "Latest news and developments from the e-sports world",
+      "limit": 3,
+      "showReadMore": true
+    },
+    {
+      "_template": "players",
+      "title": "Our Players",
+      "subtitle": "Meet the talented players of our professional team",
+      "limit": 6
+    },
+    {
+      "_template": "sponsors",
+      "title": "Our Sponsors",
+      "subtitle": "Our valuable partners who trust and support us"
+    },
+    {
+      "_template": "contact",
+      "title": "Get In Touch",
+      "subtitle": "You can contact us for your questions",
+      "showForm": true
+    }
+  ]
+}

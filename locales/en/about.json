@@ -1,0 +1,35 @@
+{
+  "title": "Who Are We?",
+  "description": "As AIM Agency, we set out with the vision of being a pioneering agency in the e-sports world. We make a difference in the gaming sector with our staff consisting of professional players and our experienced team.",
+  "mission": {
+    "title": "Our Mission",
+    "description": "To be the leading agency in the e-sports world, providing professional services to players and teams while contributing to the growth of the gaming industry."
+  },
+  "vision": {
+    "title": "Our Vision", 
+    "description": "To be the most trusted and preferred partner in the e-sports ecosystem, recognized for our innovation, professionalism and success."
+  },
+  "values": {
+    "title": "Our Values",
+    "excellence": {
+      "title": "Excellence",
+      "description": "We aim for the highest quality standards in every project."
+    },
+    "success": {
+      "title": "Success",
+      "description": "Our customers' success is our priority."
+    },
+    "innovation": {
+      "title": "Innovation",
+      "description": "We follow and implement innovations in the gaming world."
+    },
+    "teamwork": {
+      "title": "Teamwork",
+      "description": "We achieve great successes with strong teamwork."
+    }
+  },
+  "team": {
+    "title": "Our Team",
+    "description": "Our team consists of experienced professionals from the gaming world."
+  }
+} 

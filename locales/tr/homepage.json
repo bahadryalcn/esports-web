@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "title": "Oyun Dünyasının Liderleri",
+    "subtitle": "Profesyonel e-spor takımı ve oyun ajansı olarak, her projeye şampiyonluk ruhu katıyoruz",
+    "learnMore": "Daha Fazla",
+    "contact": "İletişime Geç"
+  },
+  "stats": {
+    "championships": "Şampiyonluk",
+    "players": "Profesyonel Oyuncu",
+    "projects": "Başarılı Proje"
+  },
+  "services": {
+    "title": "Hizmet Alanlarımız",
+    "subtitle": "Oyun dünyasında başarı için ihtiyacınız olan tüm hizmetleri tek çatı altında sunuyoruz",
+    "viewAll": "Tüm Hizmetleri Gör",
+    "learnMore": "Daha Fazla"
+  },
+  "about": {
+    "title": "Biz Kimiz?",
+    "description": "AIM Agency olarak e-spor dünyasında öncü bir ajans olma vizyonuyla yola çıktık. Profesyonel oyunculardan oluşan kadromuz ve deneyimli ekibimizle oyun sektöründe fark yaratıyoruz.",
+    "learnMore": "Hakkımızda Daha Fazla"
+  },
+  "news": {
+    "title": "Son Haberler",
+    "subtitle": "E-spor dünyasındaki son gelişmeler ve takımımızdan en son haberler",
+    "readMore": "Devamını Oku",
+    "viewAll": "Tüm Haberleri Gör"
+  },
+  "sponsors": {
+    "title": "Güvenilir Ortaklarımız",
+    "subtitle": "Başarı yolculuğumuzda yanımızda olan değerli sponsorlarımız",
+    "partnership": "Bizimle Ortak Olmak İster misiniz?",
+    "partnershipDesc": "E-spor dünyasında güçlü bir ortaklık için bizimle iletişime geçin",
+    "getInTouch": "İletişime Geç"
+  }
+} 

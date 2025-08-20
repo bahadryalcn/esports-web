@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "title": "Leaders of Gaming World",
+    "subtitle": "As a professional e-sport team and gaming agency, we bring championship spirit to every project",
+    "learnMore": "Learn More",
+    "contact": "Get in Touch"
+  },
+  "stats": {
+    "championships": "Championships",
+    "players": "Professional Players", 
+    "projects": "Successful Projects"
+  },
+  "services": {
+    "title": "Our Service Areas",
+    "subtitle": "We provide all the services you need for success in the gaming world under one roof",
+    "viewAll": "View All Services",
+    "learnMore": "Learn More"
+  },
+  "about": {
+    "title": "Who Are We?",
+    "description": "As AIM Agency, we set out with the vision of being a pioneering agency in the e-sports world. We make a difference in the gaming sector with our staff consisting of professional players and our experienced team.",
+    "learnMore": "Learn More About Us"
+  },
+  "news": {
+    "title": "Latest News",
+    "subtitle": "Latest developments in the e-sports world and latest news from our team",
+    "readMore": "Read More",
+    "viewAll": "View All News"
+  },
+  "sponsors": {
+    "title": "Our Trusted Partners",
+    "subtitle": "Our valuable sponsors who are with us on our journey to success",
+    "partnership": "Would You Like to Partner with Us?",
+    "partnershipDesc": "Contact us for a strong partnership in the e-sports world",
+    "getInTouch": "Get in Touch"
+  }
+} 

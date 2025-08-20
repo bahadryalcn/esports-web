@@ -1,0 +1,25 @@
+{
+  "title": "Bizimle İletişime Geçin",
+  "subtitle": "Projeleriniz için profesyonel destek almak için bizimle iletişime geçin",
+  "form": {
+    "name": "Adınız",
+    "email": "E-posta Adresiniz",
+    "subject": "Konu",
+    "message": "Mesajınız",
+    "send": "Mesaj Gönder",
+    "sending": "Gönderiliyor...",
+    "success": "Mesaj başarıyla gönderildi!",
+    "error": "Mesaj gönderilirken hata oluştu. Lütfen tekrar deneyin."
+  },
+  "info": {
+    "title": "İletişim Bilgileri",
+    "address": "Adres",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "workingHours": "Çalışma Saatleri"
+  },
+  "social": {
+    "title": "Bizi Takip Edin",
+    "description": "Son haberlerimiz ve güncellemelerimizden haberdar olun"
+  }
+} 

@@ -1,0 +1,45 @@
+{
+  "header": {
+    "menuItems": [
+      {
+        "label": "Home",
+        "href": "/en",
+        "external": false
+      },
+      {
+        "label": "About",
+        "href": "/en/about-us",
+        "external": false
+      },
+      {
+        "label": "Services",
+        "href": "/en/services",
+        "external": false
+      },
+      {
+        "label": "Players",
+        "href": "/en/players",
+        "external": false
+      },
+      {
+        "label": "News",
+        "href": "/en/news",
+        "external": false
+      },
+      {
+        "label": "Matches",
+        "href": "/en/matches",
+        "external": false
+      },
+      {
+        "label": "Contact",
+        "href": "/en/contact",
+        "external": false
+      }
+    ]
+  },
+  "footer": {
+    "aboutText": "As AIM Agency, we are an agency specialized in professional team management and player development in the e-sports world. We stand by our players in their successful career journeys.",
+    "copyright": "© 2024 AIM Agency. All rights reserved."
+  }
+}

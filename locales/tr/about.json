@@ -1,0 +1,35 @@
+{
+  "title": "Biz Kimiz?",
+  "description": "AIM Agency olarak e-spor dünyasında öncü bir ajans olma vizyonuyla yola çıktık. Profesyonel oyunculardan oluşan kadromuz ve deneyimli ekibimizle oyun sektöründe fark yaratıyoruz.",
+  "mission": {
+    "title": "Misyonumuz",
+    "description": "E-spor dünyasında lider ajans olmak, oyunculara ve takımlara profesyonel hizmetler sunarken oyun sektörünün büyümesine katkıda bulunmak."
+  },
+  "vision": {
+    "title": "Vizyonumuz",
+    "description": "E-spor ekosisteminde en güvenilir ve tercih edilen ortak olmak, yenilikçiliğimiz, profesyonelliğimiz ve başarımızla tanınmak."
+  },
+  "values": {
+    "title": "Değerlerimiz",
+    "excellence": {
+      "title": "Mükemmellik",
+      "description": "Her projede en yüksek kalite standartlarını hedefliyoruz."
+    },
+    "success": {
+      "title": "Başarı",
+      "description": "Müşterilerimizin başarısı önceliğimizdir."
+    },
+    "innovation": {
+      "title": "Yenilikçilik",
+      "description": "Oyun dünyasındaki yenilikleri takip ediyor ve uyguluyoruz."
+    },
+    "teamwork": {
+      "title": "Takım Çalışması",
+      "description": "Güçlü takım çalışmasıyla büyük başarılara imza atıyoruz."
+    }
+  },
+  "team": {
+    "title": "Ekibimiz",
+    "description": "Ekibimiz oyun dünyasından deneyimli profesyonellerden oluşmaktadır."
+  }
+} 

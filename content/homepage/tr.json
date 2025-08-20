@@ -1,0 +1,47 @@
+{
+  "seo": {
+    "title": "AIM Agency - Profesyonel E-spor Takım Yönetimi",
+    "description": "E-spor dünyasında profesyonel takım yönetimi, oyuncu gelişimi ve danışmanlık hizmetleri.",
+    "image": "/images/og-image-tr.jpg"
+  },
+  "components": [
+    {
+      "title": "Hizmetlerimiz",
+      "subtitle": "E-spor dünyasında başarıya ulaşmanız için ihtiyacınız olan tüm hizmetler",
+      "_template": "services"
+    },
+    {
+      "headline": "E-spor Dünyasında Zirveye Çıkarıyoruz",
+      "subtext": "Profesyonel takım yönetimi ve oyuncu gelişimi ile e-spor kariyerinizi bir üst seviyeye taşıyın",
+      "buttonText": "Hizmetlerimizi Keşfedin",
+      "buttonLink": "/hizmetler",
+      "backgroundImage": "/images/hero-bg.jpg",
+      "_template": "hero"
+    },
+    {
+      "title": "Hakkımızda",
+      "content": "AIM Agency olarak, e-spor sektöründe yılların deneyimi ile oyuncularımızın ve takımlarımızın başarısı için çalışıyoruz. Profesyonel yaklaşımımız ve uzman kadromuzla, e-spor kariyerinizde hedeflediğiniz zirveye ulaşmanızda size yardımcı oluyoruz.\n",
+      "image": "/images/about-image.jpg",
+      "_template": "about"
+    },
+    {
+      "title": "Son Haberler",
+      "limit": 3,
+      "_template": "news"
+    },
+    {
+      "title": "Oyuncularımız",
+      "limit": 6,
+      "_template": "players"
+    },
+    {
+      "title": "Sponsorlarımız",
+      "_template": "sponsors"
+    },
+    {
+      "title": "İletişime Geçin",
+      "showForm": true,
+      "_template": "contact"
+    }
+  ]
+}

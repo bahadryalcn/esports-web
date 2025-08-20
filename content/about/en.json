@@ -1,0 +1,136 @@
+{
+  "seo": {
+    "title": "About Us - AIM Agency | Professional Esports Team Management",
+    "description": "AIM Agency provides professional team management, player development, and consulting services in the esports world with years of experience.",
+    "keywords": "esports, team management, player development, AIM Agency, professional gaming",
+    "image": "/images/about-og.jpg",
+    "canonical": "/about-us"
+  },
+  "components": [
+    {
+      "_template": "about-hero",
+      "title": "About Us",
+      "subtitle": "Leading to the Top in the Esports World",
+      "description": "At AIM Agency, we work for the success of our players and teams with years of experience in the esports sector.",
+      "image": "/images/about-hero.jpg"
+    },
+    {
+      "_template": "about-content",
+      "mainTitle": "Our Story",
+      "mainContent": "AIM Agency was founded in 2020 to provide professional services in the esports world. Since our establishment, we have been working for the success of our players and teams, contributing to the development of the esports sector.",
+      "sections": [
+        {
+          "title": "Our Mission",
+          "content": "To raise professional standards in the esports world, maximize the potential of our players, and ensure the success of our teams in national and international arenas.",
+          "icon": "target"
+        },
+        {
+          "title": "Our Vision",
+          "content": "To become Turkey's and the region's most reliable esports agency, have a say in the global esports ecosystem, and lead the spread of esports culture.",
+          "icon": "eye"
+        },
+        {
+          "title": "Our Values",
+          "content": "Transparency, professionalism, continuous development, and player-focused approach form our core values. The success of each of our players is our success.",
+          "icon": "heart"
+        }
+      ]
+    },
+    {
+      "_template": "about-stats",
+      "title": "AIM Agency in Numbers",
+      "items": [
+        {
+          "number": "50+",
+          "label": "Professional Players",
+          "description": "Active players in different games"
+        },
+        {
+          "number": "15+",
+          "label": "Teams",
+          "description": "Professional teams we manage"
+        },
+        {
+          "number": "100+",
+          "label": "Tournaments",
+          "description": "National and international tournaments we participated in"
+        },
+        {
+          "number": "25+",
+          "label": "Awards",
+          "description": "Championships and awards we won"
+        }
+      ]
+    },
+    {
+      "_template": "about-team",
+      "title": "Our Team",
+      "subtitle": "Expert Staff",
+      "description": "We work for the success of our players and teams with our experienced experts in the esports world.",
+      "members": [
+        {
+          "name": "Ahmet Yılmaz",
+          "position": "Founder & CEO",
+          "description": "10+ years of esports experience, former professional player",
+          "image": "/images/team/ahmet-yilmaz.jpg"
+        },
+        {
+          "name": "Zeynep Kaya",
+          "position": "Team Manager",
+          "description": "Psychology graduate, player development specialist",
+          "image": "/images/team/zeynep-kaya.jpg"
+        },
+        {
+          "name": "Mehmet Demir",
+          "position": "Technical Director",
+          "description": "CS:GO and Valorant expert, former team captain",
+          "image": "/images/team/mehmet-demir.jpg"
+        },
+        {
+          "name": "Elif Özkan",
+          "position": "Marketing Manager",
+          "description": "Digital marketing expert, sponsorship relations",
+          "image": "/images/team/elif-ozkan.jpg"
+        }
+      ]
+    },
+    {
+      "_template": "about-achievements",
+      "title": "Our Achievements",
+      "subtitle": "Moments We're Proud Of",
+      "items": [
+        {
+          "year": "2024",
+          "title": "Valorant Champions Tour",
+          "description": "Turkey championship and 3rd place in international tournament",
+          "image": "/images/achievements/valorant-2024.jpg"
+        },
+        {
+          "year": "2023",
+          "title": "CS:GO Major Championship",
+          "description": "Regional tournament championship",
+          "image": "/images/achievements/csgo-2023.jpg"
+        },
+        {
+          "year": "2022",
+          "title": "League of Legends Championship",
+          "description": "2nd place in Turkey league",
+          "image": "/images/achievements/lol-2022.jpg"
+        },
+        {
+          "year": "2021",
+          "title": "Rocket League Championship",
+          "description": "4th place in European regional tournament",
+          "image": "/images/achievements/rocket-league-2021.jpg"
+        }
+      ]
+    },
+    {
+      "_template": "about-cta",
+      "title": "Want to Work with Us?",
+      "description": "Contact us to take your esports career to the next level.",
+      "buttonText": "Contact Us",
+      "buttonLink": "/contact"
+    }
+  ]
+} 

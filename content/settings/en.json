@@ -1,0 +1,22 @@
+{
+  "siteName": "AIM Agency",
+  "siteDescription": "Professional E-sport Team Management and Consulting",
+  "logo": "/images/logo.png",
+  "favicon": "/images/favicon.ico",
+  "colors": {
+    "primary": "#00ff88",
+    "secondary": "#1a1a1a"
+  },
+  "social": {
+    "twitter": "https://twitter.com/aimagency",
+    "instagram": "https://instagram.com/aimagency",
+    "youtube": "https://youtube.com/@aimagency",
+    "discord": "https://discord.gg/aimagency",
+    "twitch": "https://twitch.tv/aimagency"
+  },
+  "contact": {
+    "email": "info@aimagency.com",
+    "phone": "+90 555 123 4567",
+    "address": "Istanbul, Turkey"
+  }
+}

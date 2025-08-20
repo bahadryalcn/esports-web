@@ -1,0 +1,15 @@
+{
+  "title": "Maçlarımız",
+  "subtitle": "Takımımızın maçlarını ve turnuva performanslarını takip edin",
+  "upcoming": "Yaklaşan Maçlar",
+  "recent": "Son Maçlar",
+  "live": "Canlı",
+  "finished": "Tamamlandı",
+  "scheduled": "Planlandı",
+  "vs": "vs",
+  "win": "Galibiyet",
+  "loss": "Mağlubiyet",
+  "draw": "Beraberlik",
+  "noMatches": "Şu anda maç bulunmuyor.",
+  "loading": "Maçlar yükleniyor..."
+} 

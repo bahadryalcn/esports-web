@@ -1,0 +1,121 @@
+{
+  "Hero": {
+    "title": "Oyun Dünyasının Liderleri",
+    "subtitle": "Profesyonel e-spor takımı ve oyun ajansı olarak, şampiyonluk ruhunu her projemize taşıyoruz",
+    "learnMore": "Hakkımızda",
+    "contact": "İletişime Geç"
+  },
+  "Stats": {
+    "championships": "Şampiyonluk",
+    "players": "Profesyonel Oyuncu",
+    "projects": "Başarılı Proje"
+  },
+  "Navigation": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "services": "Hizmetler",
+    "players": "Oyuncular",
+    "matches": "Maçlar",
+    "news": "Haberler",
+    "contact": "İletişim",
+    "admin": "Admin Panel"
+  },
+  "Contact": {
+    "title": "Bizimle İletişime Geçin",
+    "subtitle": "Projeleriniz için profesyonel destek almak üzere bizimle iletişime geçin",
+    "name": "Adınız Soyadınız",
+    "email": "E-mail Adresiniz",
+    "subject": "Konu",
+    "message": "Mesajınız",
+    "send": "Mesaj Gönder"
+  },
+  "Services": {
+    "title": "Hizmet Alanlarımız",
+    "subtitle": "Gaming dünyasında başarı için ihtiyacınız olan tüm hizmetleri tek çatı altında sunuyoruz",
+    "viewAll": "Tüm Hizmetleri Gör",
+    "learnMore": "Detayları Gör",
+    "esports": {
+      "title": "Profesyonel E-Spor",
+      "description": "Oyuncu yönetimi, takım koçluğu ve turnuva organizasyonu hizmetleri.",
+      "features": ["Oyuncu Scouting", "Takım Antrenmanı", "Strateji Geliştirme"]
+    },
+    "tournaments": {
+      "title": "Turnuva Organizasyonu", 
+      "description": "Profesyonel turnuva organizasyonu ve etkinlik yönetimi.",
+      "features": ["Turnuva Planlama", "Canlı Yayın", "Sponsor Yönetimi"]
+    },
+    "streaming": {
+      "title": "İçerik Üretimi",
+      "description": "Streaming, video prodüksiyon ve sosyal medya yönetimi.",
+      "features": ["Canlı Yayın", "Video Editing", "Sosyal Medya"]
+    },
+    "coaching": {
+      "title": "Oyuncu Koçluğu",
+      "description": "Bireysel ve takım koçluğu ile performans artırma.",
+      "features": ["Bireysel Antrenman", "Takım Stratejileri", "Performans Analizi"]
+    },
+    "branding": {
+      "title": "Marka Yönetimi",
+      "description": "Oyuncu ve takım marka değeri oluşturma hizmetleri.",
+      "features": ["Kişisel Marka", "Sponsorluk Anlaşmaları", "PR Yönetimi"]
+    },
+    "consulting": {
+      "title": "Danışmanlık",
+      "description": "Gaming endüstrisi danışmanlık ve stratejik planlama.",
+      "features": ["Stratejik Planlama", "Pazar Analizi", "İş Geliştirme"]
+    }
+  },
+  "About": {
+    "title": "Biz Kimiz?",
+    "description": "AIM Agency olarak, e-spor dünyasında öncü bir ajans olma vizyonuyla yola çıktık. Profesyonel oyunculardan oluşan kadromuz ve deneyimli ekibimizle gaming sektöründe fark yaratıyoruz.",
+    "values": {
+      "excellence": {
+        "title": "Mükemmellik",
+        "description": "Her projede en yüksek kalite standartlarını hedefliyoruz."
+      },
+      "success": {
+        "title": "Başarı", 
+        "description": "Müşterilerimizin başarısı bizim önceliğimizdir."
+      },
+      "innovation": {
+        "title": "İnovasyon",
+        "description": "Gaming dünyasındaki yenilikleri takip eder ve uygularız."
+      },
+      "teamwork": {
+        "title": "Takım Ruhu",
+        "description": "Güçlü ekip çalışması ile büyük başarılar elde ediyoruz."
+      }
+    }
+  },
+  "News": {
+    "title": "Son Haberler",
+    "subtitle": "E-spor dünyasındaki gelişmeler ve takımımızdan en güncel haberler",
+    "readMore": "Devamını Oku",
+    "viewAll": "Tüm Haberleri Gör"
+  },
+  "Sponsors": {
+    "title": "Güvenilir Partnerlerimiz",
+    "subtitle": "Başarı yolculuğumuzda bizimle birlikte olan değerli sponsorlarımız",
+    "partnership": "Bizimle Ortak Olmak İster misiniz?",
+    "partnershipDesc": "E-spor dünyasında güçlü bir partnerlik için bizimle iletişime geçin",
+    "getInTouch": "İletişime Geç"
+  },
+  "Footer": {
+    "company": "AIM Agency",
+    "description": "E-spor dünyasında öncü ajans. Profesyonel oyuncu yönetimi, turnuva organizasyonu ve gaming içerik üretimi.",
+    "quickLinks": "Hızlı Linkler",
+    "contact": "İletişim",
+    "followUs": "Bizi Takip Edin",
+    "legal": "Yasal",
+    "rights": "Tüm hakları saklıdır.",
+    "links": {
+      "about": "Hakkımızda",
+      "services": "Hizmetler", 
+      "players": "Oyuncular",
+      "matches": "Maçlar",
+      "privacy": "Gizlilik Politikası",
+      "terms": "Kullanım Şartları",
+      "cookies": "Çerez Politikası"
+    }
+  }
+}

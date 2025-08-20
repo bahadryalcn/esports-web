@@ -1,0 +1,136 @@
+{
+  "seo": {
+    "title": "Hakkımızda - AIM Agency | Profesyonel E-spor Takım Yönetimi",
+    "description": "AIM Agency olarak e-spor dünyasında yılların deneyimi ile profesyonel takım yönetimi, oyuncu gelişimi ve danışmanlık hizmetleri sunuyoruz.",
+    "keywords": "e-spor, takım yönetimi, oyuncu gelişimi, AIM Agency, profesyonel gaming",
+    "image": "/images/about-og.jpg",
+    "canonical": "/hakkimizda"
+  },
+  "components": [
+    {
+      "_template": "about-hero",
+      "title": "Hakkımızda",
+      "subtitle": "E-spor Dünyasında Zirveye Çıkarıyoruz",
+      "description": "AIM Agency olarak, e-spor sektöründe yılların deneyimi ile oyuncularımızın ve takımlarımızın başarısı için çalışıyoruz.",
+      "image": "/images/about-hero.jpg"
+    },
+    {
+      "_template": "about-content",
+      "mainTitle": "Bizim Hikayemiz",
+      "mainContent": "AIM Agency, 2020 yılında e-spor dünyasında profesyonel hizmetler sunmak amacıyla kuruldu. Kurulduğumuz günden bu yana, oyuncularımızın ve takımlarımızın başarısı için çalışıyor, e-spor sektörünün gelişimine katkıda bulunuyoruz.",
+      "sections": [
+        {
+          "title": "Misyonumuz",
+          "content": "E-spor dünyasında profesyonel standartları yükseltmek, oyuncularımızın potansiyellerini en üst seviyeye çıkarmak ve takımlarımızın ulusal ve uluslararası arenada başarıya ulaşmasını sağlamak.",
+          "icon": "target"
+        },
+        {
+          "title": "Vizyonumuz",
+          "content": "Türkiye'nin ve bölgenin en güvenilir e-spor ajansı olmak, global e-spor ekosisteminde söz sahibi olmak ve e-spor kültürünün yaygınlaşmasına öncülük etmek.",
+          "icon": "eye"
+        },
+        {
+          "title": "Değerlerimiz",
+          "content": "Şeffaflık, profesyonellik, sürekli gelişim ve oyuncu odaklı yaklaşım temel değerlerimizi oluşturuyor. Her oyuncumuzun başarısı bizim başarımızdır.",
+          "icon": "heart"
+        }
+      ]
+    },
+    {
+      "_template": "about-stats",
+      "title": "Rakamlarla AIM Agency",
+      "items": [
+        {
+          "number": "50+",
+          "label": "Profesyonel Oyuncu",
+          "description": "Farklı oyunlarda aktif oyuncularımız"
+        },
+        {
+          "number": "15+",
+          "label": "Takım",
+          "description": "Yönettiğimiz profesyonel takımlar"
+        },
+        {
+          "number": "100+",
+          "label": "Turnuva",
+          "description": "Katıldığımız ulusal ve uluslararası turnuvalar"
+        },
+        {
+          "number": "25+",
+          "label": "Ödül",
+          "description": "Kazandığımız şampiyonluklar ve ödüller"
+        }
+      ]
+    },
+    {
+      "_template": "about-team",
+      "title": "Ekibimiz",
+      "subtitle": "Uzman Kadromuz",
+      "description": "E-spor dünyasında deneyimli uzmanlarımızla oyuncularımızın ve takımlarımızın başarısı için çalışıyoruz.",
+      "members": [
+        {
+          "name": "Ahmet Yılmaz",
+          "position": "Kurucu & CEO",
+          "description": "10+ yıl e-spor deneyimi, eski profesyonel oyuncu",
+          "image": "/images/team/ahmet-yilmaz.jpg"
+        },
+        {
+          "name": "Zeynep Kaya",
+          "position": "Takım Yöneticisi",
+          "description": "Psikoloji mezunu, oyuncu gelişimi uzmanı",
+          "image": "/images/team/zeynep-kaya.jpg"
+        },
+        {
+          "name": "Mehmet Demir",
+          "position": "Teknik Direktör",
+          "description": "CS:GO ve Valorant uzmanı, eski takım kaptanı",
+          "image": "/images/team/mehmet-demir.jpg"
+        },
+        {
+          "name": "Elif Özkan",
+          "position": "Pazarlama Müdürü",
+          "description": "Dijital pazarlama uzmanı, sponsorluk ilişkileri",
+          "image": "/images/team/elif-ozkan.jpg"
+        }
+      ]
+    },
+    {
+      "_template": "about-achievements",
+      "title": "Başarılarımız",
+      "subtitle": "Gurur Duyduğumuz Anlar",
+      "items": [
+        {
+          "year": "2024",
+          "title": "Valorant Champions Tour",
+          "description": "Türkiye şampiyonluğu ve uluslararası turnuvada 3. sıra",
+          "image": "/images/achievements/valorant-2024.jpg"
+        },
+        {
+          "year": "2023",
+          "title": "CS:GO Major Championship",
+          "description": "Bölgesel turnuvada şampiyonluk",
+          "image": "/images/achievements/csgo-2023.jpg"
+        },
+        {
+          "year": "2022",
+          "title": "League of Legends Championship",
+          "description": "Türkiye liginde 2. sıra",
+          "image": "/images/achievements/lol-2022.jpg"
+        },
+        {
+          "year": "2021",
+          "title": "Rocket League Championship",
+          "description": "Avrupa bölgesel turnuvasında 4. sıra",
+          "image": "/images/achievements/rocket-league-2021.jpg"
+        }
+      ]
+    },
+    {
+      "_template": "about-cta",
+      "title": "Bizimle Çalışmak İster misiniz?",
+      "description": "E-spor kariyerinizi bir üst seviyeye taşımak için bizimle iletişime geçin.",
+      "buttonText": "İletişime Geçin",
+      "buttonLink": "/iletisim"
+    }
+  ]
+} 

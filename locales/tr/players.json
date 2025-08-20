@@ -1,0 +1,15 @@
+{
+  "title": "Oyuncularımız",
+  "subtitle": "E-spor dünyasında fark yaratan profesyonel oyuncularımızla tanışın",
+  "viewProfile": "Profili Gör",
+  "stats": {
+    "rank": "Sıralama",
+    "wins": "Galibiyet",
+    "losses": "Mağlubiyet",
+    "winRate": "Kazanma Oranı",
+    "tournaments": "Turnuvalar",
+    "achievements": "Başarılar"
+  },
+  "noPlayers": "Şu anda oyuncu bulunmuyor.",
+  "loading": "Oyuncular yükleniyor..."
+} 

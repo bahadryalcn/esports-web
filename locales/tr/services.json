@@ -1,0 +1,36 @@
+{
+  "title": "Hizmetlerimiz",
+  "subtitle": "Oyun dünyasında başarı için ihtiyacınız olan tüm hizmetleri tek çatı altında sunuyoruz",
+  "viewAll": "Tüm Hizmetleri Gör",
+  "learnMore": "Daha Fazla",
+  "esports": {
+    "title": "Profesyonel E-Spor",
+    "description": "Oyuncu yönetimi, takım koçluğu ve turnuva organizasyon hizmetleri.",
+    "features": ["Oyuncu Keşfi", "Takım Eğitimi", "Strateji Geliştirme"]
+  },
+  "tournaments": {
+    "title": "Turnuva Organizasyonu",
+    "description": "Profesyonel turnuva organizasyonu ve etkinlik yönetimi.",
+    "features": ["Turnuva Planlaması", "Canlı Yayın", "Sponsor Yönetimi"]
+  },
+  "streaming": {
+    "title": "İçerik Üretimi",
+    "description": "Yayın, video üretimi ve sosyal medya yönetimi.",
+    "features": ["Canlı Yayın", "Video Düzenleme", "Sosyal Medya"]
+  },
+  "coaching": {
+    "title": "Oyuncu Koçluğu",
+    "description": "Performans artırımı için bireysel ve takım koçluğu.",
+    "features": ["Bireysel Eğitim", "Takım Stratejileri", "Performans Analizi"]
+  },
+  "branding": {
+    "title": "Marka Yönetimi",
+    "description": "Oyuncu ve takım marka değeri yaratma hizmetleri.",
+    "features": ["Kişisel Marka", "Sponsorluk Anlaşmaları", "PR Yönetimi"]
+  },
+  "consulting": {
+    "title": "Danışmanlık",
+    "description": "Oyun sektörü danışmanlığı ve stratejik planlama.",
+    "features": ["Stratejik Planlama", "Pazar Analizi", "İş Geliştirme"]
+  }
+} 

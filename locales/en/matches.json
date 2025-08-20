@@ -1,0 +1,15 @@
+{
+  "title": "Our Matches",
+  "subtitle": "Follow our team's matches and tournament performances",
+  "upcoming": "Upcoming Matches",
+  "recent": "Recent Matches",
+  "live": "Live",
+  "finished": "Finished",
+  "scheduled": "Scheduled",
+  "vs": "vs",
+  "win": "Win",
+  "loss": "Loss",
+  "draw": "Draw",
+  "noMatches": "No matches available at the moment.",
+  "loading": "Loading matches..."
+} 

@@ -1,0 +1,45 @@
+{
+  "header": {
+    "menuItems": [
+      {
+        "label": "Anasayfa",
+        "href": "/",
+        "external": false
+      },
+      {
+        "label": "Hakkımızda",
+        "href": "/hakkimizda",
+        "external": false
+      },
+      {
+        "label": "Hizmetler",
+        "href": "/hizmetler",
+        "external": false
+      },
+      {
+        "label": "Oyuncular",
+        "href": "/oyuncular",
+        "external": false
+      },
+      {
+        "label": "Haberler",
+        "href": "/haberler",
+        "external": false
+      },
+      {
+        "label": "Maçlar",
+        "href": "/maclar",
+        "external": false
+      },
+      {
+        "label": "İletişim",
+        "href": "/iletisim",
+        "external": false
+      }
+    ]
+  },
+  "footer": {
+    "aboutText": "AIM Agency olarak, e-spor dünyasında profesyonel takım yönetimi ve oyuncu gelişimi konularında uzmanlaşmış bir ajansız. Başarılı kariyer yolculuklarında oyuncularımızın yanındayız.",
+    "copyright": "© 2024 AIM Agency. Tüm hakları saklıdır."
+  }
+}
