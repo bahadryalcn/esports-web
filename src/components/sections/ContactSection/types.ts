@@ -45,6 +45,7 @@ export interface ContactBackgroundProps {
     color?: string;
     opacity?: number;
   };
+  parallaxOffsets?: number[];
 }
 
 export interface ContactContentProps {

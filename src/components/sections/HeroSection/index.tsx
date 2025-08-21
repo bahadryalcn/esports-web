@@ -34,36 +34,44 @@ export default function HeroSection({
   useHeroAutoplay({ autoplay, autoplaySpeed, slidesLength: heroSlides.length, setCurrentSlide });
 
   const currentSlideData = heroSlides[currentSlide];
+  
+  // Eğer slides varsa, onları kullan; yoksa fallback
+  const hasSlides = slides && slides.length > 0;
+  const currentBackgroundImage = hasSlides ? currentSlideData.backgroundImage : (backgroundImage || '/bg/1.jpg');
+  const currentOverlay = hasSlides ? currentSlideData.overlay : overlay;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Container */}
       <HeroBackground 
         currentSlide={currentSlide}
-        backgroundImage={currentSlideData.backgroundImage}
-        overlay={currentSlideData.overlay}
+        backgroundImage={currentBackgroundImage}
+        overlay={currentOverlay}
       />
 
-      {/* Main Content */}
-      <HeroContent currentSlide={currentSlide}>
-        <HeroHeading 
-          headline={currentSlideData.headline}
-          subtext={currentSlideData.subtext}
-        />
-
-        {/* CTA Buttons */}
-        {(currentSlideData.buttonText || currentSlideData.buttonLink) && (
-          <HeroCTA 
-            buttonText={currentSlideData.buttonText}
-            buttonLink={currentSlideData.buttonLink}
+      {/* Content Container */}
+      <div className="container relative z-20 mx-auto px-4 flex items-center justify-center min-h-screen">
+        {/* Main Content */}
+        <HeroContent currentSlide={currentSlide}>
+          <HeroHeading 
+            headline={currentSlideData.headline}
+            subtext={currentSlideData.subtext}
           />
-        )}
 
-        {/* Stats */}
-        {currentSlideData.stats && currentSlideData.stats.length > 0 && (
-          <HeroStats stats={currentSlideData.stats} />
-        )}
-      </HeroContent>
+          {/* CTA Buttons */}
+          {(currentSlideData.buttonText || currentSlideData.buttonLink) && (
+            <HeroCTA 
+              buttonText={currentSlideData.buttonText}
+              buttonLink={currentSlideData.buttonLink}
+            />
+          )}
+
+          {/* Stats */}
+          {currentSlideData.stats && currentSlideData.stats.length > 0 && (
+            <HeroStats stats={currentSlideData.stats} />
+          )}
+        </HeroContent>
+      </div>
 
       {/* Navigation */}
       <HeroNavigation

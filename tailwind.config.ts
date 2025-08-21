@@ -52,29 +52,42 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Gaming theme colors using CSS variables
+        // Modern Gaming Colors
         gaming: {
+          black: '#000000',
           darker: '#0a0a0b',
           dark: '#151419',
-          primary: 'var(--primary)',
-          secondary: 'var(--destructive)', 
-          accent: 'var(--accent)',
-          muted: 'var(--muted)',
-          card: 'var(--card)',
-          border: 'var(--border)',
-        },
-        neon: {
-          primary: 'var(--primary)',
-          destructive: 'var(--destructive)',
-          accent: 'var(--accent)',
-          muted: 'var(--muted)',
-          warning: 'var(--destructive)',
+          red: {
+            50: '#fef2f2',
+            100: '#fee2e2', 
+            200: '#fecaca',
+            300: '#fca5a5',
+            400: '#f87171',
+            500: '#ef4444',
+            600: '#dc2626',
+            700: '#b91c1c',
+            800: '#991b1b',
+            900: '#7f1d1d',
+          }
         }
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "1rem",
+        "2xl": "1.5rem",
+        "3xl": "2rem",
+      },
+      backdropBlur: {
+        xs: '2px',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gaming-gradient': 'linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%)',
+        'gaming-gradient-hover': 'linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%)',
+        'glass-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
       },
       keyframes: {
         "accordion-down": {
@@ -85,55 +98,28 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "glow": {
-          "0%, 100%": { boxShadow: "0 0 5px currentColor" },
-          "50%": { boxShadow: "0 0 20px currentColor, 0 0 30px currentColor" },
-        },
-        "neon-pulse": {
-          "0%, 100%": { textShadow: "0 0 5px currentColor" },
-          "50%": { textShadow: "0 0 20px currentColor, 0 0 30px currentColor" },
-        },
-        "slide-up-fade": {
+        // Modern Hero Animations
+        "fade-up": {
           "0%": { 
             opacity: "0", 
-            transform: "translateY(60px) scale(0.95)" 
+            transform: "translateY(40px)" 
           },
           "100%": { 
             opacity: "1", 
-            transform: "translateY(0) scale(1)" 
+            transform: "translateY(0)" 
           },
         },
-        "slide-down-fade": {
+        "fade-down": {
           "0%": { 
             opacity: "0", 
-            transform: "translateY(-60px) scale(0.95)" 
+            transform: "translateY(-40px)" 
           },
           "100%": { 
             opacity: "1", 
-            transform: "translateY(0) scale(1)" 
+            transform: "translateY(0)" 
           },
         },
-        "slide-left-fade": {
-          "0%": { 
-            opacity: "0", 
-            transform: "translateX(-60px) scale(0.95)" 
-          },
-          "100%": { 
-            opacity: "1", 
-            transform: "translateX(0) scale(1)" 
-          },
-        },
-        "slide-right-fade": {
-          "0%": { 
-            opacity: "0", 
-            transform: "translateX(60px) scale(0.95)" 
-          },
-          "100%": { 
-            opacity: "1", 
-            transform: "translateX(0) scale(1)" 
-          },
-        },
-        "zoom-in": {
+        "scale-in": {
           "0%": { 
             opacity: "0", 
             transform: "scale(0.8)" 
@@ -143,72 +129,158 @@ module.exports = {
             transform: "scale(1)" 
           },
         },
-        "zoom-out": {
-          "0%": { 
-            opacity: "0", 
-            transform: "scale(1.2)" 
+        "glow-pulse": {
+          "0%, 100%": { 
+            boxShadow: "0 0 20px rgba(239, 68, 68, 0.3)" 
           },
-          "100%": { 
-            opacity: "1", 
-            transform: "scale(1)" 
+          "50%": { 
+            boxShadow: "0 0 40px rgba(239, 68, 68, 0.6), 0 0 60px rgba(239, 68, 68, 0.4)" 
           },
-        },
-        "rotate-in": {
-          "0%": { 
-            opacity: "0", 
-            transform: "rotate(-10deg) scale(0.9)" 
-          },
-          "100%": { 
-            opacity: "1", 
-            transform: "rotate(0deg) scale(1)" 
-          },
-        },
-        "parallax-slow": {
-          "0%": { transform: "translateY(0)" },
-          "100%": { transform: "translateY(-50px)" },
-        },
-        "parallax-fast": {
-          "0%": { transform: "translateY(0)" },
-          "100%": { transform: "translateY(-100px)" },
         },
         "text-glow": {
           "0%, 100%": { 
-            textShadow: "0 0 20px var(--primary), 0 0 30px var(--primary), 0 0 40px var(--primary)" 
+            textShadow: "0 0 20px rgba(239, 68, 68, 0.5)" 
           },
           "50%": { 
-            textShadow: "0 0 30px var(--primary), 0 0 50px var(--primary), 0 0 70px var(--primary)" 
+            textShadow: "0 0 40px rgba(239, 68, 68, 0.8), 0 0 60px rgba(239, 68, 68, 0.6)" 
           },
         },
-        "bg-shift": {
-          "0%": { backgroundPosition: "0% 50%" },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "slide-up": {
+          "0%": { 
+            opacity: "0", 
+            transform: "translateY(100px)" 
+          },
+          "100%": { 
+            opacity: "1", 
+            transform: "translateY(0)" 
+          },
+        },
+        "shimmer": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
-          "100%": { backgroundPosition: "0% 50%" },
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "glow": "glow 2s ease-in-out infinite alternate",
-        "neon-pulse": "neon-pulse 2s ease-in-out infinite alternate",
-        "slide-up-fade": "slide-up-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        "slide-down-fade": "slide-down-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        "slide-left-fade": "slide-left-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        "slide-right-fade": "slide-right-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        "zoom-in": "zoom-in 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        "zoom-out": "zoom-out 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        "rotate-in": "rotate-in 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        "parallax-slow": "parallax-slow 20s linear infinite",
-        "parallax-fast": "parallax-fast 15s linear infinite",
+        // Modern Hero Animations
+        "fade-up": "fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+        "fade-down": "fade-down 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+        "scale-in": "scale-in 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
         "text-glow": "text-glow 3s ease-in-out infinite",
-        "bg-shift": "bg-shift 8s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "slide-up": "slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+        "shimmer": "shimmer 2s linear infinite",
+        "gradient-shift": "gradient-shift 8s ease-in-out infinite",
+        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       fontFamily: {
-        'gaming': ['Orbitron', 'monospace'],
-        'heading': ['Rajdhani', 'sans-serif'],
-        'display': ['Space Grotesk', 'sans-serif'],
-        'mono': ['JetBrains Mono', 'monospace'],
+        // Modern Gaming Fonts - Sans serif family'lerini base olarak tanımla
+        'sans': ['Inter', 'Roboto', 'Arial', 'sans-serif'],
+        'gaming': ['Orbitron', 'Rajdhani', 'Arial', 'sans-serif'],
+        'display': ['Rajdhani', 'Space Grotesk', 'Arial', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+        'heading': ['Space Grotesk', 'Rajdhani', 'Arial', 'sans-serif'],
+        'body': ['Inter', 'Roboto', 'Arial', 'sans-serif'],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
+      zIndex: {
+        '60': '60',
+        '70': '70',
+        '80': '80',
+        '90': '90',
+        '100': '100',
+      },
+      transitionTimingFunction: {
+        'gaming': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'bounce-in': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      },
+      scale: {
+        '102': '1.02',
+        '103': '1.03',
       }
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    // Custom plugin for gaming utilities
+    function({ addUtilities, theme }) {
+      const newUtilities = {
+        // Modern Glass Effect
+        '.glass': {
+          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+        },
+        '.glass-dark': {
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+        },
+        '.glass-red': {
+          backgroundColor: 'rgba(239, 68, 68, 0.1)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(239, 68, 68, 0.2)',
+        },
+        // Gaming Button Effects
+        '.btn-gaming': {
+          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          boxShadow: '0 4px 15px rgba(239, 68, 68, 0.3)',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          '&:hover': {
+            background: 'linear-gradient(135deg, #f87171 0%, #ef4444 100%)',
+            boxShadow: '0 8px 25px rgba(239, 68, 68, 0.5)',
+            transform: 'translateY(-2px) scale(1.02)',
+          }
+        },
+        // Modern Text Effects
+        '.text-gradient': {
+          background: 'linear-gradient(135deg, #ffffff 0%, #ef4444 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        },
+        '.text-gradient-red': {
+          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        },
+        // Performance Optimizations
+        '.gpu-accelerated': {
+          transform: 'translate3d(0, 0, 0)',
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
+        },
+        // Background Image Optimizations
+        '.bg-image-optimized': {
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+          '@media (max-width: 768px)': {
+            backgroundAttachment: 'scroll'
+          }
+        }
+      }
+      addUtilities(newUtilities)
+    }
+  ],
 }

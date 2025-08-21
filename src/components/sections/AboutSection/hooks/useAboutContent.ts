@@ -5,9 +5,47 @@ export const useAboutContent = (customContent?: string) => {
     vision: 'Vizyonumuz, Türkiye\'nin en büyük gaming ajansı olmak ve uluslararası arenada ülkemizi başarıyla temsil etmektir.'
   };
 
-  return {
-    main: customContent || defaultContent.main,
-    secondary: defaultContent.secondary,
-    vision: defaultContent.vision
-  };
+  // If custom content is provided, try to parse it for different sections
+  if (customContent) {
+    // Check if content contains specific markers for different sections
+    const hasMission = customContent.includes('Misyonumuz') || customContent.includes('Mission');
+    const hasVision = customContent.includes('Vizyonumuz') || customContent.includes('Vision');
+    
+    if (hasMission && hasVision) {
+      // Content has both mission and vision, extract them
+      const missionMatch = customContent.match(/(?:Misyonumuz|Mission)[:\s]*([\s\S]*?)(?=\n|Vizyonumuz|Vision|$)/);
+      const visionMatch = customContent.match(/(?:Vizyonumuz|Vision)[:\s]*([\s\S]*?)(?=\n|Misyonumuz|Mission|$)/);
+      
+      return {
+        main: customContent,
+        secondary: missionMatch ? missionMatch[1].trim() : defaultContent.secondary,
+        vision: visionMatch ? visionMatch[1].trim() : defaultContent.vision
+      };
+    } else if (hasMission) {
+      // Only mission found
+      const missionMatch = customContent.match(/(?:Misyonumuz|Mission)[:\s]*([\s\S]*?)(?=\n|$)/);
+      return {
+        main: customContent,
+        secondary: missionMatch ? missionMatch[1].trim() : defaultContent.secondary,
+        vision: defaultContent.vision
+      };
+    } else if (hasVision) {
+      // Only vision found
+      const visionMatch = customContent.match(/(?:Vizyonumuz|Vision)[:\s]*([\s\S]*?)(?=\n|$)/);
+      return {
+        main: customContent,
+        secondary: defaultContent.secondary,
+        vision: visionMatch ? visionMatch[1].trim() : defaultContent.vision
+      };
+    }
+    
+    // No specific sections found, use as main content
+    return {
+      main: customContent,
+      secondary: defaultContent.secondary,
+      vision: defaultContent.vision
+    };
+  }
+
+  return defaultContent;
 };

@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Gamepad2, Sparkles } from 'lucide-react';
 import Navigation from './Navigation';
+import { useSiteSettings } from '@/lib/hooks/useSiteSettings';
 import type { Navigation as NavigationType } from '@/types';
 
 interface HeaderProps {
@@ -16,6 +18,9 @@ export default function Header({ navigation }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [lastScrollY, setLastScrollY] = useState<number>(0);
+  
+  // Site settings hook'u - Türkçe locale ile
+  const { data: siteSettings, isLoading: settingsLoading } = useSiteSettings('tr');
 
   // Handle scroll effects
   useEffect(() => {
@@ -85,8 +90,18 @@ export default function Header({ navigation }: HeaderProps) {
               transition={{ type: 'spring', stiffness: 400 }}
             >
               {/* Main Icon Container */}
-              <div className="relative z-10 p-3 bg-gradient-to-br from-red-500/30 to-red-700/40 rounded-2xl border border-red-500/50 backdrop-blur-sm shadow-lg shadow-red-500/20">
-                <Gamepad2 className="w-8 h-8 text-red-300 group-hover:text-red-200 transition-all duration-300" />
+              <div className="relative z-10 p-4 bg-gradient-to-br from-red-500/30 to-red-700/40 rounded-2xl border border-red-500/50 backdrop-blur-sm shadow-lg shadow-red-500/20">
+                {siteSettings?.logo?.main ? (
+                  <Image
+                    src={siteSettings.logo.main}
+                    alt={siteSettings.siteName || 'AIM AGENCY'}
+                    width={82}
+                    height={82}
+                    className="w-8 h-8 object-cover"
+                  />
+                ) : (
+                  <Gamepad2 className="w-8 h-8 text-red-300 group-hover:text-red-200 transition-all duration-300" />
+                )}
                 
                 {/* Animated Sparkles */}
                 <motion.div
@@ -123,7 +138,7 @@ export default function Header({ navigation }: HeaderProps) {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                AIM AGENCY
+                {siteSettings?.siteName || 'AIM AGENCY'}
               </motion.span>
               
               {/* Text Glow Effect */}

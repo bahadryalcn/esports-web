@@ -37,6 +37,7 @@ export interface AboutBackgroundProps {
     color?: string;
     opacity?: number;
   };
+  parallaxOffsets?: number[];
 }
 
 export interface AboutContentProps {
@@ -49,7 +50,7 @@ export interface AboutContentProps {
 
 export interface AboutValuesProps {
   values: AboutValue[];
-  layout?: 'grid' | 'list' | 'carousel';
+  layout?: 'grid' | 'grid-4' | 'list' | 'carousel';
 }
 
 export interface AboutStatsProps {

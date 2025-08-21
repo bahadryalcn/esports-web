@@ -5,6 +5,7 @@ import { ContactBackground } from './components/ContactBackground';
 import { ContactForm } from './components/ContactForm';
 import { ContactInfo } from './components/ContactInfo';
 import { useContactInfo } from './hooks/useContactInfo';
+import { useAdvancedParallax, useMultiLayerParallax } from '@/lib/hooks/useAdvancedParallax';
 import { ContactSectionProps } from './types';
 
 export default function ContactSection({
@@ -27,6 +28,20 @@ export default function ContactSection({
   // Use custom contact info or default ones
   const contactInfo = useContactInfo(customContactInfo);
 
+  // Multi-layer parallax for background elements
+  const { ref: parallaxRef, offsets } = useMultiLayerParallax([
+    { speed: 0.2, direction: 'up' },    // Background image
+    { speed: 0.4, direction: 'up' },    // Gradient elements
+    { speed: 0.1, direction: 'down' }   // Subtle elements
+  ]);
+
+  // Advanced parallax for content
+  const { ref: contentRef, offset: contentOffset } = useAdvancedParallax({
+    speed: 0.3,
+    direction: 'up',
+    easing: 'ease-out'
+  });
+
   const handleFormSubmit = async (formData: { name: string; email: string; subject: string; message: string }) => {
     // Form submission logic - can be customized via props
     console.log('Contact form submitted:', formData);
@@ -34,25 +49,40 @@ export default function ContactSection({
   };
 
   return (
-    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden ${className}`}>
+    <section 
+      className="relative py-16 lg:py-24 overflow-hidden" 
+      ref={parallaxRef}
+      style={{ zIndex: 10 }} // Z-index eklendi
+    >
       {/* Background Container */}
       <ContactBackground 
         variant={backgroundVariant}
         backgroundImage={backgroundImage}
         overlay={overlay}
+        parallaxOffsets={offsets}
       />
 
-      {/* Main Content - Hero-style layout */}
+      {/* Main Content - Hero-style layout with Parallax */}
       <AnimatePresence mode="wait">
         <motion.div 
+          ref={contentRef}
           className="relative z-10 container mx-auto px-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          {/* Hero-style Header */}
-          <div className={`mb-20 ${contentAlignment === 'left' ? 'text-left' : contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+            className="mb-16 text-center transform-gpu"
+            style={{
+              transform: `translate3d(0, ${contentOffset.y * 1.5}px, 0)`,
+              marginTop: '2rem' // Üst margin eklendi
+            }}
+          >
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-gaming font-bold text-white leading-tight mb-6">
               <span className="text-gaming-primary">{title}</span>
             </h2>
@@ -61,17 +91,20 @@ export default function ContactSection({
                 {subtitle}
               </p>
             )}
-          </div>
+          </motion.div>
 
-          {/* Contact Content Grid - Side by side layout */}
+          {/* Contact Content Grid - Side by side layout with Parallax */}
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-              {/* Sol: Contact Info - Minimalist */}
+              {/* Sol: Contact Info - Minimalist with Parallax */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                className="space-y-8"
+                className="space-y-8 transform-gpu"
+                style={{
+                  transform: `translate3d(0, ${contentOffset.y * 0.4}px, 0)`
+                }}
               >
                 <ContactInfo
                   title={infoTitle}
@@ -82,7 +115,7 @@ export default function ContactSection({
                   contentAlignment="left"
                 />
 
-                {/* Map - Minimalist design */}
+                {/* Map - Minimalist design with Parallax */}
                 {showMap && (
                   <motion.div 
                     initial={{ opacity: 0, x: -30 }}
@@ -103,17 +136,20 @@ export default function ContactSection({
                 )}
               </motion.div>
 
-              {/* Sağ: Contact Form */}
+              {/* Sağ: Contact Form - Minimalist with Parallax */}
               {showForm && (
                 <motion.div
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+                  className="transform-gpu"
+                  style={{
+                    transform: `translate3d(0, ${contentOffset.y * 0.5}px, 0)`
+                  }}
                 >
                   <ContactForm
                     title={formTitle}
                     subtitle={formSubtitle}
-                    contentAlignment="left"
                     onSubmit={handleFormSubmit}
                   />
                 </motion.div>

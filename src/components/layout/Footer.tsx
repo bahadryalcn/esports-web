@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   Gamepad2, 
@@ -10,6 +11,7 @@ import {
   MapPin, 
   ExternalLink
 } from 'lucide-react';
+import { useSiteSettings } from '@/lib/hooks/useSiteSettings';
 import type { Navigation, SiteSettings, FooterSection } from '@/types';
 
 interface FooterProps {
@@ -19,16 +21,19 @@ interface FooterProps {
 
 export default function Footer({ navigation, settings }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  
+  // Site settings hook'u - Türkçe locale ile
+  const { data: siteSettings, isLoading: settingsLoading } = useSiteSettings('tr');
 
-  // Use TinaCMS data or fallback
-  const siteName = settings?.siteName || 'AIM Agency';
-  const aboutText = navigation?.footer?.aboutText || 'Türkiye\'nin önde gelen e-spor ajansı. Profesyonel oyuncu yönetimi, turnuva organizasyonu ve gaming içerik üretimi.';
-  const copyright = navigation?.footer?.copyright || `© ${currentYear} AIM Agency. Tüm hakları saklıdır.`;
+  // Use site settings data or fallback
+  const siteName = siteSettings?.siteName || 'AIM Agency';
+  const aboutText = siteSettings?.siteDescription || 'Türkiye\'nin önde gelen e-spor ajansı. Profesyonel oyuncu yönetimi, turnuva organizasyonu ve gaming içerik üretimi.';
+  const copyright = `© ${currentYear} ${siteName}. Tüm hakları saklıdır.`;
   
   const contactInfo = {
-    email: settings?.contact?.email || 'info@aimagency.com',
-    phone: settings?.contact?.phone || '+90 212 555 00 00',
-    address: settings?.contact?.address || 'İstanbul, Türkiye',
+    email: siteSettings?.contact?.email || 'info@aimagency.com',
+    phone: siteSettings?.contact?.phone || '+90 212 555 00 00',
+    address: siteSettings?.contact?.address || 'İstanbul, Türkiye',
   };
 
   const footerSections = navigation?.footer?.sections || [
@@ -72,6 +77,8 @@ export default function Footer({ navigation, settings }: FooterProps) {
     if (url.includes('steamcommunity.com') || url.includes('steampowered.com')) return '/icons/social/steam.svg';
     if (url.includes('tiktok.com')) return '/icons/social/tiktok.svg';
     if (url.includes('kick.com')) return '/icons/social/kick.svg';
+    if (url.includes('facebook.com')) return '/icons/social/facebook.svg';
+    if (url.includes('linkedin.com')) return '/icons/social/linkedin.svg';
     return '/icons/social/twitter.svg'; // fallback
   };
 
@@ -84,6 +91,8 @@ export default function Footer({ navigation, settings }: FooterProps) {
     if (url.includes('steamcommunity.com') || url.includes('steampowered.com')) return 'hover:bg-gray-500/20 hover:border-gray-500/50';
     if (url.includes('tiktok.com')) return 'hover:bg-gray-800/20 hover:border-gray-600/50';
     if (url.includes('kick.com')) return 'hover:bg-green-500/20 hover:border-green-500/50';
+    if (url.includes('facebook.com')) return 'hover:bg-blue-600/20 hover:border-blue-600/50';
+    if (url.includes('linkedin.com')) return 'hover:bg-blue-700/20 hover:border-blue-700/50';
     return 'hover:bg-red-500/20 hover:border-red-500/50';
   };
 
@@ -96,10 +105,12 @@ export default function Footer({ navigation, settings }: FooterProps) {
     if (url.includes('steamcommunity.com') || url.includes('steampowered.com')) return 'brightness(0) saturate(100%) invert(75%) sepia(0%) saturate(1969%) hue-rotate(344deg) brightness(103%) contrast(101%)';
     if (url.includes('tiktok.com')) return 'brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(344deg) brightness(103%) contrast(101%)';
     if (url.includes('kick.com')) return 'brightness(0) saturate(100%) invert(69%) sepia(96%) saturate(3157%) hue-rotate(120deg) brightness(103%) contrast(104%)';
+    if (url.includes('facebook.com')) return 'brightness(0) saturate(100%) invert(40%) sepia(96%) saturate(3157%) hue-rotate(200deg) brightness(103%) contrast(104%)';
+    if (url.includes('linkedin.com')) return 'brightness(0) saturate(100%) invert(30%) sepia(96%) saturate(3157%) hue-rotate(200deg) brightness(103%) contrast(104%)';
     return 'brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(0deg) brightness(100%) contrast(100%)';
   };
 
-  const socialLinks = settings?.social ? Object.entries(settings.social)
+  const socialLinks = siteSettings?.social ? Object.entries(siteSettings.social)
     .filter(([, url]) => url && url.trim())
     .map(([platform, url]) => ({
       icon: getSocialIcon(url),
@@ -158,8 +169,19 @@ export default function Footer({ navigation, settings }: FooterProps) {
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 400 }}
               >
-                <div className="relative z-10 p-3 bg-gradient-to-br from-red-500/20 to-red-700/30 rounded-xl border border-red-500/30 backdrop-blur-sm">
-                  <Gamepad2 className="w-8 h-8 text-red-400 group-hover:text-red-300 transition-colors" />
+                <div className="relative z-10 p-4 bg-gradient-to-br from-red-500/60 to-red-700/80 rounded-xl border-2 border-red-400 backdrop-blur-sm shadow-xl shadow-red-500/30 min-w-[48px] min-h-[48px] flex items-center justify-center">
+                  {siteSettings?.logo?.footer ? (
+                    <Image
+                      src={siteSettings.logo.footer}
+                      alt={siteSettings.siteName || 'AIM AGENCY'}
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 object-contain"
+                      priority
+                    />
+                  ) : (
+                    <Gamepad2 className="w-12 h-12 text-red-200 group-hover:text-red-100 transition-colors" />
+                  )}
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-red-700/30 rounded-xl blur-lg group-hover:blur-xl transition-all duration-300" />
               </motion.div>

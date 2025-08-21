@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Award, Handshake } from 'lucide-react';
 import Link from 'next/link';
 import { Sponsor } from '@/types';
 
@@ -33,16 +33,38 @@ export default function SponsorsClient({
   showAutoScroll = true,
   autoScrollSpeed = 3000,
   viewAllButtonText = 'Tüm Sponsorlarımız',
-  viewAllButtonLink = '/sponsors'
+  viewAllButtonLink = '/sponsors',
 }: SponsorsClientProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const shouldAutoScroll = showAutoScroll && sponsors.length > 6;
   const maxIndex = Math.max(0, sponsors.length - 6);
+  const finalBackgroundImage = background?.image || null;
 
-  // Auto-scroll functionality - only when enabled and more than 6 sponsors
+  // Handle background image loading
+  useEffect(() => {
+    if (!finalBackgroundImage) {
+      setImageLoaded(true);
+      return;
+    }
+
+    setImageLoaded(false);
+    const img = new Image();
+    img.onload = () => {
+      console.log('✅ Sponsors background loaded:', finalBackgroundImage);
+      setImageLoaded(true);
+    };
+    img.onerror = () => {
+      console.error('❌ Sponsors background failed:', finalBackgroundImage);
+      setImageLoaded(false);
+    };
+    img.src = finalBackgroundImage;
+  }, [finalBackgroundImage]);
+
+  // Auto-scroll functionality
   useEffect(() => {
     if (!shouldAutoScroll || !isAutoScrolling || sponsors.length <= 6) return;
 
@@ -53,7 +75,7 @@ export default function SponsorsClient({
     return () => clearInterval(interval);
   }, [shouldAutoScroll, isAutoScrolling, maxIndex, autoScrollSpeed, sponsors.length]);
 
-  // Manual navigation
+  // Navigation functions
   const nextSlide = () => {
     if (sponsors.length <= 6) return;
     setCurrentIndex((prev) => (prev + 1) % (maxIndex + 1));
@@ -80,71 +102,138 @@ export default function SponsorsClient({
     }
   }, [isAutoScrolling, shouldAutoScroll]);
 
-  return (
-    <section className="relative py-16 lg:py-24">
-      {/* Background Image */}
-      {background?.image && (
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${background.image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
-      )}
-      
-      {/* Background Overlay */}
-      {background?.overlay && background.overlay.opacity && background.overlay.opacity > 0 && (
-        <div 
-          className="absolute inset-0 z-10"
-          style={{
-            backgroundColor: background.overlay.color || 'rgba(0, 0, 0, 0.7)',
-            opacity: background.overlay.opacity
-          }}
-        />
-      )}
+  // Check if overlay should be shown
+  const shouldShowOverlay = background?.overlay && background.overlay.opacity !== undefined && background.overlay.opacity > 0;
 
-      {/* Content */}
-      <div className="relative z-20 container mx-auto px-4">
+  return (
+    <section className="relative overflow-hidden section-padding">
+      {/* Modern Background Layer */}
+      <div className="absolute inset-0">
+        {/* Background Image */}
+        {finalBackgroundImage && (
+          <motion.div 
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat bg-attachment-fixed"
+            style={{
+              backgroundImage: `url("${finalBackgroundImage}")`
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: imageLoaded ? 1 : 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          />
+        )}
+        
+        {/* Fallback Gradient - çok hafif */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gaming-darker/30 via-gaming-dark/20 to-gaming-darker/30" />
+
+        {/* Custom Overlay */}
+        {shouldShowOverlay && (
+          <motion.div 
+            className="absolute inset-0 z-10"
+            style={{
+              backgroundColor: background.overlay.color || '#000000',
+              opacity: Math.min(background.overlay.opacity || 0.3, 0.4), // Maximum 0.4 opacity
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: Math.min(background.overlay.opacity || 0.3, 0.4) }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          />
+        )}
+        
+        {/* Default Overlay - çok hafif */}
+        {!shouldShowOverlay && (
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/15 z-10" />
+        )}
+
+        {/* Modern Animated Elements */}
+        <motion.div
+          className="absolute inset-0 z-5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, delay: 0.5 }}
+        >
+          {/* Floating orbs */}
+          <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-red-500/8 to-red-700/4 rounded-full blur-3xl animate-pulse" 
+               style={{ animationDuration: '5s' }} />
+          <div className="absolute bottom-40 left-20 w-64 h-64 bg-gradient-to-tl from-red-600/6 to-red-400/3 rounded-full blur-2xl animate-pulse" 
+               style={{ animationDuration: '7s', animationDelay: '1s' }} />
+          
+          {/* Geometric elements */}
+          <div className="absolute top-32 left-32 w-24 h-24 border border-red-500/15 rounded-full glass-effect" />
+          <div className="absolute bottom-32 right-32 w-16 h-16 border border-red-400/20 rounded-full glass-red" />
+        </motion.div>
+      </div>
+
+      <div className="container-gaming relative z-20">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          className="text-center mb-12 lg:mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-gaming font-bold mb-6">
-            <span className="text-white">{title}</span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            {subtitle}
-          </p>
+          {/* Title */}
+          <motion.h2
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+           className="text-responsive-3xl font-gaming font-black text-white mb-4 lg:mb-6"
+          >
+            <span className="text-gaming-gradient">{title}</span>
+          </motion.h2>
+
+          {/* Subtitle */}
+          {subtitle && (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+              className="text-responsive-lg text-gray-200 max-w-4xl mx-auto leading-relaxed px-4 gaming-text-shadow"
+            >
+              {subtitle}
+            </motion.p>
+          )}
+
+          {/* Decorative line */}
+          <motion.div
+            className="mx-auto mt-6 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: "120px", opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          />
         </motion.div>
 
-        {/* Sponsors Container */}
-        <div className="relative">
-          {/* Navigation Arrows - Only show if more than 6 sponsors AND auto-scroll is enabled */}
+        {/* Sponsors Grid Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
+          className="relative mb-12 lg:mb-16"
+        >
+          {/* Navigation Arrows */}
           {shouldAutoScroll && sponsors.length > 6 && (
             <>
               <motion.button
                 onClick={prevSlide}
-                className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/80 hover:bg-black/95 border border-red-500/50 hover:border-red-500/70 rounded-full backdrop-blur-sm transition-all duration-300 group shadow-xl"
+                className="absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-30 glass-dark p-3 rounded-full border border-red-500/30 hover:border-red-400/50 transition-all duration-300 group"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2 }}
               >
-                <ChevronLeft className="w-6 h-6 text-white group-hover:text-red-400 transition-colors" />
+                <ChevronLeft className="w-5 h-5 text-white group-hover:text-red-400 transition-colors" />
               </motion.button>
 
               <motion.button
                 onClick={nextSlide}
-                className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-black/80 hover:bg-black/95 border border-red-500/50 hover:border-red-500/70 rounded-full backdrop-blur-sm transition-all duration-300 group shadow-xl"
+                className="absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-30 glass-dark p-3 rounded-full border border-red-500/30 hover:border-red-400/50 transition-all duration-300 group"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2 }}
               >
-                <ChevronRight className="w-6 h-6 text-white group-hover:text-red-400 transition-colors" />
+                <ChevronRight className="w-5 h-5 text-white group-hover:text-red-400 transition-colors" />
               </motion.button>
             </>
           )}
@@ -153,18 +242,21 @@ export default function SponsorsClient({
           <div className="relative overflow-hidden">
             <motion.div
               ref={scrollContainerRef}
-              animate={{ 
-                x: shouldAutoScroll && sponsors.length > 6 ? `-${currentIndex * (100 / 6)}%` : 0 
+              animate={{
+                x: shouldAutoScroll && sponsors.length > 6 ? `-${currentIndex * (100 / 6)}%` : 0,
               }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 300, 
+              transition={{
+                type: 'spring',
+                stiffness: 300,
                 damping: 30,
-                duration: 0.5
+                duration: 0.5,
               }}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 w-max"
+              className="grid gap-4 lg:gap-6"
               style={{
-                gridTemplateColumns: `repeat(${sponsors.length}, minmax(0, 1fr))`
+                gridTemplateColumns: sponsors.length <= 6 
+                  ? `repeat(${Math.min(sponsors.length, 6)}, minmax(0, 1fr))`
+                  : `repeat(${sponsors.length}, minmax(0, 1fr))`,
+                width: sponsors.length <= 6 ? '100%' : 'max-content'
               }}
             >
               {sponsors.map((sponsor: Sponsor, index: number) => (
@@ -174,32 +266,38 @@ export default function SponsorsClient({
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="group w-48"
+                  className="group w-full max-w-[200px]"
                 >
                   <a
                     href={sponsor.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-6 h-32 bg-black/60 backdrop-blur-md rounded-2xl border border-red-500/30 hover:bg-black/80 hover:border-red-500/50 group-hover:scale-105 transition-all duration-300 shadow-lg"
+                    className="block p-4 lg:p-6 glass-dark rounded-2xl border border-red-500/20 hover:border-red-400/40 transition-all duration-300 hover-lift group-hover:glass-red"
                   >
-                    <div className="h-full flex items-center justify-center">
-                      {/* Sponsor logo or placeholder */}
-                      <div className="text-center">
-                        {sponsor.logo ? (
-                          <img 
-                            src={sponsor.logo} 
-                            alt={sponsor.name}
-                            className="w-16 h-16 mx-auto mb-2 object-contain"
-                          />
-                        ) : (
-                          <div className="w-16 h-16 mx-auto mb-2 bg-gradient-to-br from-red-500/40 to-red-700/40 rounded-xl flex items-center justify-center group-hover:from-red-500/60 group-hover:to-red-700/60 transition-all duration-300">
-                            <span className="text-red-400 text-2xl group-hover:text-white transition-colors">🏢</span>
-                          </div>
-                        )}
-                        <span className="text-gray-300 text-sm group-hover:text-white transition-colors duration-300 flex items-center justify-center gap-1">
+                    <div className="flex flex-col items-center justify-center h-24 lg:h-28">
+                      {/* Sponsor Logo */}
+                      {sponsor.logo ? (
+                        <motion.img
+                          src={sponsor.logo}
+                          alt={sponsor.name}
+                          className="max-h-12 lg:max-h-16 max-w-full object-contain mb-2 filter brightness-90 group-hover:brightness-110 transition-all duration-300"
+                          whileHover={{ scale: 1.05 }}
+                        />
+                      ) : (
+                        <motion.div 
+                          className="w-12 h-12 lg:w-16 lg:h-16 rounded-xl glass-red flex items-center justify-center mb-2 group-hover:bg-gaming-gradient transition-all duration-300"
+                          whileHover={{ scale: 1.05, rotate: 5 }}
+                        >
+                          <Award className="w-6 h-6 lg:w-8 lg:h-8 text-red-400 group-hover:text-white transition-colors" />
+                        </motion.div>
+                      )}
+                      
+                      {/* Sponsor Name */}
+                      <div className="flex items-center gap-1 text-center">
+                        <span className="text-sm lg:text-base font-medium text-gray-300 group-hover:text-white transition-colors duration-300 line-clamp-2">
                           {sponsor.name}
-                          <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all duration-300" />
                         </span>
+                        <ExternalLink className="w-3 h-3 text-red-400 opacity-0 group-hover:opacity-100 transition-all duration-300 flex-shrink-0" />
                       </div>
                     </div>
                   </a>
@@ -208,86 +306,126 @@ export default function SponsorsClient({
             </motion.div>
           </div>
 
-          {/* Navigation Dots - Only show if more than 6 sponsors AND auto-scroll is enabled */}
+          {/* Navigation Dots */}
           {shouldAutoScroll && sponsors.length > 6 && (
             <motion.div
-              className="flex justify-center space-x-2 mt-8"
+              className="flex justify-center mt-8 gap-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 1.4 }}
             >
-              {Array.from({ length: maxIndex + 1 }).map((_, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`relative w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentIndex 
-                      ? 'bg-red-500 scale-125' 
-                      : 'bg-white/40 hover:bg-white/60'
-                  }`}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  {index === currentIndex && (
-                    <motion.div
-                      className="absolute inset-0 bg-red-500 rounded-full"
-                      layoutId="activeSponsorDot"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                </motion.button>
-              ))}
+              <div className="flex items-center gap-2 px-4 py-2 glass-dark rounded-full border border-red-500/20">
+                {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`relative w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentIndex ? 'bg-red-500 scale-125' : 'bg-white/30 hover:bg-white/50'
+                    }`}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    {index === currentIndex && (
+                      <motion.div
+                        className="absolute inset-0 bg-red-500 rounded-full blur-sm opacity-50"
+                        layoutId="activeSponsorDot"
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
+                ))}
+              </div>
             </motion.div>
           )}
-        </div>
-
-        {/* View All Sponsors Button - Centered below sponsors */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="flex justify-center mt-12"
-        >
-          <Link
-            href={viewAllButtonLink}
-            className="group inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-lg transition-all duration-200 backdrop-blur-sm"
-          >
-            <span className="text-white text-sm font-medium">
-              {viewAllButtonText}
-            </span>
-            <svg 
-              className="w-4 h-4 text-white/70 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-200" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
         </motion.div>
 
         {/* Partnership CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="max-w-4xl mx-auto"
         >
-          <div className="p-8 max-w-2xl mx-auto bg-black/60 backdrop-blur-md rounded-2xl border border-red-500/30 shadow-xl">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              İş Ortağımız Olmak İster misiniz?
-            </h3>
-            <p className="text-gray-300 mb-6">
-              E-spor dünyasında büyüyen markamızla birlikte büyümek için bizimle iletişime geçin.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center space-x-2 px-6 py-3 text-white bg-gradient-to-r from-red-600 to-red-800 rounded-xl hover:from-red-700 hover:to-red-900 transition-all duration-300 shadow-lg hover:shadow-xl"
+          <div className="glass-dark rounded-3xl p-6 lg:p-8 border border-red-500/20 hover:border-red-400/30 transition-all duration-300">
+            {/* CTA Header */}
+            <div className="text-center mb-8">
+              <motion.div
+                className="inline-flex items-center justify-center w-16 h-16 glass-red rounded-2xl mb-4"
+                whileHover={{ scale: 1.05, rotate: 5 }}
+              >
+                <Handshake className="w-8 h-8 text-red-400" />
+              </motion.div>
+              
+              <h3 className="text-2xl lg:text-3xl font-gaming font-bold text-white mb-3">
+                İş Ortağımız Olmak İster misiniz?
+              </h3>
+              
+              <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
+                E-spor dünyasında büyüyen markamızla birlikte büyümek için bizimle iletişime geçin.
+              </p>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              {/* View All Button */}
+              {viewAllButtonText && viewAllButtonLink && (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href={viewAllButtonLink}
+                    className="btn-gaming-primary inline-flex items-center gap-3"
+                  >
+                    <Award className="w-5 h-5" />
+                    <span>{viewAllButtonText}</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </Link>
+                </motion.div>
+              )}
+
+              {/* Contact Button */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href="/contact"
+                  className="btn-gaming-outline inline-flex items-center gap-3"
+                >
+                  <Handshake className="w-5 h-5" />
+                  <span>Ortaklık Başvurusu</span>
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Stats or Additional Info */}
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-red-500/20"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
             >
-              <span>İletişime Geç</span>
-            </Link>
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-black text-red-400 mb-1">
+                  {sponsors.length}+
+                </div>
+                <div className="text-sm text-gray-400">Aktif Partner</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-black text-red-400 mb-1">
+                  100K+
+                </div>
+                <div className="text-sm text-gray-400">Toplam Erişim</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-black text-red-400 mb-1">
+                  ∞
+                </div>
+                <div className="text-sm text-gray-400">Potansiyel</div>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

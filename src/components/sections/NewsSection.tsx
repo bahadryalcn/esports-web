@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNewsData } from '@/lib/hooks/useNewsData';
+import { useAdvancedParallax, useMultiLayerParallax } from '@/lib/hooks/useAdvancedParallax';
 import {
   Calendar,
   ArrowRight,
@@ -261,43 +262,48 @@ const NewsCard: React.FC<{
   );
 };
 
-const NewsSection: React.FC<NewsSectionProps> = ({
-  title,
-  subtitle,
+export default function NewsSection({
+  title = 'Haberler',
+  subtitle = 'E-spor dünyasından en son gelişmeler ve haberler',
   selectedNews = [],
-  showFeaturedOnly = false,
-  maxArticles = 6,
-  layout = 'grid',
-  showCategories = true,
-  showReadMore = true,
-  cardStyle = 'modern',
   background,
   showViewAllButton = true,
-  viewAllButtonText = 'View All News',
-  viewAllButtonLink = '/news',
-}) => {
-  // Use hook to resolve news references to actual data
+  viewAllButtonText = 'Tüm Haberleri Gör',
+  viewAllButtonLink = '/haberler',
+  layout = 'grid',
+  cardStyle = 'modern',
+  showCategories = true,
+  showReadMore = true
+}: NewsSectionProps) {
   const { resolvedNews, loading, error } = useNewsData(selectedNews);
+
+  // Multi-layer parallax for background elements
+  const { ref: parallaxRef, offsets } = useMultiLayerParallax([
+    { speed: 0.2, direction: 'up' },    // Background image
+    { speed: 0.4, direction: 'up' },    // Pattern layer
+    { speed: 0.1, direction: 'down' }   // Floating elements
+  ]);
+
+  // Advanced parallax for content
+  const { ref: contentRef, offset: contentOffset } = useAdvancedParallax({
+    speed: 0.3,
+    direction: 'up',
+    easing: 'ease-out'
+  });
 
   // Process news based on settings
   let newsToShow: NewsArticle[] = [];
 
   if (loading) {
-    // Show loading state
-  } else if (showFeaturedOnly) {
-    // Show only featured news from resolved news
-    newsToShow = resolvedNews
-      .map((rn: ResolvedNews) => rn.news)
-      .filter((news: NewsArticle) => news.featured);
-  } else if (selectedNews.length > 0) {
+    newsToShow = [];
+  } else if (error) {
+    newsToShow = [];
+  } else {
     // Show resolved news (all of them)
     newsToShow =
       resolvedNews.length > 0
         ? resolvedNews.map((rn: ResolvedNews) => rn.news)
         : [];
-  } else {
-    // Fallback to mock data if no selected news
-    newsToShow = mockNews.slice(0, maxArticles);
   }
 
   const backgroundStyle = background?.image
@@ -329,29 +335,68 @@ const NewsSection: React.FC<NewsSectionProps> = ({
   };
 
   return (
-    <section className="relative overflow-hidden py-20" style={backgroundStyle}>
-      {/* Fallback Gradient Background - only show if no background image */}
-      {!background?.image && (
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-red-950 to-red-900" />
-      )}
+    <section className="relative py-16 lg:py-24 overflow-hidden" ref={parallaxRef}>
+      {/* Multi-layer parallax for background elements */}
+      <div className="absolute inset-0">
+        {/* Fallback Gradient Background */}
+        {!background?.image && (
+          <div className="absolute inset-0 bg-gradient-to-br from-black via-red-950 to-red-900" />
+        )}
 
-      {/* Background Overlay */}
-      {background?.overlay && (
-        <div className="absolute inset-0 z-10" style={overlayStyle} />
-      )}
+        {/* Background Image with Parallax */}
+        {background?.image && (
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform-gpu"
+            style={{
+              backgroundImage: `url(${background.image})`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              transform: `translate3d(0, ${offsets[0] * 2}px, 0)` // 2x daha belirgin
+            }}
+          />
+        )}
 
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-10" style={{ zIndex: 5 }}>
-        <div className="absolute inset-0 bg-[url('/assets/hero-pattern.svg')] bg-repeat" />
+        {/* Background Overlay */}
+        {background?.overlay && (
+          <div className="absolute inset-0 z-10" style={overlayStyle} />
+        )}
+
+        {/* Subtle Background Pattern with Parallax */}
+        <div 
+          className="absolute inset-0 opacity-10 transform-gpu"
+          style={{
+            zIndex: 5,
+            transform: `translate3d(0, ${offsets[1] || 0}px, 0)`
+          }}
+        >
+          <div className="absolute inset-0 bg-[url('/assets/hero-pattern.svg')] bg-repeat" />
+        </div>
+
+        {/* Floating Elements with Parallax */}
+        <div 
+          className="absolute inset-0 transform-gpu"
+          style={{
+            transform: `translate3d(0, ${offsets[2] || 0}px, 0)`
+          }}
+        >
+          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-red-500/5 to-red-700/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tl from-red-700/5 to-red-500/5 rounded-full blur-2xl" />
+          <div className="absolute top-1/2 left-1/4 w-32 h-32 border border-red-500/10 rounded-full opacity-20" />
+          <div className="absolute bottom-1/3 right-1/3 w-24 h-24 border border-red-400/10 rounded-full opacity-15" />
+        </div>
       </div>
 
-      <div className="container relative z-20 mx-auto px-4">
-        {/* Section Header */}
+      <div className="container relative z-20 mx-auto px-4" ref={contentRef}>
+        {/* Section Header with Parallax */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="mb-16 text-center"
+          className="mb-16 text-center transform-gpu"
+          style={{
+            transform: `translate3d(0, ${contentOffset.y * 0.3}px, 0)`
+          }}
         >
           <motion.h2
             initial={{ opacity: 0, scale: 0.9 }}
@@ -373,7 +418,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
           )}
         </motion.div>
 
-        {/* News Grid */}
+        {/* News Grid with Parallax */}
         {loading ? (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -437,13 +482,16 @@ const NewsSection: React.FC<NewsSectionProps> = ({
           </motion.div>
         )}
 
-        {/* View All Button */}
+        {/* View All Button with Parallax */}
         {showViewAllButton && newsToShow.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0, ease: 'easeOut' }}
-            className="text-center"
+            className="text-center transform-gpu"
+            style={{
+              transform: `translate3d(0, ${contentOffset.y * 0.2}px, 0)`
+            }}
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
@@ -464,5 +512,3 @@ const NewsSection: React.FC<NewsSectionProps> = ({
     </section>
   );
 };
-
-export default NewsSection;

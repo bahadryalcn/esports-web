@@ -21,7 +21,7 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
       case 'hero':
         // Support both old format (single slide) and new format (multi-slide)
         const heroProps = component.slides ? {
-          // New multi-slide format
+          // New multi-slide format - slides array'i direkt geçir
           slides: component.slides,
           autoplay: component.autoplay,
           autoplaySpeed: component.autoplaySpeed,

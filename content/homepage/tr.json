@@ -12,9 +12,9 @@
           "subtext": "Profesyonel takım yönetimi ve oyuncu gelişimi ile e-spor kariyerinizi bir üst seviyeye taşıyın",
           "buttonText": "Hizmetlerimizi Keşfedin",
           "buttonLink": "/hizmetler",
-          "backgroundImage": "/uploads/IMG_8120.PNG",
+          "backgroundImage": "/uploads/Gemini_Generated_Image_y7irygy7irygy7ir.png",
           "overlay": {
-            "opacity": 0.6,
+            "opacity": 0.7,
             "color": "#000000"
           },
           "stats": [
@@ -41,19 +41,19 @@
           ]
         },
         {
-          "headline": "testseawdad",
-          "subtext": "mehmemhemhe",
+          "headline": "E-spor",
+          "subtext": "Profesyonel takım yönetimi ve oyuncu gelişimi ile e-spor kariyerinizi bir üst seviyeye taşıyın",
           "buttonText": "mehmemhemhe",
           "buttonLink": "/awda-awdawd",
-          "backgroundImage": "/uploads/s2gespor.jpeg",
+          "backgroundImage": "/uploads/Gemini_Generated_Image_suh2jnsuh2jnsuh2.png",
           "overlay": {
-            "opacity": 0,
-            "color": "#CFE53D"
+            "opacity": 0.3,
+            "color": "#000000"
           }
         }
       ],
       "autoplay": true,
-      "autoplaySpeed": 10000,
+      "autoplaySpeed": 15000,
       "showDots": true,
       "showArrows": true,
       "_template": "hero"
@@ -88,10 +88,10 @@
         }
       ],
       "background": {
-        "image": "/uploads/stock_91abstract-3d-render-holographic-iridescent-neon-twisted-wave-dark-background-wallpaper-cover-banner.jpg",
+        "image": "/uploads/Gemini_Generated_Image_9jg62o9jg62o9jg6.png",
         "overlay": {
           "color": "#010000",
-          "opacity": 0.7
+          "opacity": 0.2
         }
       },
       "showAutoScroll": true,
@@ -115,7 +115,11 @@
         }
       ],
       "background": {
-        "image": "/uploads/stock_96abstract-3d-render-holographic-iridescent-neon-twisted-wave-dark-background-wallpaper-cover-banner.jpg"
+        "image": "/uploads/Gemini_Generated_Image_1jeuu61jeuu61jeu.png",
+        "overlay": {
+          "color": "#0D0D0D",
+          "opacity": 0.9
+        }
       },
       "showBottomCTA": true,
       "bottomCTAText": "Tüm Hizmetlerimiz",
@@ -136,15 +140,15 @@
           "player": "content/players/aim-master.tr.mdx"
         },
         {
-          "player": "content/players/ngin.tr.mdx"
+          "player": "content/players/paz.en.mdx"
         }
       ],
       "showFeaturedOnly": false,
       "background": {
-        "image": "/uploads/IMG_8121.PNG",
+        "image": "/uploads/Gemini_Generated_Image_l0l36xl0l36xl0l3.png",
         "overlay": {
-          "color": "rgba(0, 0, 0, 0.8)",
-          "opacity": 0.2
+          "color": "#080808",
+          "opacity": 0.1
         }
       },
       "showViewAllButton": true,
@@ -156,17 +160,28 @@
     {
       "title": "Hakkımızda",
       "content": "AIM Agency olarak, e-spor sektöründe yılların deneyimi ile oyuncularımızın ve takımlarımızın başarısı için çalışıyoruz. Profesyonel yaklaşımımız ve uzman kadromuzla, e-spor kariyerinizde hedeflediğiniz zirveye ulaşmanızda size yardımcı oluyoruz.\n",
-      "image": "/uploads/pexels-lulizler-3165335.jpg",
-      "logo": "/uploads/hawks.png",
+      "image": "/uploads/Gemini_Generated_Image_n7aqsrn7aqsrn7aq.png",
+      "logo": "/uploads/ChatGPT Image Aug 21, 2025, 11_57_11 AM.png",
+      "overlay": {
+        "color": "#000000",
+        "opacity": 0.25
+      },
       "backgroundVariant": "gradient",
-      "contentAlignment": "center",
-      "showStats": true,
-      "showValues": true,
+      "contentAlignment": "left",
+      "showStats": false,
+      "showValues": false,
       "stats": [
         {
           "value": "24",
           "label": "testtest",
           "subtitle": "aaaaaaaa"
+        }
+      ],
+      "values": [
+        {
+          "title": "awd",
+          "description": "awd",
+          "icon": "award"
         }
       ],
       "_template": "about"
@@ -190,12 +205,12 @@
       "layout": "grid",
       "showCategories": true,
       "showReadMore": true,
-      "cardStyle": "modern",
+      "cardStyle": "classic",
       "background": {
-        "image": "/uploads/pexels-lulizler-3165335.jpg",
+        "image": "/uploads/Gemini_Generated_Image_g4qzzzg4qzzzg4qz.png",
         "overlay": {
           "color": "rgba(0, 0, 0, 0.7)",
-          "opacity": 0.7
+          "opacity": 0.4
         }
       },
       "showViewAllButton": true,
@@ -206,9 +221,9 @@
     {
       "title": "İletişime Geçin",
       "subtitle": "Size en kısa sürede dönüş yapabilmemiz için formu doldurun veya aşağıdaki iletişim bilgilerinden bize ulaşın.",
-      "backgroundImage": "",
+      "backgroundImage": "/uploads/Gemini_Generated_Image_lptyw4lptyw4lpty.png",
       "overlay": {
-        "color": "#2F2F2F",
+        "color": "#000000",
         "opacity": 0.5
       },
       "backgroundVariant": "default",

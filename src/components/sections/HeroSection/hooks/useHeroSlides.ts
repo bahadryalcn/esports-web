@@ -12,17 +12,20 @@ export function useHeroSlides({
 }: UseHeroSlidesProps): HeroSlide[] {
   
   return useMemo(() => {
+    // Eğer slides array'i varsa, onu direkt kullan
     if (slides && slides.length > 0) {
+      console.log('useHeroSlides: Using slides array:', slides);
       return slides;
     }
 
-    // Convert single slide props to slides array for backwards compatibility
+    // Slides yoksa, single slide props'tan oluştur
+    console.log('useHeroSlides: Creating single slide from props');
     return [{
       headline: title || 'E-spor Dünyasında Öncü',
       subtext: subtitle || 'Profesyonel oyuncu yönetimi, turnuva organizasyonu ve gaming içerik üretimi ile e-spor dünyasında fark yaratıyoruz.',
       buttonText: ctaText || 'Hizmetlerimizi Keşfedin',
       buttonLink: ctaLink || '/hizmetler',
-      backgroundImage: backgroundImage || '/bg/1.jpg',
+      backgroundImage: backgroundImage || '/bg/1.jpg', // Fallback background image
       overlay,
       stats: [
         { value: '25+', label: 'Şampiyonluk', icon: 'trophy' },

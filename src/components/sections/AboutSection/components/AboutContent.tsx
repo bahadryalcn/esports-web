@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import type { AboutContentProps } from '../types';
 import { useAboutContent } from '../hooks/useAboutContent';
 
@@ -24,82 +24,87 @@ export function AboutContent({
     }
   };
 
+  
+
+
+  // Original content display for when title and content are provided
   return (
     <motion.div 
-      className={`relative z-10 ${getAlignmentClasses()}`}
-      initial={{ opacity: 0, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
+      className={`relative z-20 ${getAlignmentClasses()}`}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="space-y-8">
-        {/* Hero-style Title */}
+      <div className="space-y-8 lg:space-y-12">
+        {/* Modern Hero-style Title */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="space-y-6"
+          className="space-y-6 lg:space-y-8"
         >
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-gaming font-bold text-white leading-tight">
-            <motion.span 
-              className="block text-gaming-primary"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            >
-              {title}
-            </motion.span>
-          </h2>
+  
           
-          {main && (
-            <motion.p 
-              className="text-lg md:text-xl text-gray-200 max-w-3xl font-display leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            >
-              {main}
-            </motion.p>
-          )}
-        </motion.div>
+   
 
-        {/* Additional Content */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-          className="space-y-4 max-w-3xl"
-        >
-          <motion.p 
-            className="text-gray-400 leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.0 }}
-          >
-            {secondary}
-          </motion.p>
-          <motion.p 
-            className="text-gray-400 leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-          >
-            {vision}
-          </motion.p>
-        </motion.div>
-
-        {/* Logo - Yazının altında ortalanmış */}
-        {image && (
+          {/* Decorative line */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1.4, ease: "easeOut" }}
-            className="flex justify-center items-center mt-8"
+            className="mx-auto h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: "120px", opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          />
+        </motion.div>
+
+        {/* Mission and Vision - Enhanced Content */}
+        {(secondary || vision) && (
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+            className="max-w-5xl mx-auto"
           >
-            <img 
-              src={image} 
-              alt={`${title} Logo`}
-              className="w-auto h-auto max-w-[220px] max-h-[220px] object-contain rounded-lg shadow-lg"
-            />
+            <div className="space-y-8">
+              {secondary && (
+                <motion.div 
+                  className="glass-dark rounded-3xl p-8 lg:p-10 border border-red-500/20 hover:border-red-400/30 transition-all duration-300"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.0 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <h3 className="text-2xl lg:text-3xl font-gaming font-bold text-white">Misyonumuz</h3>
+                  </div>
+                  <div className="space-y-4">
+                    <p className="text-gray-300 leading-relaxed text-lg lg:text-xl">
+                      {secondary}
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+
+              {vision && (
+                <motion.div 
+                  className="glass-dark rounded-3xl p-8 lg:p-10 border border-red-500/20 hover:border-red-400/30 transition-all duration-300"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.2 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <h3 className="text-2xl lg:text-3xl font-gaming font-bold text-white">Vizyonumuz</h3>
+                    <div className="space-y-4">
+                      <p className="text-gray-300 leading-relaxed text-lg lg:text-xl">
+                        {vision}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </div>
           </motion.div>
         )}
 
@@ -108,7 +113,8 @@ export function AboutContent({
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 1.6, ease: "easeOut" }}
+            className="max-w-6xl mx-auto"
           >
             {children}
           </motion.div>
