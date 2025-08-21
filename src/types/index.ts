@@ -14,24 +14,69 @@ export interface SponsorItem {
   link: string;
 }
 
-// Component templates for TinaCMS
-export interface HeroComponent {
-  _template: 'hero';
+// Hero slide interface
+export interface HeroSlide {
   headline: string;
-  subtext: string;
-  buttonText: string;
-  buttonLink: string;
+  subtext?: string;
+  buttonText?: string;
+  buttonLink?: string;
   backgroundImage: string;
   overlay?: {
     opacity: number;
     color: string;
   };
+  stats?: {
+    value: string;
+    label: string;
+    icon: string;
+  }[];
+}
+
+// Component templates for TinaCMS
+export interface HeroComponent {
+  _template: 'hero';
+  // New multi-slide format
+  slides?: HeroSlide[];
+  autoplay?: boolean;
+  autoplaySpeed?: number;
+  showDots?: boolean;
+  showArrows?: boolean;
+  // Old single-slide format (backwards compatibility)
+  headline?: string;
+  subtext?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  backgroundImage?: string;
+  overlay?: {
+    opacity: number;
+    color: string;
+  };
+  // Stats for single slide format
+  stats?: {
+    value: string;
+    label: string;
+    icon: string;
+  }[];
 }
 
 export interface ServicesComponent {
   _template: 'services';
   title: string;
-  subtitle: string;
+  subtitle?: string;
+  selectedServices?: Array<{
+    serviceId: string;
+    serviceTitle?: string;
+  }>;
+  background?: {
+    image?: string;
+    overlay?: {
+      color?: string;
+      opacity?: number;
+    };
+  };
+  showBottomCTA?: boolean;
+  bottomCTAText?: string;
+  bottomCTALink?: string;
 }
 
 // Legacy AboutComponent for homepage (different from about page)
@@ -40,31 +85,116 @@ export interface HomepageAboutComponent {
   title: string;
   content: string;
   image: string;
+  logo?: string;
+  overlay?: {
+    color?: string;
+    opacity?: number;
+  };
   stats?: Array<{
     value: string;
     label: string;
+    subtitle?: string;
   }>;
+  values?: Array<{
+    title: string;
+    description: string;
+    icon?: string;
+  }>;
+  backgroundVariant?: 'gradient' | 'image' | 'solid';
+  contentAlignment?: 'left' | 'center' | 'right';
+  showStats?: boolean;
+  showValues?: boolean;
 }
 
 export interface NewsComponent {
   _template: 'news';
   title: string;
   subtitle?: string;
-  limit: number;
+  selectedNews?: Array<{
+    news: string; // file path for TinaCMS reference
+  }>;
+  showFeaturedOnly?: boolean;
+  maxArticles?: number;
+  layout?: 'grid' | 'carousel' | 'list' | 'masonry';
+  showCategories?: boolean;
   showReadMore?: boolean;
+  cardStyle?: 'modern' | 'minimal' | 'classic';
+  background?: {
+    image?: string;
+    overlay?: {
+      color?: string;
+      opacity?: number;
+    };
+  };
+  showViewAllButton?: boolean;
+  viewAllButtonText?: string;
+  viewAllButtonLink?: string;
+}
+
+export interface PlayerGame {
+  game: string;
+  rank: string;
+  primary: boolean;
+}
+
+export interface PlayerStats {
+  label: string;
+  value: string;
+  icon: string;
+}
+
+export interface PlayerSocial {
+  twitch?: string;
+  twitter?: string;
+  instagram?: string;
+  youtube?: string;
+  discord?: string;
+  steam?: string;
+  tiktok?: string;
+  kick?: string;
+}
+
+export interface SelectedPlayer {
+  player: string; // TinaCMS reference field - file path
 }
 
 export interface PlayersComponent {
   _template: 'players';
   title: string;
   subtitle?: string;
-  limit: number;
+  selectedPlayers?: SelectedPlayer[];
+  showFeaturedOnly?: boolean;
+  background?: {
+    image?: string;
+    overlay?: {
+      color?: string;
+      opacity?: number;
+    };
+  };
+  showViewAllButton?: boolean;
+  viewAllButtonText?: string;
+  viewAllButtonLink?: string;
+  socialMediaText?: string;
 }
 
 export interface SponsorsComponent {
   _template: 'sponsors';
   title: string;
   subtitle?: string;
+  selectedSponsors?: Array<{
+    sponsor: Sponsor;
+  }>;
+  background?: {
+    image?: string;
+    overlay?: {
+      color?: string;
+      opacity?: number;
+    };
+  };
+  showAutoScroll?: boolean;
+  autoScrollSpeed?: number;
+  viewAllButtonText?: string;
+  viewAllButtonLink?: string;
 }
 
 export interface ContactComponent {
@@ -72,6 +202,12 @@ export interface ContactComponent {
   title: string;
   subtitle?: string;
   showForm: boolean;
+  backgroundImage?: string;
+  overlay?: {
+    color?: string;
+    opacity?: number;
+  };
+  backgroundVariant?: 'gradient' | 'image' | 'solid';
 }
 
 export type PageComponent = 
@@ -115,6 +251,15 @@ export interface NavigationItem {
   children?: NavigationItem[];
 }
 
+export interface FooterSection {
+  title: string;
+  links?: Array<{
+    href: string;
+    label: string;
+    external: boolean;
+  }>;
+}
+
 export interface Navigation {
   header: {
     menuItems: NavigationItem[];
@@ -122,6 +267,7 @@ export interface Navigation {
   footer: {
     aboutText: string;
     copyright: string;
+    sections?: FooterSection[];
   };
 }
 
@@ -178,6 +324,20 @@ export interface Player {
     date: string;
   }>;
   body: string;
+}
+
+// Sponsor
+export interface Sponsor {
+  id?: number;
+  name: string;
+  logo: string;
+  website: string;
+  description: string;
+  category: string;
+  _sys?: {
+    filename: string;
+    path: string;
+  };
 }
 
 // Service

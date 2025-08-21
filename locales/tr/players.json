@@ -10,6 +10,8 @@
     "tournaments": "Turnuvalar",
     "achievements": "Başarılar"
   },
-  "noPlayers": "Şu anda oyuncu bulunmuyor.",
-  "loading": "Oyuncular yükleniyor..."
+  "noPlayers": "Henüz görüntülenecek oyuncu yok.",
+  "loading": "Oyuncular yükleniyor...",
+  "errorLoading": "Oyuncular yüklenirken hata oluştu",
+  "socialMedia": "Sosyal Medya"
 } 

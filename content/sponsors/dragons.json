@@ -1,0 +1,10 @@
+{
+  "name": "Dragons",
+  "logo": "/assets/sponsors/dragons.png",
+  "website": "https://dragons.com",
+  "description": "Premium energy drinks designed for gamers and esports athletes",
+  "category": "energy-drink",
+  "isActive": true,
+  "isFeatured": true,
+  "displayOrder": 2
+}

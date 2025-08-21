@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fonts will be loaded via next/font in layout.js */
+/* Gaming Fonts - Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
@@ -222,8 +226,31 @@
   }
 }
 
-/* Animations */
+/* Advanced Gaming Animations */
 @layer utilities {
+  /* Apple-style scroll animations */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .parallax-bg {
+    transform: translateZ(0);
+    transition: transform 0.1s linear;
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Gaming specific animations */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
@@ -235,6 +262,48 @@
   .animate-slide-up {
     animation: slide-up 0.6s ease-out;
   }
+
+  .animate-text-glow {
+    animation: text-glow 3s ease-in-out infinite;
+  }
+
+  .animate-bg-shift {
+    background-size: 200% 200%;
+    animation: bg-shift 8s ease-in-out infinite;
+    filter: none;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .hover-glow {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hover-glow:hover {
+    box-shadow: 
+      0 0 20px rgba(var(--primary), 0.4), 
+      0 0 40px rgba(var(--primary), 0.3),
+      0 0 60px rgba(var(--primary), 0.2);
+    transform: scale(1.02);
+  }
+
+  /* Stagger animations */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-6 { animation-delay: 0.6s; }
 }
 
 @keyframes float {

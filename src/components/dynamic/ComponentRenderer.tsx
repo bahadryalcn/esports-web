@@ -8,9 +8,10 @@ import ServicesSection from '@/components/sections/ServicesSection';
 import NewsSection from '@/components/sections/NewsSection';
 import ContactSection from '@/components/sections/ContactSection';
 import SponsorsSection from '@/components/sections/SponsorsSection';
+import PlayersSection from '@/components/sections/PlayersSection';
 
 interface ComponentRendererProps {
-  component: PageComponent;
+  component: PageComponent & { _template: string };
   index?: number;
 }
 
@@ -18,16 +19,26 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
   const renderComponent = () => {
     switch (component._template) {
       case 'hero':
-        return (
-          <HeroSection
-            title={component.headline}
-            subtitle={component.subtext}
-            ctaText={component.buttonText}
-            ctaLink={component.buttonLink}
-            backgroundImage={component.backgroundImage}
-            overlay={component.overlay}
-          />
-        );
+        // Support both old format (single slide) and new format (multi-slide)
+        const heroProps = component.slides ? {
+          // New multi-slide format
+          slides: component.slides,
+          autoplay: component.autoplay,
+          autoplaySpeed: component.autoplaySpeed,
+          showDots: component.showDots,
+          showArrows: component.showArrows,
+        } : {
+          // Old single-slide format (backwards compatibility)
+          title: component.headline,
+          subtitle: component.subtext,
+          ctaText: component.buttonText,
+          ctaLink: component.buttonLink,
+          backgroundImage: component.backgroundImage,
+          overlay: component.overlay,
+          stats: component.stats,
+        };
+        
+        return <HeroSection {...heroProps} />;
 
       case 'about':
         return (
@@ -35,7 +46,14 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
             title={component.title}
             content={component.content}
             image={component.image}
+            logo={component.logo}
+            overlay={component.overlay}
             stats={component.stats}
+            values={component.values}
+            backgroundVariant={component.backgroundVariant}
+            contentAlignment={component.contentAlignment}
+            showStats={component.showStats}
+            showValues={component.showValues}
           />
         );
 
@@ -44,39 +62,46 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
           <ServicesSection
             title={component.title}
             subtitle={component.subtitle}
+            selectedServices={component.selectedServices}
+            background={component.background}
+            showBottomCTA={component.showBottomCTA}
+            bottomCTAText={component.bottomCTAText}
+            bottomCTALink={component.bottomCTALink}
           />
         );
 
-      case 'news':
-        return (
-          <NewsSection
-            title={component.title}
-            subtitle={component.subtitle}
-            limit={component.limit}
-            showReadMore={component.showReadMore}
-          />
-        );
+              case 'news':
+          return (
+            <NewsSection
+              title={component.title}
+              subtitle={component.subtitle}
+              selectedNews={component.selectedNews}
+              showFeaturedOnly={component.showFeaturedOnly}
+              maxArticles={component.maxArticles}
+              layout={component.layout}
+              showCategories={component.showCategories}
+              showReadMore={component.showReadMore}
+              cardStyle={component.cardStyle}
+              background={component.background}
+              showViewAllButton={component.showViewAllButton}
+              viewAllButtonText={component.viewAllButtonText}
+              viewAllButtonLink={component.viewAllButtonLink}
+            />
+          );
 
       case 'players':
         return (
-          <div className="py-16 bg-gray-50">
-            <div className="container mx-auto px-4">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  {component.title}
-                </h2>
-                {component.subtitle && (
-                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                    {component.subtitle}
-                  </p>
-                )}
-              </div>
-              {/* Players list would be rendered here */}
-              <div className="text-center text-gray-500">
-                Players section - {component.limit} players to show
-              </div>
-            </div>
-          </div>
+          <PlayersSection
+            title={component.title}
+            subtitle={component.subtitle}
+            selectedPlayers={component.selectedPlayers || []}
+            showFeaturedOnly={component.showFeaturedOnly}
+            background={component.background}
+            showViewAllButton={component.showViewAllButton}
+            viewAllButtonText={component.viewAllButtonText}
+            viewAllButtonLink={component.viewAllButtonLink}
+            socialMediaText={component.socialMediaText}
+          />
         );
 
       case 'sponsors':
@@ -84,6 +109,12 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
           <SponsorsSection
             title={component.title}
             subtitle={component.subtitle}
+            selectedSponsors={component.selectedSponsors}
+            background={component.background}
+            showAutoScroll={component.showAutoScroll}
+            autoScrollSpeed={component.autoScrollSpeed}
+            viewAllButtonText={component.viewAllButtonText}
+            viewAllButtonLink={component.viewAllButtonLink}
           />
         );
 
@@ -93,19 +124,37 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
             title={component.title}
             subtitle={component.subtitle}
             showForm={component.showForm}
+            backgroundImage={component.backgroundImage}
+            overlay={component.overlay}
+            backgroundVariant={component.backgroundVariant}
+            contentAlignment={component.contentAlignment}
+            contactInfo={component.contactInfo}
+            formTitle={component.formTitle}
+            formSubtitle={component.formSubtitle}
+            infoTitle={component.infoTitle}
+            infoSubtitle={component.infoSubtitle}
+            mapTitle={component.mapTitle}
+            showMap={component.showMap}
           />
         );
 
       default:
-        console.warn(`Unknown component template: ${(component as any)._template}`);
-        return null;
+        return (
+          <div className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <div className="text-center text-gray-500">
+                Unknown component type: {(component as any)._template}
+              </div>
+            </div>
+          </div>
+        );
     }
   };
 
   return (
-    <section key={index} className="component-section">
+    <div className="component-wrapper" data-component-type={component._template} data-index={index}>
       {renderComponent()}
-    </section>
+    </div>
   );
 };
 

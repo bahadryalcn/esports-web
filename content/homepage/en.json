@@ -7,11 +7,45 @@
   "components": [
     {
       "_template": "hero",
-      "headline": "Rising to the Top in E-sports World",
-      "subtext": "Take your e-sports career to the next level with professional team management and player development",
-      "buttonText": "Discover Our Services",
-      "buttonLink": "/en/services",
-      "backgroundImage": "/images/hero-bg.jpg"
+      "slides": [
+        {
+          "headline": "Rising to the Top in E-sports World",
+          "subtext": "Take your e-sports career to the next level with professional team management and player development",
+          "buttonText": "Discover Our Services",
+          "buttonLink": "/en/services",
+          "backgroundImage": "/uploads/3.jpg",
+          "overlay": {
+            "opacity": 0.6,
+            "color": "#000000"
+          },
+          "stats": [
+            {
+              "value": "25+",
+              "label": "Championships",
+              "icon": "trophy"
+            },
+            {
+              "value": "50+",
+              "label": "Players",
+              "icon": "users"
+            },
+            {
+              "value": "100+",
+              "label": "Projects",
+              "icon": "target"
+            },
+            {
+              "value": "∞",
+              "label": "Potential",
+              "icon": "zap"
+            }
+          ]
+        }
+      ],
+      "autoplay": true,
+      "autoplaySpeed": 5000,
+      "showDots": true,
+      "showArrows": true
     },
     {
       "_template": "services",
@@ -45,15 +79,56 @@
     {
       "_template": "news",
       "title": "Latest News",
-      "subtitle": "Latest news and developments from the e-sports world",
-      "limit": 3,
-      "showReadMore": true
+      "subtitle": "Stay updated with the latest e-sports developments and team updates",
+      "selectedNews": [
+        {
+          "news": "content/news/championship-victory.en.mdx"
+        }
+      ],
+      "showFeaturedOnly": false,
+      "maxArticles": 6,
+      "layout": "grid",
+      "showCategories": true,
+      "showReadMore": true,
+      "background": {
+        "image": "/uploads/pexels-lulizler-3165335.jpg",
+        "overlay": {
+          "color": "rgba(0, 0, 0, 0.7)",
+          "opacity": 0.7
+        }
+      },
+      "showViewAllButton": true,
+      "viewAllButtonText": "View All News",
+      "viewAllButtonLink": "/en/news",
+      "cardStyle": "modern"
     },
     {
       "_template": "players",
       "title": "Our Players",
       "subtitle": "Meet the talented players of our professional team",
-      "limit": 6
+      "selectedPlayers": [
+        {
+          "player": "content/players/Xantares.mdx"
+        },
+        {
+          "player": "content/players/aim-master.en.mdx"
+        },
+        {
+          "player": "content/players/calyx.en.mdx"
+        }
+      ],
+      "showFeaturedOnly": false,
+      "background": {
+        "image": "",
+        "overlay": {
+          "color": "rgba(0, 0, 0, 0.8)",
+          "opacity": 0.8
+        }
+      },
+      "showViewAllButton": true,
+      "viewAllButtonText": "View All Players",
+      "viewAllButtonLink": "/en/players",
+      "socialMediaText": "Social Media"
     },
     {
       "_template": "sponsors",

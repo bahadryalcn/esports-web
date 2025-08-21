@@ -1,0 +1,15 @@
+{
+  "title": "E-sports Management",
+  "icon": "Gamepad2",
+  "description": "Professional player and team management services",
+  "features": [
+    "Player Contracts",
+    "Team Management",
+    "Career Planning",
+    "Contract Negotiations",
+    "Legal Consulting"
+  ],
+  "link": "/services/esports",
+  "category": "team-management",
+  "isActive": true
+}

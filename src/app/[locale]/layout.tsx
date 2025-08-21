@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getNavigation, getSettings } from '@/lib/tina-client';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import ScrollProgress from '@/components/layout/ScrollProgress';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
@@ -29,6 +30,7 @@ export default async function LocaleLayout({
 
     return (
       <div lang={locale}>
+        <ScrollProgress />
         <Header navigation={navigationData.data.navigation} />
         <main className="pt-16">
           {children}
@@ -43,6 +45,7 @@ export default async function LocaleLayout({
     console.error('Error loading locale layout:', error);
     return (
       <div lang={locale}>
+        <ScrollProgress />
         <Header />
         <main className="pt-16">
           {children}

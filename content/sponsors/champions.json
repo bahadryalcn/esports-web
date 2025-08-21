@@ -1,0 +1,10 @@
+{
+  "name": "Champions",
+  "logo": "/assets/sponsors/champions.png",
+  "website": "https://champions.com",
+  "description": "Gaming hardware and peripherals for professional esports teams",
+  "category": "hardware",
+  "isActive": true,
+  "isFeatured": true,
+  "displayOrder": 1
+}

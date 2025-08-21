@@ -18,45 +18,172 @@ const componentTemplates = [
     ui: {
       previewSrc: "/blocks/hero.png",
       defaultItem: {
-        headline: "Welcome to AIM Agency",
-        subtext: "Professional E-sport Team Management",
-        buttonText: "Learn More",
-        buttonLink: "#",
-        backgroundImage: "",
+        slides: [
+          {
+            headline: "E-spor Dünyasında Zirveye Çıkarıyoruz",
+            subtext: "Profesyonel takım yönetimi ve oyuncu gelişimi ile e-spor kariyerinizi bir üst seviyeye taşıyın",
+            buttonText: "Hizmetlerimizi Keşfedin",
+            buttonLink: "/hizmetler",
+            backgroundImage: "",
+            overlay: {
+              opacity: 0.6,
+              color: "#000000"
+            }
+          }
+        ],
+        autoplay: true,
+        autoplaySpeed: 5000,
+        showDots: true,
+        showArrows: true,
       },
     },
     fields: [
       {
-        type: "string",
-        name: "headline",
-        label: "Headline",
-        required: true,
+        type: "object",
+        name: "slides",
+        label: "Hero Slides",
+        list: true,
+        ui: {
+          itemProps: (item) => {
+            return { label: item?.headline || "New Slide" };
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "headline",
+            label: "Slide Headline",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "subtext",
+            label: "Slide Subtext",
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
+            type: "string",
+            name: "buttonText",
+            label: "Button Text",
+          },
+          {
+            type: "string",
+            name: "buttonLink",
+            label: "Button Link",
+          },
+          {
+            type: "image",
+            name: "backgroundImage",
+            label: "Background Image",
+            required: true,
+          },
+          {
+            type: "object",
+            name: "overlay",
+            label: "Background Overlay",
+            fields: [
+              {
+                type: "number",
+                name: "opacity",
+                label: "Overlay Opacity (0-1)",
+                ui: {
+                  parse: (value) => Number(value),
+                  component: "number",
+                },
+              },
+              {
+                type: "string",
+                name: "color",
+                label: "Overlay Color",
+                ui: {
+                  component: "color",
+                },
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "stats",
+            label: "Slide Statistics (Optional)",
+            list: true,
+            fields: [
+              {
+                type: "string",
+                name: "value",
+                label: "Stat Value",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "label",
+                label: "Stat Label",
+                required: true,
+              },
+              {
+                type: "string",
+                name: "icon",
+                label: "Icon",
+                options: [
+                  { value: "trophy", label: "Trophy" },
+                  { value: "users", label: "Users" },
+                  { value: "target", label: "Target" },
+                  { value: "zap", label: "Zap" },
+                  { value: "award", label: "Award" },
+                  { value: "star", label: "Star" },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
-        type: "string",
-        name: "subtext",
-        label: "Subtext",
+        type: "boolean",
+        name: "autoplay",
+        label: "Auto Play Slides",
       },
       {
-        type: "string",
-        name: "buttonText",
-        label: "Button Text",
+        type: "number",
+        name: "autoplaySpeed",
+        label: "Autoplay Speed (ms)",
+        ui: {
+          parse: (value) => Number(value),
+        },
       },
       {
-        type: "string",
-        name: "buttonLink",
-        label: "Button Link",
+        type: "boolean",
+        name: "showDots",
+        label: "Show Navigation Dots",
       },
       {
-        type: "image",
-        name: "backgroundImage",
-        label: "Background Image",
+        type: "boolean",
+        name: "showArrows",
+        label: "Show Navigation Arrows",
       },
     ],
   },
   {
     name: "services",
     label: "Services Section",
+    ui: {
+      previewSrc: "/blocks/services.png",
+      defaultItem: {
+        title: "Hizmetlerimiz",
+        subtitle: "Profesyonel e-spor çözümleri",
+        selectedServices: [],
+        background: {
+          image: "",
+          overlay: {
+            color: "rgba(0, 0, 0, 0.9)",
+            opacity: 0.9
+          }
+        },
+        showBottomCTA: true,
+        bottomCTAText: "Tüm Hizmetlerimizi Gör",
+        bottomCTALink: "/services"
+      },
+    },
     fields: [
       {
         type: "string",
@@ -68,12 +195,116 @@ const componentTemplates = [
         type: "string",
         name: "subtitle",
         label: "Section Subtitle",
+        ui: {
+          component: "textarea",
+        },
+      },
+              {
+          type: "object",
+          name: "selectedServices",
+          label: "Select Services to Display (Max 6)",
+          list: true,
+          ui: {
+            itemProps: (item: any) => {
+              return { label: item?.serviceTitle || "Select Service" };
+            },
+            max: 6,
+          },
+          fields: [
+            {
+              type: "string",
+              name: "serviceId",
+              label: "Choose Service",
+              required: true,
+              ui: {
+                component: "select",
+                options: [
+                  { label: "E-sports Management", value: "esports-management" },
+                  { label: "Tournament Organization", value: "tournament-organization" },
+                  { label: "Streaming & Content", value: "streaming-content" },
+                  { label: "Coaching & Training", value: "coaching-training" },
+                  { label: "Brand Management", value: "brand-management" },
+                  { label: "Consulting", value: "consulting" }
+                ]
+              }
+            },
+            {
+              type: "string",
+              name: "serviceTitle",
+              label: "Service Title (Auto-filled)",
+              description: "This will be auto-filled based on your selection",
+            }
+          ]
+        },
+      {
+        type: "object",
+        name: "background",
+        label: "Background Settings",
+        fields: [
+          {
+            type: "image",
+            name: "image",
+            label: "Background Image",
+          },
+          {
+            type: "object",
+            name: "overlay",
+            label: "Background Overlay",
+            fields: [
+              {
+                type: "string",
+                name: "color",
+                label: "Overlay Color",
+                ui: {
+                  component: "color",
+                },
+              },
+              {
+                type: "number",
+                name: "opacity",
+                label: "Overlay Opacity (0-1)",
+                ui: {
+                  parse: (value) => Number(value),
+                  component: "number",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "boolean",
+        name: "showBottomCTA",
+        label: "Show Bottom CTA Button",
+      },
+      {
+        type: "string",
+        name: "bottomCTAText",
+        label: "Bottom CTA Button Text",
+        required: true,
+      },
+      {
+        type: "string",
+        name: "bottomCTALink",
+        label: "Bottom CTA Button Link",
+        required: true,
       },
     ],
   },
   {
     name: "about",
     label: "About Section",
+    ui: {
+      previewSrc: "/blocks/about.png",
+      defaultItem: {
+        title: "Hakkımızda",
+        content: "AIM Agency olarak, e-spor dünyasında profesyonel hizmetler sunan bir ajansız. Oyuncularımızın ve takımlarımızın başarısı için sürekli çalışıyor, onların kariyerlerinde fark yaratacak çözümler sunuyoruz.",
+        backgroundVariant: "default",
+        contentAlignment: "left",
+        showStats: true,
+        showValues: true,
+      },
+    },
     fields: [
       {
         type: "string",
@@ -90,13 +321,147 @@ const componentTemplates = [
       {
         type: "image",
         name: "image",
-        label: "Section Image",
+        label: "Background Image",
+      },
+      {
+        type: "image",
+        name: "logo",
+        label: "Logo/Content Image",
+      },
+      {
+        type: "object",
+        name: "overlay",
+        label: "Background Overlay",
+        fields: [
+          {
+            type: "string",
+            name: "color",
+            label: "Overlay Color",
+            ui: {
+              component: "color",
+            },
+          },
+          {
+            type: "number",
+            name: "opacity",
+            label: "Overlay Opacity",
+            ui: {
+              parse: (val) => Number(val),
+              component: "number",
+            },
+          },
+        ],
+      },
+      {
+        type: "string",
+        name: "backgroundVariant",
+        label: "Background Variant",
+        options: [
+          { value: "default", label: "Default" },
+          { value: "gradient", label: "Gradient" },
+          { value: "pattern", label: "Pattern" },
+        ],
+      },
+      {
+        type: "string",
+        name: "contentAlignment",
+        label: "Content Alignment",
+        options: [
+          { value: "left", label: "Left" },
+          { value: "center", label: "Center" },
+          { value: "right", label: "Right" },
+        ],
+      },
+      {
+        type: "boolean",
+        name: "showStats",
+        label: "Show Statistics",
+      },
+      {
+        type: "boolean",
+        name: "showValues",
+        label: "Show Values Section",
+      },
+      {
+        type: "object",
+        name: "stats",
+        label: "Statistics",
+        list: true,
+        fields: [
+          {
+            type: "string",
+            name: "value",
+            label: "Statistic Value",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "label",
+            label: "Statistic Label",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "subtitle",
+            label: "Statistic Subtitle",
+          },
+        ],
+      },
+      {
+        type: "object",
+        name: "values",
+        label: "Company Values",
+        list: true,
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Value Title",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Value Description",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "icon",
+            label: "Icon Name",
+            description: "Lucide icon name (e.g., target, award, zap, users)",
+          },
+        ],
       },
     ],
   },
   {
     name: "news",
     label: "News Section",
+    ui: {
+      previewSrc: "/blocks/news.png",
+      defaultItem: {
+        title: "Latest News",
+        subtitle: "Stay updated with the latest e-sports news and team updates",
+        selectedNews: [],
+        showFeaturedOnly: false,
+        maxArticles: 6,
+        layout: "grid",
+        showCategories: true,
+        showReadMore: true,
+        background: {
+          image: "",
+          overlay: {
+            color: "rgba(0, 0, 0, 0.8)",
+            opacity: 0.8
+          }
+        },
+        showViewAllButton: true,
+        viewAllButtonText: "View All News",
+        viewAllButtonLink: "/news",
+        cardStyle: "modern"
+      },
+    },
     fields: [
       {
         type: "string",
@@ -105,18 +470,162 @@ const componentTemplates = [
         required: true,
       },
       {
+        type: "string",
+        name: "subtitle",
+        label: "Section Subtitle",
+        ui: {
+          component: "textarea",
+        },
+      },
+      {
+        type: "object",
+        name: "selectedNews",
+        label: "Select News Articles from News Collection",
+        list: true,
+        ui: {
+          itemProps: (item: any) => {
+            return { label: item?.news?.title || "Select News Article" };
+          },
+        },
+        fields: [
+          {
+            type: "reference",
+            name: "news",
+            label: "Choose News Article",
+            collections: ["news"],
+            ui: {
+              itemProps: (item: any) => {
+                return { label: item?.title || "Select News Article" };
+              }
+            }
+          }
+        ]
+      },
+      {
+        type: "boolean",
+        name: "showFeaturedOnly",
+        label: "Show Only Featured News",
+        description: "If enabled, only shows featured news articles (selected news will be ignored)"
+      },
+      {
         type: "number",
-        name: "limit",
-        label: "Number of Articles to Show",
+        name: "maxArticles",
+        label: "Maximum Number of Articles to Show",
+        description: "Maximum number of articles to display (if not using selectedNews)",
         ui: {
           parse: (value: any) => Number(value),
         },
       },
+      {
+        type: "string",
+        name: "layout",
+        label: "Layout Style",
+        options: [
+          { value: "grid", label: "Grid Layout" },
+          { value: "carousel", label: "Carousel Layout" },
+          { value: "list", label: "List Layout" },
+          { value: "masonry", label: "Masonry Layout" }
+        ]
+      },
+      {
+        type: "boolean",
+        name: "showCategories",
+        label: "Show Category Badges",
+        description: "Display category badges on news cards"
+      },
+      {
+        type: "boolean",
+        name: "showReadMore",
+        label: "Show Read More Button",
+        description: "Display read more button on each news card"
+      },
+      {
+        type: "string",
+        name: "cardStyle",
+        label: "Card Style",
+        options: [
+          { value: "modern", label: "Modern Gaming Style" },
+          { value: "minimal", label: "Minimal Style" },
+          { value: "classic", label: "Classic Style" }
+        ]
+      },
+      {
+        type: "object",
+        name: "background",
+        label: "Background Settings",
+        fields: [
+          {
+            type: "image",
+            name: "image",
+            label: "Background Image",
+          },
+          {
+            type: "object",
+            name: "overlay",
+            label: "Background Overlay",
+            fields: [
+              {
+                type: "string",
+                name: "color",
+                label: "Overlay Color",
+                description: "Use rgba() format for transparency (e.g., rgba(0, 0, 0, 0.8))",
+              },
+              {
+                type: "number",
+                name: "opacity",
+                label: "Overlay Opacity (0-1)",
+                description: "Note: This is deprecated, use alpha in rgba() color instead",
+                ui: {
+                  parse: (value: any) => Number(value),
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "boolean",
+        name: "showViewAllButton",
+        label: "Show View All Button",
+        description: "Display a button to view all news articles"
+      },
+      {
+        type: "string",
+        name: "viewAllButtonText",
+        label: "View All Button Text",
+        description: "Text for the view all button"
+      },
+      {
+        type: "string",
+        name: "viewAllButtonLink",
+        label: "View All Button Link",
+        description: "Link for the view all button"
+      }
     ],
   },
   {
     name: "players",
     label: "Players Section",
+    ui: {
+      previewSrc: "/blocks/players.png",
+      defaultItem: {
+        title: "Our Players",
+        subtitle: "Meet the talented players of our professional team",
+        selectedPlayers: [],
+        showFeaturedOnly: false,
+        background: {
+          image: "",
+          overlay: {
+            color: "rgba(0, 0, 0, 0.8)",
+            opacity: 0.8
+          }
+        },
+        showViewAllButton: true,
+        viewAllButtonText: "View All Players",
+        viewAllButtonLink: "/players",
+        socialMediaText: "Social Media"
+      },
+    },
     fields: [
       {
         type: "string",
@@ -125,18 +634,122 @@ const componentTemplates = [
         required: true,
       },
       {
-        type: "number",
-        name: "limit",
-        label: "Number of Players to Show",
+        type: "string",
+        name: "subtitle",
+        label: "Section Subtitle",
         ui: {
-          parse: (value: any) => Number(value),
+          component: "textarea",
         },
+      },
+      {
+        type: "object",
+        name: "selectedPlayers",
+        label: "Select Players from Players Collection",
+        list: true,
+        ui: {
+          itemProps: (item: any) => {
+            return { label: item?.player?.name || "Select Player" };
+          },
+        },
+        fields: [
+          {
+            type: "reference",
+            name: "player",
+            label: "Choose Player",
+            collections: ["players"],
+
+          }
+        ]
+      },
+      {
+        type: "boolean",
+        name: "showFeaturedOnly",
+        label: "Show Only Featured Players",
+        description: "If enabled, only shows featured players (selected players will be ignored)"
+      },
+
+      {
+        type: "object",
+        name: "background",
+        label: "Background Settings",
+        fields: [
+          {
+            type: "image",
+            name: "image",
+            label: "Background Image",
+          },
+          {
+            type: "object",
+            name: "overlay",
+            label: "Background Overlay",
+            fields: [
+              {
+                type: "string",
+                name: "color",
+                label: "Overlay Color",
+                ui: {
+                  component: "color",
+                },
+              },
+              {
+                type: "number",
+                name: "opacity",
+                label: "Overlay Opacity (0-1)",
+                ui: {
+                  parse: (value) => Number(value),
+                  component: "number",
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "boolean",
+        name: "showViewAllButton",
+        label: "Show View All Players Button",
+      },
+      {
+        type: "string",
+        name: "viewAllButtonText",
+        label: "View All Players Button Text",
+      },
+      {
+        type: "string",
+        name: "viewAllButtonLink",
+        label: "View All Players Button Link",
+        description: "Where the button should redirect (e.g., /players, /oyuncular)",
+      },
+      {
+        type: "string",
+        name: "socialMediaText",
+        label: "Social Media Section Title",
+        description: "Text displayed above social media icons (e.g., 'Social Media', 'Sosyal Medya')",
       },
     ],
   },
   {
     name: "sponsors",
     label: "Sponsors Section",
+    ui: {
+      previewSrc: "/blocks/sponsors.png",
+      defaultItem: {
+        title: "Sponsorlarımız",
+        subtitle: "Bize güvenen ve destekleyen değerli partnerlerimiz",
+        selectedSponsors: [],
+        background: {
+          image: "",
+          overlay: {
+            color: "rgba(0, 0, 0, 0.8)",
+            opacity: 0.8
+          }
+        },
+        showAutoScroll: true,
+        autoScrollSpeed: 3000,
+        viewAllButtonText: "Tüm Sponsorlarımız",
+        viewAllButtonLink: "/sponsors"
+      },
+    },
     fields: [
       {
         type: "string",
@@ -144,11 +757,109 @@ const componentTemplates = [
         label: "Section Title",
         required: true,
       },
+      {
+        type: "string",
+        name: "subtitle",
+        label: "Section Subtitle",
+        ui: {
+          component: "textarea",
+        },
+      },
+              {
+          type: "object",
+          name: "selectedSponsors",
+          label: "Select Sponsors from Sponsors Collection",
+          list: true,
+          ui: {
+            itemProps: (item: any) => {
+              return { label: item?.sponsor?.name || "Select Sponsor" };
+            },
+          },
+          fields: [
+            {
+              type: "reference",
+              name: "sponsor",
+              label: "Choose Sponsor",
+              collections: ["sponsors"],
+            }
+          ]
+        },
+      {
+        type: "object",
+        name: "background",
+        label: "Background Settings",
+        fields: [
+          {
+            type: "image",
+            name: "image",
+            label: "Background Image",
+          },
+          {
+            type: "object",
+            name: "overlay",
+            label: "Background Overlay",
+            fields: [
+              {
+                type: "string",
+                name: "color",
+                label: "Overlay Color",
+                ui: {
+                  component: "color",
+                },
+              },
+              {
+                type: "number",
+                name: "opacity",
+                label: "Overlay Opacity (0-1)",
+                ui: {
+                  parse: (value) => Number(value),
+                  component: "number",
+                },
+              },
+            ],
+          },
+        ],
+      },
+              {
+          type: "boolean",
+          name: "showAutoScroll",
+          label: "Enable Auto Scroll",
+        },
+        {
+          type: "number",
+          name: "autoScrollSpeed",
+          label: "Auto Scroll Speed (ms)",
+          ui: {
+            parse: (value) => Number(value),
+          },
+        },
+        {
+          type: "string",
+          name: "viewAllButtonText",
+          label: "View All Sponsors Button Text",
+        },
+        {
+          type: "string",
+          name: "viewAllButtonLink",
+          label: "View All Sponsors Button Link",
+          description: "Where the button should redirect (e.g., /sponsors, /sponsorlar)",
+        },
     ],
   },
   {
     name: "contact",
     label: "Contact Section",
+    ui: {
+      previewSrc: "/blocks/contact.png",
+      defaultItem: {
+        title: "İletişim",
+        subtitle: "Profesyonel e-spor hizmetleri için bizimle iletişime geçin ve projelerinizi hayata geçirelim.",
+        showForm: true,
+        backgroundVariant: "default",
+        contentAlignment: "center",
+        showMap: true,
+      },
+    },
     fields: [
       {
         type: "string",
@@ -157,9 +868,128 @@ const componentTemplates = [
         required: true,
       },
       {
+        type: "string",
+        name: "subtitle",
+        label: "Section Subtitle",
+        ui: {
+          component: "textarea",
+        },
+      },
+      {
+        type: "image",
+        name: "backgroundImage",
+        label: "Background Image",
+      },
+      {
+        type: "object",
+        name: "overlay",
+        label: "Background Overlay",
+        fields: [
+          {
+            type: "string",
+            name: "color",
+            label: "Overlay Color",
+            ui: {
+              component: "color",
+            },
+          },
+          {
+            type: "number",
+            name: "opacity",
+            label: "Overlay Opacity",
+            ui: {
+              parse: (val) => Number(val),
+              component: "number",
+            },
+          },
+        ],
+      },
+      {
+        type: "string",
+        name: "backgroundVariant",
+        label: "Background Variant",
+        options: [
+          { value: "default", label: "Default" },
+          { value: "gradient", label: "Gradient" },
+          { value: "pattern", label: "Pattern" },
+        ],
+      },
+      {
+        type: "string",
+        name: "contentAlignment",
+        label: "Content Alignment",
+        options: [
+          { value: "left", label: "Left" },
+          { value: "center", label: "Center" },
+          { value: "right", label: "Right" },
+        ],
+      },
+      {
         type: "boolean",
         name: "showForm",
         label: "Show Contact Form",
+      },
+      {
+        type: "string",
+        name: "formTitle",
+        label: "Form Title",
+      },
+      {
+        type: "string",
+        name: "formSubtitle",
+        label: "Form Subtitle",
+      },
+      {
+        type: "string",
+        name: "infoTitle",
+        label: "Contact Info Title",
+      },
+      {
+        type: "string",
+        name: "infoSubtitle",
+        label: "Contact Info Subtitle",
+      },
+      {
+        type: "object",
+        name: "contactInfo",
+        label: "Contact Information",
+        list: true,
+        fields: [
+          {
+            type: "string",
+            name: "label",
+            label: "Label",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "value",
+            label: "Value",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "href",
+            label: "Link (URL/mailto/tel)",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "icon",
+            label: "Icon Name",
+            description: "Lucide icon name (e.g., mail, phone, map-pin)",
+          },
+        ],
+      },
+      {
+        type: "boolean",
+        name: "showMap",
+        label: "Show Map Section",
+      },
+      {
+        type: "string",
+        name: "mapTitle",
+        label: "Map Section Title",
       },
     ],
   },
@@ -181,6 +1011,175 @@ export default defineConfig({
   },
   schema: {
     collections: [
+      // Sponsors Collection
+      {
+        name: "sponsors",
+        label: "Sponsors",
+        path: "content/sponsors",
+        format: "json",
+        ui: {
+          router: ({ document }) => {
+            return `/sponsors`;
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "name",
+            label: "Sponsor Name",
+            required: true,
+          },
+          {
+            type: "image",
+            name: "logo",
+            label: "Sponsor Logo",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "website",
+            label: "Website URL",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Sponsor Description",
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
+            type: "string",
+            name: "category",
+            label: "Sponsor Category",
+            ui: {
+              component: "select",
+              options: [
+                { label: "Technology", value: "technology" },
+                { label: "Gaming", value: "gaming" },
+                { label: "Sports", value: "sports" },
+                { label: "Energy Drink", value: "energy-drink" },
+                { label: "Hardware", value: "hardware" },
+                { label: "Software", value: "software" },
+                { label: "Other", value: "other" }
+              ]
+            }
+          },
+          {
+            type: "boolean",
+            name: "isActive",
+            label: "Active Sponsor",
+            description: "Show this sponsor on the website"
+          },
+          {
+            type: "boolean",
+            name: "isFeatured",
+            label: "Featured Sponsor",
+            description: "Show as featured sponsor"
+          },
+          {
+            type: "number",
+            name: "displayOrder",
+            label: "Display Order",
+            description: "Lower numbers appear first",
+            ui: {
+              parse: (value) => Number(value),
+            },
+          }
+        ],
+      },
+      // Services Collection
+      {
+        name: "services",
+        label: "Services",
+        path: "content/services",
+        format: "json",
+        ui: {
+          router: ({ document }) => {
+            return `/services`;
+          },
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Service Title",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "icon",
+            label: "Icon Name",
+            required: true,
+            ui: {
+              component: "select",
+              options: [
+                { label: "Gamepad2", value: "Gamepad2" },
+                { label: "Trophy", value: "Trophy" },
+                { label: "Video", value: "Video" },
+                { label: "Users", value: "Users" },
+                { label: "Target", value: "Target" },
+                { label: "Zap", value: "Zap" },
+                { label: "ArrowRight", value: "ArrowRight" },
+                { label: "Sparkles", value: "Sparkles" }
+              ]
+            }
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Service Description",
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
+            type: "string",
+            name: "features",
+            label: "Features",
+            list: true,
+            ui: {
+              itemProps: (item) => {
+                return { label: item || "New Feature" };
+              },
+            },
+          },
+          {
+            type: "string",
+            name: "link",
+            label: "Service Link",
+            required: true,
+          },
+          {
+            type: "image",
+            name: "image",
+            label: "Service Image",
+          },
+          {
+            type: "string",
+            name: "category",
+            label: "Service Category",
+            ui: {
+              component: "select",
+              options: [
+                { label: "Team Management", value: "team-management" },
+                { label: "Tournament", value: "tournament" },
+                { label: "Content", value: "content" },
+                { label: "Coaching", value: "coaching" },
+                { label: "Branding", value: "branding" },
+                { label: "Consulting", value: "consulting" }
+              ]
+            }
+          },
+          {
+            type: "boolean",
+            name: "isActive",
+            label: "Active Service",
+            description: "Show this service on the website"
+          }
+        ],
+      },
       // Site Settings
       {
         name: "settings",
@@ -539,17 +1538,27 @@ export default defineConfig({
             name: "position",
             label: "Position/Role",
             options: [
-              { value: "carry", label: "Carry" },
+              { value: "adc", label: "ADC (Attack Damage Carry)" },
               { value: "support", label: "Support" },
-              { value: "mid", label: "Mid" },
+              { value: "mid", label: "Mid Lane" },
               { value: "jungle", label: "Jungle" },
-              { value: "top", label: "Top" },
+              { value: "top", label: "Top Lane" },
+              { value: "entry-fragger", label: "Entry Fragger" },
+              { value: "awper", label: "AWPer" },
+              { value: "igl", label: "In-Game Leader" },
+              { value: "rifler", label: "Rifler" },
+              { value: "lurker", label: "Lurker" },
+              { value: "duelist", label: "Duelist" },
+              { value: "initiator", label: "Initiator" },
+              { value: "controller", label: "Controller" },
+              { value: "sentinel", label: "Sentinel" },
             ],
           },
           {
             type: "image",
             name: "avatar",
             label: "Player Photo",
+            required: true,
           },
           {
             type: "number",
@@ -560,9 +1569,306 @@ export default defineConfig({
             },
           },
           {
+            type: "string",
+            name: "nationality",
+            label: "Nationality",
+            ui: {
+              component: "select",
+              options: [
+                { value: "TR", label: "Turkey" },
+                { value: "US", label: "United States" },
+                { value: "DE", label: "Germany" },
+                { value: "FR", label: "France" },
+                { value: "SE", label: "Sweden" },
+                { value: "DK", label: "Denmark" },
+                { value: "UK", label: "United Kingdom" },
+                { value: "FI", label: "Finland" },
+                { value: "NO", label: "Norway" },
+                { value: "BR", label: "Brazil" },
+                { value: "KR", label: "South Korea" },
+                { value: "CN", label: "China" },
+                { value: "JP", label: "Japan" },
+                { value: "RU", label: "Russia" },
+                { value: "UA", label: "Ukraine" },
+                { value: "PL", label: "Poland" },
+                { value: "CZ", label: "Czech Republic" },
+                { value: "Other", label: "Other" },
+              ]
+            }
+          },
+          {
             type: "datetime",
             name: "joinDate",
             label: "Join Date",
+          },
+          {
+            type: "boolean",
+            name: "featured",
+            label: "Featured Player",
+            description: "Show this player in featured sections"
+          },
+          {
+            type: "boolean",
+            name: "active",
+            label: "Active Player",
+            description: "Is this player currently active in the team?"
+          },
+          {
+            type: "string",
+            name: "status",
+            label: "Player Status",
+            ui: {
+              component: "select",
+              options: [
+                { value: "active", label: "Active" },
+                { value: "inactive", label: "Inactive" },
+                { value: "substitute", label: "Substitute" },
+                { value: "coach", label: "Coach" },
+                { value: "retired", label: "Retired" },
+                { value: "transfer", label: "On Transfer" },
+              ]
+            }
+          },
+          {
+            type: "object",
+            name: "games",
+            label: "Games",
+            list: true,
+            ui: {
+              itemProps: (item) => {
+                return { label: `${item?.game || "New Game"} - ${item?.rank || "No Rank"}` };
+              },
+            },
+            fields: [
+              {
+                type: "string",
+                name: "game",
+                label: "Game",
+                required: true,
+                ui: {
+                  component: "select",
+                  options: [
+                    { value: "valorant", label: "Valorant" },
+                    { value: "csgo", label: "CS:GO" },
+                    { value: "cs2", label: "Counter-Strike 2" },
+                    { value: "lol", label: "League of Legends" },
+                    { value: "dota2", label: "Dota 2" },
+                    { value: "apex", label: "Apex Legends" },
+                    { value: "fortnite", label: "Fortnite" },
+                    { value: "overwatch", label: "Overwatch 2" },
+                    { value: "rainbow6", label: "Rainbow Six Siege" },
+                  ]
+                }
+              },
+              {
+                type: "string",
+                name: "rank",
+                label: "Current Rank",
+              },
+              {
+                type: "boolean",
+                name: "primary",
+                label: "Primary Game",
+                description: "Is this the player's main game?"
+              }
+            ]
+          },
+          {
+            type: "object",
+            name: "stats",
+            label: "Player Statistics",
+            fields: [
+              {
+                type: "object",
+                name: "career",
+                label: "Career Stats",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return { label: `${item?.label || "New Stat"}: ${item?.value || "0"}` };
+                  },
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "label",
+                    label: "Stat Label",
+                    required: true,
+                  },
+                  {
+                    type: "string",
+                    name: "value",
+                    label: "Stat Value",
+                    required: true,
+                  },
+                  {
+                    type: "string",
+                    name: "icon",
+                    label: "Icon",
+                    ui: {
+                      component: "select",
+                      options: [
+                        { value: "trophy", label: "Trophy" },
+                        { value: "target", label: "Target" },
+                        { value: "zap", label: "Zap" },
+                        { value: "award", label: "Award" },
+                        { value: "star", label: "Star" },
+                        { value: "sword", label: "Sword" },
+                        { value: "shield", label: "Shield" },
+                        { value: "crosshair", label: "Crosshair" },
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                type: "object",
+                name: "achievements",
+                label: "Major Achievements",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return { label: `${item?.year || "Year"} - ${item?.title || "Achievement"}` };
+                  },
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "year",
+                    label: "Year",
+                    required: true,
+                  },
+                  {
+                    type: "string",
+                    name: "title",
+                    label: "Achievement Title",
+                    required: true,
+                  },
+                  {
+                    type: "string",
+                    name: "tournament",
+                    label: "Tournament/Event",
+                  },
+                  {
+                    type: "string",
+                    name: "placement",
+                    label: "Placement (1st, 2nd, etc.)",
+                  },
+                  {
+                    type: "string",
+                    name: "game",
+                    label: "Game",
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            type: "object",
+            name: "social",
+            label: "Social Media",
+            fields: [
+              {
+                type: "string",
+                name: "twitch",
+                label: "Twitch URL",
+              },
+              {
+                type: "string",
+                name: "youtube",
+                label: "YouTube URL",
+              },
+              {
+                type: "string",
+                name: "twitter",
+                label: "Twitter/X URL",
+              },
+              {
+                type: "string",
+                name: "instagram",
+                label: "Instagram URL",
+              },
+              {
+                type: "string",
+                name: "discord",
+                label: "Discord Username",
+              },
+              {
+                type: "string",
+                name: "steam",
+                label: "Steam Profile URL",
+              },
+              {
+                type: "string",
+                name: "tiktok",
+                label: "TikTok URL",
+              },
+              {
+                type: "string",
+                name: "kick",
+                label: "Kick URL",
+              }
+            ]
+          },
+          {
+            type: "object",
+            name: "settings",
+            label: "Gaming Setup",
+            fields: [
+              {
+                type: "string",
+                name: "mouse",
+                label: "Mouse",
+              },
+              {
+                type: "string",
+                name: "keyboard",
+                label: "Keyboard",
+              },
+              {
+                type: "string",
+                name: "headset",
+                label: "Headset",
+              },
+              {
+                type: "string",
+                name: "monitor",
+                label: "Monitor",
+              },
+              {
+                type: "string",
+                name: "mousepad",
+                label: "Mousepad",
+              },
+              {
+                type: "object",
+                name: "sensitivity",
+                label: "Game Sensitivity Settings",
+                list: true,
+                fields: [
+                  {
+                    type: "string",
+                    name: "game",
+                    label: "Game",
+                  },
+                  {
+                    type: "string",
+                    name: "sensitivity",
+                    label: "Sensitivity",
+                  },
+                  {
+                    type: "string",
+                    name: "dpi",
+                    label: "DPI",
+                  },
+                  {
+                    type: "string",
+                    name: "edpi",
+                    label: "eDPI",
+                  }
+                ]
+              }
+            ]
           },
           {
             type: "rich-text",
@@ -576,69 +1882,7 @@ export default defineConfig({
         },
       },
 
-      // Services
-      {
-        name: "services",
-        label: "Services",
-        path: "content/services",
-        format: "mdx",
-        fields: [
-          {
-            type: "string",
-            name: "title",
-            label: "Service Title",
-            isTitle: true,
-            required: true,
-          },
-          {
-            type: "string",
-            name: "slug",
-            label: "URL Slug",
-            required: true,
-          },
-          {
-            type: "string",
-            name: "locale",
-            label: "Language",
-            options: locales,
-            required: true,
-          },
-          {
-            type: "string",
-            name: "excerpt",
-            label: "Service Summary",
-            ui: {
-              component: "textarea",
-            },
-          },
-          {
-            type: "image",
-            name: "icon",
-            label: "Service Icon",
-          },
-          {
-            type: "string",
-            name: "category",
-            label: "Service Category",
-            options: [
-              { value: "player-management", label: "Player Management" },
-              { value: "team-coaching", label: "Team Coaching" },
-              { value: "tournament", label: "Tournament Organization" },
-              { value: "marketing", label: "Marketing & Branding" },
-              { value: "consulting", label: "Consulting" },
-            ],
-          },
-          {
-            type: "rich-text",
-            name: "body",
-            label: "Service Details",
-            isBody: true,
-          },
-        ],
-        ui: {
-          router: ({ document }) => `/services/${document._sys.filename}`,
-        },
-      },
+
 
       // Matches
       {

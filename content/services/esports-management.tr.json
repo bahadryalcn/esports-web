@@ -1,0 +1,15 @@
+{
+  "title": "E-spor Yönetimi",
+  "icon": "Gamepad2",
+  "description": "Profesyonel oyuncu ve takım yönetimi hizmetleri",
+  "features": [
+    "Oyuncu Sözleşmeleri",
+    "Takım Yönetimi",
+    "Kariyer Planlama",
+    "Sözleşme Müzakereleri",
+    "Yasal Danışmanlık"
+  ],
+  "link": "/services/esports",
+  "category": "team-management",
+  "isActive": true
+}

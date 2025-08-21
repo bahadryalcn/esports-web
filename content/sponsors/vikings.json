@@ -1,0 +1,10 @@
+{
+  "name": "Vikings",
+  "logo": "/assets/sponsors/vikings.png",
+  "website": "Vikings",
+  "description": "Vikings",
+  "category": "gaming",
+  "isActive": true,
+  "isFeatured": true,
+  "displayOrder": 0
+}

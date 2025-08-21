@@ -1,0 +1,10 @@
+{
+  "name": "Gaming Gear",
+  "logo": "/assets/sponsors/gaming-gear.png",
+  "website": "https://gaminggear.com",
+  "description": "Professional gaming equipment and accessories",
+  "category": "gaming",
+  "isActive": true,
+  "isFeatured": true,
+  "displayOrder": 3
+}

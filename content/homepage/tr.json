@@ -6,41 +6,288 @@
   },
   "components": [
     {
+      "slides": [
+        {
+          "headline": "E-spor Dünyasında Zirveye Çıkarıyoruz",
+          "subtext": "Profesyonel takım yönetimi ve oyuncu gelişimi ile e-spor kariyerinizi bir üst seviyeye taşıyın",
+          "buttonText": "Hizmetlerimizi Keşfedin",
+          "buttonLink": "/hizmetler",
+          "backgroundImage": "/uploads/IMG_8120.PNG",
+          "overlay": {
+            "opacity": 0.6,
+            "color": "#000000"
+          },
+          "stats": [
+            {
+              "value": "25+",
+              "label": "Şampiyonluk",
+              "icon": "trophy"
+            },
+            {
+              "value": "50+",
+              "label": "Oyuncu",
+              "icon": "users"
+            },
+            {
+              "value": "100+",
+              "label": "Proje",
+              "icon": "target"
+            },
+            {
+              "value": "∞",
+              "label": "Potansiyel",
+              "icon": "zap"
+            }
+          ]
+        },
+        {
+          "headline": "testseawdad",
+          "subtext": "mehmemhemhe",
+          "buttonText": "mehmemhemhe",
+          "buttonLink": "/awda-awdawd",
+          "backgroundImage": "/uploads/s2gespor.jpeg",
+          "overlay": {
+            "opacity": 0,
+            "color": "#CFE53D"
+          }
+        }
+      ],
+      "autoplay": true,
+      "autoplaySpeed": 10000,
+      "showDots": true,
+      "showArrows": true,
+      "_template": "hero"
+    },
+    {
+      "title": "Sponsorlarımız",
+      "subtitle": "Sponsorlarımız Açıklama",
+      "selectedSponsors": [
+        {
+          "sponsor": "content/sponsors/gaming-gear.json"
+        },
+        {
+          "sponsor": "content/sponsors/champions.json"
+        },
+        {
+          "sponsor": "content/sponsors/dragons.json"
+        },
+        {
+          "sponsor": "content/sponsors/eagle.json"
+        },
+        {
+          "sponsor": "content/sponsors/esport.json"
+        },
+        {
+          "sponsor": "content/sponsors/hawks.json"
+        },
+        {
+          "sponsor": "content/sponsors/panthers.json"
+        },
+        {
+          "sponsor": "content/sponsors/phoenix.json"
+        }
+      ],
+      "background": {
+        "image": "/uploads/stock_91abstract-3d-render-holographic-iridescent-neon-twisted-wave-dark-background-wallpaper-cover-banner.jpg",
+        "overlay": {
+          "color": "#010000",
+          "opacity": 0.7
+        }
+      },
+      "showAutoScroll": true,
+      "autoScrollSpeed": 5000,
+      "viewAllButtonText": "Tüm Sponsorlarımız",
+      "viewAllButtonLink": "/sponsors",
+      "_template": "sponsors"
+    },
+    {
       "title": "Hizmetlerimiz",
       "subtitle": "E-spor dünyasında başarıya ulaşmanız için ihtiyacınız olan tüm hizmetler",
+      "selectedServices": [
+        {
+          "serviceId": "tournament-organization"
+        },
+        {
+          "serviceId": "streaming-content"
+        },
+        {
+          "serviceId": "consulting"
+        }
+      ],
+      "background": {
+        "image": "/uploads/stock_96abstract-3d-render-holographic-iridescent-neon-twisted-wave-dark-background-wallpaper-cover-banner.jpg"
+      },
+      "showBottomCTA": true,
+      "bottomCTAText": "Tüm Hizmetlerimiz",
+      "bottomCTALink": "/awdawd",
       "_template": "services"
     },
     {
-      "headline": "E-spor Dünyasında Zirveye Çıkarıyoruz",
-      "subtext": "Profesyonel takım yönetimi ve oyuncu gelişimi ile e-spor kariyerinizi bir üst seviyeye taşıyın",
-      "buttonText": "Hizmetlerimizi Keşfedin",
-      "buttonLink": "/hizmetler",
-      "backgroundImage": "/images/hero-bg.jpg",
-      "_template": "hero"
+      "title": "Oyuncularımız",
+      "subtitle": "Profesyonel takımımızın yetenekli oyuncularıyla tanışın",
+      "selectedPlayers": [
+        {
+          "player": "content/players/Xantares.mdx"
+        },
+        {
+          "player": "content/players/ngin.tr.mdx"
+        },
+        {
+          "player": "content/players/aim-master.tr.mdx"
+        },
+        {
+          "player": "content/players/ngin.tr.mdx"
+        }
+      ],
+      "showFeaturedOnly": false,
+      "background": {
+        "image": "/uploads/IMG_8121.PNG",
+        "overlay": {
+          "color": "rgba(0, 0, 0, 0.8)",
+          "opacity": 0.2
+        }
+      },
+      "showViewAllButton": true,
+      "viewAllButtonText": "Tüm Oyuncularımız",
+      "viewAllButtonLink": "/oyuncular",
+      "socialMediaText": "Sosyal Medya",
+      "_template": "players"
     },
     {
       "title": "Hakkımızda",
       "content": "AIM Agency olarak, e-spor sektöründe yılların deneyimi ile oyuncularımızın ve takımlarımızın başarısı için çalışıyoruz. Profesyonel yaklaşımımız ve uzman kadromuzla, e-spor kariyerinizde hedeflediğiniz zirveye ulaşmanızda size yardımcı oluyoruz.\n",
-      "image": "/images/about-image.jpg",
+      "image": "/uploads/pexels-lulizler-3165335.jpg",
+      "logo": "/uploads/hawks.png",
+      "backgroundVariant": "gradient",
+      "contentAlignment": "center",
+      "showStats": true,
+      "showValues": true,
+      "stats": [
+        {
+          "value": "24",
+          "label": "testtest",
+          "subtitle": "aaaaaaaa"
+        }
+      ],
       "_template": "about"
     },
     {
       "title": "Son Haberler",
-      "limit": 3,
+      "subtitle": "E-spor dünyasındaki en güncel gelişmeler ve takım haberlerimiz",
+      "selectedNews": [
+        {
+          "news": "content/news/championship-victory.tr.mdx"
+        },
+        {
+          "news": "content/news/championship-victory.en.mdx"
+        },
+        {
+          "news": "content/news/championship-victory.en.mdx"
+        }
+      ],
+      "showFeaturedOnly": false,
+      "maxArticles": 6,
+      "layout": "grid",
+      "showCategories": true,
+      "showReadMore": true,
+      "cardStyle": "modern",
+      "background": {
+        "image": "/uploads/pexels-lulizler-3165335.jpg",
+        "overlay": {
+          "color": "rgba(0, 0, 0, 0.7)",
+          "opacity": 0.7
+        }
+      },
+      "showViewAllButton": true,
+      "viewAllButtonText": "Tüm Haberler",
+      "viewAllButtonLink": "/haberler",
       "_template": "news"
     },
     {
-      "title": "Oyuncularımız",
-      "limit": 6,
-      "_template": "players"
-    },
-    {
-      "title": "Sponsorlarımız",
-      "_template": "sponsors"
-    },
-    {
       "title": "İletişime Geçin",
+      "subtitle": "Size en kısa sürede dönüş yapabilmemiz için formu doldurun veya aşağıdaki iletişim bilgilerinden bize ulaşın.",
+      "backgroundImage": "",
+      "overlay": {
+        "color": "#2F2F2F",
+        "opacity": 0.5
+      },
+      "backgroundVariant": "default",
+      "contentAlignment": "center",
       "showForm": true,
+      "formTitle": "Bize ulaşın",
+      "formSubtitle": "Telefon, e-posta veya adres bilgilerimizden bize ulaşın.",
+      "infoTitle": "İletişim Bilgileri",
+      "infoSubtitle": "",
+      "contactInfo": [
+        {
+          "label": "Telefon",
+          "value": "+90 (212) 123 45 67",
+          "href": "tel:+90 (212) 123 45 67",
+          "icon": "phone"
+        },
+        {
+          "label": "E-Posta",
+          "value": "info@aimagency",
+          "href": "mailto:info@aimagency",
+          "icon": "mail"
+        },
+        {
+          "label": "Adres",
+          "value": "Büyükdere Cad. No:123 Şişli / İstanbul",
+          "href": "/",
+          "icon": "map-pin"
+        },
+        {
+          "label": "YouTube",
+          "value": "AIM Agency Gaming",
+          "href": "https://youtube.com/@aimagency",
+          "icon": "youtube"
+        },
+        {
+          "label": "X",
+          "value": "AIM Agency Gaming",
+          "href": "https://x.com/@aimagency",
+          "icon": "x"
+        },
+        {
+          "label": "Discord",
+          "value": "AIM Agency Gaming",
+          "href": "https://discord.gg/aimagency",
+          "icon": "discord"
+        },
+        {
+          "label": "Instagram",
+          "value": "AIM Agency Gaming",
+          "href": "https://instagram.com/aimagency",
+          "icon": "instagram"
+        },
+        {
+          "label": "TikTok",
+          "value": "AIM Agency Gaming",
+          "href": "https://tiktok.com/@aimagency",
+          "icon": "tiktok"
+        },
+        {
+          "label": "Facebook",
+          "value": "AIM Agency Gaming",
+          "href": "https://facebook.com/aimagency",
+          "icon": "facebook"
+        },
+        {
+          "label": "LinkedIn",
+          "value": "AIM Agency Gaming",
+          "href": "https://linkedin.com/aimagency",
+          "icon": "linkedin"
+        },
+        {
+          "label": "Kick",
+          "value": "AIM Agency Gaming",
+          "href": "https://Kick.tv/aimagency",
+          "icon": "kick"
+        }
+      ],
+      "showMap": false,
+      "mapTitle": "tset",
       "_template": "contact"
     }
   ]

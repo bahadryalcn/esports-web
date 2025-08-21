@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import type { Navigation as NavigationType, NavigationProps } from '@/types';
 
 interface ExtendedNavigationProps extends NavigationProps {
@@ -23,45 +24,122 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
 
   const navigationItems = navigation?.header?.menuItems || fallbackItems;
 
-  const baseClasses = mobile
-    ? "block px-4 py-2 text-white hover:bg-gaming-primary/10 hover:text-gaming-primary transition-colors"
-    : "px-4 py-2 text-white hover:text-gaming-primary transition-colors relative";
+  // Desktop Navigation Item Component
+  const DesktopNavItem = ({ item, isActive }: { item: any; isActive: boolean }) => (
+    <motion.div
+      className="relative"
+      whileHover={{ y: -1 }}
+      transition={{ duration: 0.2 }}
+    >
+      <Link
+        href={item.href}
+        className={`relative px-4 py-2 text-base font-gaming font-medium tracking-wide transition-all duration-300 ${
+          isActive 
+            ? 'text-red-400' 
+            : 'text-gray-300 hover:text-red-300'
+        }`}
+        onClick={onItemClick}
+      >
+        {item.label}
+        
+        {/* Active Indicator */}
+        {isActive && (
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-red-400 to-red-300"
+            layoutId="activeIndicator"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+        )}
+        
+        {/* Hover Underline */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-400/50"
+          initial={{ scaleX: 0 }}
+          whileHover={{ scaleX: 1 }}
+          transition={{ duration: 0.2 }}
+        />
+      </Link>
+    </motion.div>
+  );
 
-  const activeClasses = mobile
-    ? "bg-gaming-primary/20 text-gaming-primary"
-    : "text-gaming-primary after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-gaming-primary";
+  // Mobile Navigation Item Component
+  const MobileNavItem = ({ item, isActive }: { item: any; isActive: boolean }) => (
+    <motion.div
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <Link
+        href={item.href}
+        className={`block px-6 py-3 text-lg font-gaming font-medium transition-all duration-300 ${
+          isActive 
+            ? 'text-red-400 bg-red-500/10 border-l-2 border-red-400' 
+            : 'text-gray-300 hover:text-red-300 hover:bg-red-500/5'
+        }`}
+        onClick={onItemClick}
+      >
+        {item.label}
+      </Link>
+    </motion.div>
+  );
+
+  // External Link Component
+  const ExternalNavItem = ({ item }: { item: any }) => (
+    <motion.a
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center space-x-2 px-4 py-2 text-base font-gaming font-medium text-gray-300 hover:text-red-300 transition-all duration-300 ${
+        mobile ? 'block px-6 py-3 text-lg' : ''
+      }`}
+      onClick={onItemClick}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.2 }}
+    >
+      <span>{item.label}</span>
+      <span className="text-red-400 text-sm">↗</span>
+    </motion.a>
+  );
+
+  if (mobile) {
+    return (
+      <motion.nav 
+        className="space-y-1"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        {navigationItems.map((item) => {
+          const isActive = pathname === item.href;
+          
+          if (item.external) {
+            return <ExternalNavItem key={item.href} item={item} />;
+          }
+          
+          return <MobileNavItem key={item.href} item={item} isActive={isActive} />;
+        })}
+      </motion.nav>
+    );
+  }
 
   return (
-    <nav className={mobile ? "space-y-1" : "flex space-x-2"}>
+    <motion.nav 
+      className="flex items-center space-x-1"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
       {navigationItems.map((item) => {
         const isActive = pathname === item.href;
         
         if (item.external) {
-          return (
-            <a
-              key={item.href}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={baseClasses}
-              onClick={onItemClick}
-            >
-              {item.label}
-            </a>
-          );
+          return <ExternalNavItem key={item.href} item={item} />;
         }
         
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`${baseClasses} ${isActive ? activeClasses : ''}`}
-            onClick={onItemClick}
-          >
-            {item.label}
-          </Link>
-        );
+        return <DesktopNavItem key={item.href} item={item} isActive={isActive} />;
       })}
-    </nav>
+    </motion.nav>
   );
 }

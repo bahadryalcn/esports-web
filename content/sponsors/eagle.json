@@ -1,0 +1,10 @@
+{
+  "name": "Eagle",
+  "logo": "/assets/sponsors/eagle.png",
+  "website": "https://eagle.com",
+  "description": "Premium energy drinks designed for gamers and esports athletes",
+  "category": "energy-drink",
+  "isActive": true,
+  "isFeatured": true,
+  "displayOrder": 2
+}

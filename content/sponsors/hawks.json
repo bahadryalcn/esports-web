@@ -1,0 +1,10 @@
+{
+  "name": "Hawks",
+  "logo": "/assets/sponsors/hawks.png",
+  "website": "https://hawks.com",
+  "description": "Premium energy drinks designed for gamers and esports athletes",
+  "category": "energy-drink",
+  "isActive": true,
+  "isFeatured": true,
+  "displayOrder": 2
+}

@@ -541,6 +541,59 @@ function getFallbackAbout(): TinaResponse<AboutResponse> {
   };
 }
 
+// TinaCMS client interface
+export const getTinaClient = () => ({
+  queries: {
+    homepage: getHomepage,
+    settings: getSettings,
+    navigation: getNavigation,
+    news: getNews,
+    players: getPlayers,
+    services: getServices,
+    matches: getMatches,
+    about: getAbout
+  },
+  collections: {
+    services: {
+      query: async (locale: string = 'tr') => {
+        try {
+          const servicesDir = path.join(contentDir, 'services');
+          const files = fs.readdirSync(servicesDir);
+          
+          const services: any[] = [];
+          
+          for (const file of files) {
+            if (file.endsWith(`.${locale}.json`)) {
+              const filePath = path.join(servicesDir, file);
+              const serviceData = await readJsonFile(filePath);
+              
+              if (serviceData) {
+                services.push({
+                  ...serviceData,
+                  _sys: { filename: file.replace(`.${locale}.json`, '') }
+                });
+              }
+            }
+          }
+          
+          return {
+            data: {
+              services
+            }
+          };
+        } catch (error) {
+          console.error('Error fetching services:', error);
+          return {
+            data: {
+              services: []
+            }
+          };
+        }
+      }
+    }
+  }
+});
+
 // Utility functions for getting single items
 export async function getNewsArticle(slug: string, locale: string = 'tr'): Promise<NewsArticle | null> {
   try {

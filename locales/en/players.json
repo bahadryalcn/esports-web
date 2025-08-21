@@ -10,6 +10,8 @@
     "tournaments": "Tournaments",
     "achievements": "Achievements"
   },
-  "noPlayers": "No players available at the moment.",
-  "loading": "Loading players..."
+  "noPlayers": "No players to display yet.",
+  "loading": "Loading players...",
+  "errorLoading": "Error loading players",
+  "socialMedia": "Social Media"
 } 

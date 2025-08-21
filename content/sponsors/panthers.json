@@ -1,0 +1,10 @@
+{
+  "name": "Panthers",
+  "logo": "/assets/sponsors/panthers.png",
+  "website": "https://panthers.com",
+  "description": "Premium energy drinks designed for gamers and esports athletes",
+  "category": "energy-drink",
+  "isActive": true,
+  "isFeatured": true,
+  "displayOrder": 2
+}
