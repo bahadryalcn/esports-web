@@ -10,10 +10,10 @@ export function HeroScrollIndicator({}: HeroScrollIndicatorProps) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2.5, duration: 0.8 }}
-      className="absolute bottom-8 left-1/2 z-30 -translate-x-1/2 transform"
+      className="absolute bottom-4 left-1/2 z-30 -translate-x-1/2 transform sm:bottom-6 lg:bottom-8"
     >
       <motion.div
-        className="group flex cursor-pointer flex-col items-center space-y-3"
+        className="group flex cursor-pointer flex-col items-center space-y-2 sm:space-y-3"
         whileHover={{ scale: 1.1 }}
         onClick={() => {
           window.scrollTo({
@@ -25,11 +25,11 @@ export function HeroScrollIndicator({}: HeroScrollIndicatorProps) {
         {/* Modern Scroll Indicator */}
         <div className="relative">
           {/* Outer Ring */}
-          <div className="relative flex h-12 w-8 justify-center overflow-hidden rounded-full border-2 border-red-500/50 bg-black/20 backdrop-blur-sm transition-colors duration-300 group-hover:border-red-400">
+          <div className="relative flex h-10 w-6 justify-center overflow-hidden rounded-full border-2 border-red-500/50 bg-black/20 backdrop-blur-sm transition-colors duration-300 group-hover:border-red-400 sm:h-12 sm:w-8">
             {/* Inner Dot */}
             <motion.div
-              className="mt-2 h-4 w-1.5 rounded-full bg-gradient-to-b from-red-400 to-red-600"
-              animate={{ y: [0, 12, 0] }}
+              className="mt-1.5 h-3 w-1 rounded-full bg-gradient-to-b from-red-400 to-red-600 sm:mt-2 sm:h-4 sm:w-1.5"
+              animate={{ y: [0, 10, 0] }}
               transition={{
                 duration: 2,
                 repeat: Infinity,
@@ -48,7 +48,7 @@ export function HeroScrollIndicator({}: HeroScrollIndicatorProps) {
           initial={{ scale: 0 }}
           whileHover={{ scale: 1 }}
         >
-          <MousePointer2 className="h-5 w-5 text-red-400" />
+          <MousePointer2 className="h-4 w-4 text-red-400 sm:h-5 sm:w-5" />
         </motion.div>
 
         {/* Text Hint */}

@@ -1013,7 +1013,7 @@ export default defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
   token: process.env.TINA_TOKEN,
 
-  url: 'https://tina.io',
+  url: process.env.NEXT_PUBLIC_TINA_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://tina.io'),
   build: {
     outputFolder: 'admin',
     publicFolder: 'public',

@@ -32,7 +32,7 @@ export default async function LocaleLayout({
       <div lang={locale}>
         <ScrollProgress />
         <Header navigation={navigationData.data.navigation} />
-        <main className="pt-16">{children}</main>
+        <main className="pt-16 lg:pt-20">{children}</main>
         <Footer
           navigation={navigationData.data.navigation}
           settings={settingsData.data.settings}
@@ -45,7 +45,7 @@ export default async function LocaleLayout({
       <div lang={locale}>
         <ScrollProgress />
         <Header />
-        <main className="pt-16">{children}</main>
+        <main className="pt-16 lg:pt-20">{children}</main>
         <Footer />
       </div>
     );

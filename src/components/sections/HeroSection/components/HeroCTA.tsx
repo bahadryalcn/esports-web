@@ -11,7 +11,7 @@ export function HeroCTA({ buttonText, buttonLink }: HeroCTAProps) {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1, ease: 'easeOut' }}
-      className="flex flex-col items-center justify-center gap-6 sm:flex-row"
+      className="flex flex-col items-center justify-center gap-4 sm:gap-6 sm:flex-row"
     >
       {/* Primary CTA Button */}
       {buttonText && buttonLink && (
@@ -25,12 +25,12 @@ export function HeroCTA({ buttonText, buttonLink }: HeroCTAProps) {
 
           <Link
             href={buttonLink}
-            className="relative inline-flex items-center justify-center space-x-3 rounded-xl border border-red-500/20 bg-gradient-to-r from-red-600 to-red-800 px-6 py-3 text-base font-bold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:border-red-400/40 hover:from-red-700 hover:to-red-900 lg:text-lg"
+            className="relative inline-flex items-center justify-center space-x-2 sm:space-x-3 rounded-xl border border-red-500/20 bg-gradient-to-r from-red-600 to-red-800 px-4 py-3 text-sm font-bold text-white shadow-2xl backdrop-blur-sm transition-all duration-300 hover:border-red-400/40 hover:from-red-700 hover:to-red-900 sm:px-6 sm:text-base lg:text-lg"
           >
             {/* Button Icon */}
-            <Sparkles className="h-5 w-5 text-red-200 transition-colors group-hover:text-white" />
+            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-red-200 transition-colors group-hover:text-white" />
             <span className="font-semibold tracking-wide">{buttonText}</span>
-            <ArrowRight className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-300 group-hover:translate-x-1" />
 
             {/* Button Shine Effect */}
             <div className="absolute inset-0 translate-x-[-200%] -skew-x-12 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-[200%]" />
@@ -49,9 +49,9 @@ export function HeroCTA({ buttonText, buttonLink }: HeroCTAProps) {
 
         <Link
           href="/contact"
-          className="relative inline-flex items-center justify-center space-x-3 rounded-xl px-6 py-3 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:text-red-100 lg:text-lg"
+          className="relative inline-flex items-center justify-center space-x-2 sm:space-x-3 rounded-xl px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:text-red-100 sm:px-6 sm:text-base lg:text-lg"
         >
-          <Zap className="h-5 w-5 text-red-400 transition-colors group-hover:text-red-300" />
+          <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-red-400 transition-colors group-hover:text-red-300" />
           <span>İletişime Geç</span>
 
           {/* Hover gradient */}

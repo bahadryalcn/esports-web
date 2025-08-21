@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "set TINA_PUBLIC_IS_LOCAL=true && tinacms dev -c \"next dev\"",
+    "dev": "set TINA_PUBLIC_IS_LOCAL=true && set NEXT_PUBLIC_TINA_URL=http://localhost:3000 && tinacms dev -c \"next dev\"",
     "dev:next": "next dev",
     "dev:tina": "tinacms dev --datalayer.port=9001",
     "build": "tinacms build && next build",

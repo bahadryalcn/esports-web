@@ -64,7 +64,7 @@ export default function HeroSection({
   }, [slides, currentSlideData, backgroundImage, overlay]);
 
   return (
-    <section className="hero-section relative flex min-h-screen items-center justify-center overflow-hidden">
+    <section className="hero-section relative flex min-h-screen items-center justify-center overflow-hidden pt-0">
       {/* Background Container */}
       <HeroBackground
         currentSlide={currentSlide}
@@ -73,7 +73,7 @@ export default function HeroSection({
       />
 
       {/* Content Container */}
-      <div className="container relative z-20 mx-auto flex min-h-screen items-center justify-center px-4">
+      <div className="container relative z-20 mx-auto flex min-h-screen items-center justify-center px-4 pt-0">
         {/* Main Content */}
         <HeroContent currentSlide={currentSlide}>
           <HeroHeading
