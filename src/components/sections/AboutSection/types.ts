@@ -10,6 +10,7 @@ export interface AboutStat {
   value: string;
   label: string;
   subtitle?: string;
+  icon?: string;
 }
 
 export interface AboutSectionProps {

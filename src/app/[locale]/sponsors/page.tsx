@@ -19,14 +19,15 @@ interface SponsorsPageData {
   sponsors: Sponsor[];
 }
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   const client = getTinaClient();
   
   try {
-    const response = await client.queries.homepage(params.locale);
+    const response = await client.queries.homepage(locale);
     const sponsorsComponent = response.data.homepage.components.find(
       (comp: any) => comp._template === 'sponsors'
-    );
+    ) as any;
     
     const title = sponsorsComponent?.title || 'Sponsorlarımız';
     const description = sponsorsComponent?.subtitle || 'Bize güvenen ve destekleyen değerli partnerlerimiz';
@@ -48,21 +49,22 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   }
 }
 
-export default async function SponsorsPage({ params }: { params: { locale: string } }) {
+export default async function SponsorsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const client = getTinaClient();
   let sponsors: Sponsor[] = [];
   let pageTitle = 'Sponsorlarımız';
   let pageSubtitle = 'Bize güvenen ve destekleyen değerli partnerlerimız';
   
   try {
-    const response = await client.queries.homepage(params.locale);
+    const response = await client.queries.homepage(locale);
     const sponsorsComponent = response.data.homepage.components.find(
       (comp: any) => comp._template === 'sponsors'
-    );
+    ) as any;
     
     if (sponsorsComponent) {
       // Extract sponsors from TinaCMS reference field structure
-      sponsors = sponsorsComponent.selectedSponsors?.map(item => item.sponsor).filter(Boolean) || [];
+      sponsors = sponsorsComponent.selectedSponsors?.map((item: any) => item.sponsor).filter(Boolean) || [];
       pageTitle = sponsorsComponent.title || pageTitle;
       pageSubtitle = sponsorsComponent.subtitle || pageSubtitle;
     }

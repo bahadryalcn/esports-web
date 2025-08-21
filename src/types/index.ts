@@ -531,6 +531,56 @@ export interface AboutData {
     image: string;
     canonical: string;
   };
+  hero?: {
+    title: string;
+    subtitle: string;
+    description: string;
+    image: string;
+  };
+  content?: {
+    mainTitle: string;
+    mainContent: string;
+    sections: Array<{
+      title: string;
+      content: string;
+      icon: string;
+    }>;
+  };
+  stats?: {
+    title: string;
+    items: Array<{
+      number: string;
+      label: string;
+      description: string;
+    }>;
+  };
+  team?: {
+    title: string;
+    subtitle: string;
+    description: string;
+    members: Array<{
+      name: string;
+      position: string;
+      description: string;
+      image: string;
+    }>;
+  };
+  achievements?: {
+    title: string;
+    subtitle: string;
+    items: Array<{
+      year: string;
+      title: string;
+      description: string;
+      image: string;
+    }>;
+  };
+  cta?: {
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonLink: string;
+  };
   components: AboutComponent[];
 }
 

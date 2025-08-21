@@ -25,7 +25,7 @@ export default function HeroSection({
   showDots = true,
   showArrows = true,
 }: HeroSectionProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
   
   // Convert single slide props to slides array for backwards compatibility
   const heroSlides = useHeroSlides({ title, subtitle, ctaText, ctaLink, backgroundImage, overlay, slides });

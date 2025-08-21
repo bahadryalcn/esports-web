@@ -1,9 +1,5 @@
 'use client';
 
-import { TinaCMS, TinaProvider } from 'tinacms';
-import { TinaFieldProvider } from '@tinacms/form-builder';
-import { useTina } from 'tinacms/dist/react';
-
 // TinaCMS Admin Panel
 export default function AdminPage() {
   return (

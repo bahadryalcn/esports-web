@@ -7,18 +7,19 @@ import { getNewsArticle, getNews } from '@/lib/tina-client';
 import { formatDate } from '@/lib/utils';
 
 interface NewsArticlePageProps {
-  params: { locale: string; slug: string };
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 const locales = ['tr', 'en'];
 
 export async function generateMetadata({ params }: NewsArticlePageProps): Promise<Metadata> {
-  if (!locales.includes(params.locale)) {
+  const { locale, slug } = await params;
+  if (!locales.includes(locale)) {
     return {};
   }
 
   try {
-    const article = await getNewsArticle(params.slug, params.locale);
+    const article = await getNewsArticle(slug, locale);
     
     if (!article) {
       return {};
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
         title: article.title,
         description: article.excerpt,
         images: article.featuredImage ? [{ url: article.featuredImage }] : [],
-        locale: params.locale,
+        locale: locale,
         type: 'article',
         publishedTime: article.publishDate,
         authors: article.author ? [article.author] : [],
@@ -50,12 +51,13 @@ export async function generateMetadata({ params }: NewsArticlePageProps): Promis
 }
 
 export default async function NewsArticlePage({ params }: NewsArticlePageProps) {
-  if (!locales.includes(params.locale)) {
+  const { locale, slug } = await params;
+  if (!locales.includes(locale)) {
     notFound();
   }
 
   try {
-    const article = await getNewsArticle(params.slug, params.locale);
+    const article = await getNewsArticle(slug, locale);
     
     if (!article) {
       notFound();
@@ -66,11 +68,11 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
         <article className="container-custom py-16">
           {/* Back Link */}
           <Link
-            href={`/${params.locale}/news`}
+            href={`/${locale}/news`}
             className="inline-flex items-center gap-2 text-gaming-primary hover:text-gaming-primary/80 mb-8 group"
           >
             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-            {params.locale === 'tr' ? 'Haberlere Dön' : 'Back to News'}
+            {locale === 'tr' ? 'Haberlere Dön' : 'Back to News'}
           </Link>
 
           {/* Article Header */}
@@ -147,17 +149,17 @@ export default async function NewsArticlePage({ params }: NewsArticlePageProps) 
           <footer className="mt-16 pt-8 border-t border-gray-700">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div className="text-sm text-gray-400">
-                {params.locale === 'tr' 
+                {locale === 'tr' 
                   ? `Son güncelleme: ${formatDate(article.publishDate)}`
                   : `Last updated: ${formatDate(article.publishDate)}`
                 }
               </div>
               
               <Link
-                href={`/${params.locale}/news`}
+                href={`/${locale}/news`}
                 className="gaming-button"
               >
-                {params.locale === 'tr' ? 'Diğer Haberleri Gör' : 'See Other News'}
+                {locale === 'tr' ? 'Diğer Haberleri Gör' : 'See Other News'}
               </Link>
             </div>
           </footer>

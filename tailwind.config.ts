@@ -217,7 +217,7 @@ module.exports = {
   plugins: [
     require("tailwindcss-animate"),
     // Custom plugin for gaming utilities
-    function({ addUtilities, theme }) {
+    function({ addUtilities, theme }: any) {
       const newUtilities = {
         // Modern Glass Effect
         '.glass': {

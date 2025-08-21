@@ -535,7 +535,8 @@ function getFallbackAbout(): TinaResponse<AboutResponse> {
           description: 'E-spor kariyerinizi bir üst seviyeye taşımak için bizimle iletişime geçin.',
           buttonText: 'İletişime Geçin',
           buttonLink: '/iletisim'
-        }
+        },
+        components: []
       }
     }
   };

@@ -69,7 +69,7 @@ export interface HeroNavigationProps {
   showDots: boolean;
   slidesLength: number;
   currentSlide: number;
-  setCurrentSlide: (index: number) => void;
+  setCurrentSlide: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface HeroScrollIndicatorProps {}
@@ -91,5 +91,5 @@ export interface UseHeroAutoplayProps {
   autoplay: boolean;
   autoplaySpeed: number;
   slidesLength: number;
-  setCurrentSlide: (index: number) => void;
+  setCurrentSlide: React.Dispatch<React.SetStateAction<number>>;
 }

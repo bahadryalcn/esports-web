@@ -12,13 +12,14 @@ interface Service {
   link: string;
 }
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
   const client = getTinaClient();
   try {
-    const response = await client.queries.homepage(params.locale);
+    const response = await client.queries.homepage(locale);
     const servicesComponent = response.data.homepage.components.find(
       (comp: any) => comp._template === 'services'
-    );
+    ) as any;
     const title = servicesComponent?.title || 'Hizmetlerimiz';
     const description = servicesComponent?.subtitle || 'Profesyonel e-spor çözümleri ve hizmetleri';
     return {
@@ -38,7 +39,8 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   }
 }
 
-export default async function ServicesPage({ params }: { params: { locale: string } }) {
+export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const client = getTinaClient();
   let services: Service[] = [];
   let pageTitle = 'Hizmetlerimiz';
@@ -46,10 +48,10 @@ export default async function ServicesPage({ params }: { params: { locale: strin
 
   try {
     // Get services from homepage services component
-    const homepageResponse = await client.queries.homepage(params.locale);
+    const homepageResponse = await client.queries.homepage(locale);
     const servicesComponent = homepageResponse.data.homepage.components.find(
       (comp: any) => comp._template === 'services'
-    );
+    ) as any;
     if (servicesComponent) {
       pageTitle = servicesComponent.title || pageTitle;
       pageSubtitle = servicesComponent.subtitle || pageSubtitle;
@@ -107,7 +109,7 @@ export default async function ServicesPage({ params }: { params: { locale: strin
       };
       
       services = (servicesComponent.selectedServices || [])
-        .map(selected => allServices[selected.serviceId])
+        .map((selected: any) => allServices[selected.serviceId])
         .filter(Boolean);
     }
   } catch (error) {

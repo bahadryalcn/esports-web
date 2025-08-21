@@ -49,8 +49,8 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
             logo={component.logo}
             overlay={component.overlay}
             stats={component.stats}
-            values={component.values}
-            backgroundVariant={component.backgroundVariant}
+            values={component.values as any}
+            backgroundVariant={component.backgroundVariant as any}
             contentAlignment={component.contentAlignment}
             showStats={component.showStats}
             showValues={component.showValues}
@@ -121,20 +121,7 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
       case 'contact':
         return (
           <ContactSection
-            title={component.title}
-            subtitle={component.subtitle}
-            showForm={component.showForm}
-            backgroundImage={component.backgroundImage}
-            overlay={component.overlay}
-            backgroundVariant={component.backgroundVariant}
-            contentAlignment={component.contentAlignment}
-            contactInfo={component.contactInfo}
-            formTitle={component.formTitle}
-            formSubtitle={component.formSubtitle}
-            infoTitle={component.infoTitle}
-            infoSubtitle={component.infoSubtitle}
-            mapTitle={component.mapTitle}
-            showMap={component.showMap}
+            {...(component as any)}
           />
         );
 

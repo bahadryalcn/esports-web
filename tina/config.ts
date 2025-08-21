@@ -44,7 +44,7 @@ const componentTemplates = [
         label: "Hero Slides",
         list: true,
         ui: {
-          itemProps: (item) => {
+          itemProps: (item: any) => {
             return { label: item?.headline || "New Slide" };
           },
         },
@@ -89,7 +89,7 @@ const componentTemplates = [
                 name: "opacity",
                 label: "Overlay Opacity (0-1)",
                 ui: {
-                  parse: (value) => Number(value),
+                  parse: (value: any) => Number(value),
                   component: "number",
                 },
               },
@@ -148,7 +148,7 @@ const componentTemplates = [
         name: "autoplaySpeed",
         label: "Autoplay Speed (ms)",
         ui: {
-          parse: (value) => Number(value),
+          parse: (value: any) => Number(value),
         },
       },
       {
@@ -264,7 +264,7 @@ const componentTemplates = [
                 name: "opacity",
                 label: "Overlay Opacity (0-1)",
                 ui: {
-                  parse: (value) => Number(value),
+                  parse: (value: any) => Number(value),
                   component: "number",
                 },
               },
@@ -346,7 +346,7 @@ const componentTemplates = [
             name: "opacity",
             label: "Overlay Opacity",
             ui: {
-              parse: (val) => Number(val),
+              parse: (val: any) => Number(val),
               component: "number",
             },
           },
@@ -696,7 +696,7 @@ const componentTemplates = [
                 name: "opacity",
                 label: "Overlay Opacity (0-1)",
                 ui: {
-                  parse: (value) => Number(value),
+                  parse: (value: any) => Number(value),
                   component: "number",
                 },
               },
@@ -812,7 +812,7 @@ const componentTemplates = [
                 name: "opacity",
                 label: "Overlay Opacity (0-1)",
                 ui: {
-                  parse: (value) => Number(value),
+                  parse: (value: any) => Number(value),
                   component: "number",
                 },
               },
@@ -830,7 +830,7 @@ const componentTemplates = [
           name: "autoScrollSpeed",
           label: "Auto Scroll Speed (ms)",
           ui: {
-            parse: (value) => Number(value),
+            parse: (value: any) => Number(value),
           },
         },
         {
@@ -898,7 +898,7 @@ const componentTemplates = [
             name: "opacity",
             label: "Overlay Opacity",
             ui: {
-              parse: (val) => Number(val),
+              parse: (val: any) => Number(val),
               component: "number",
             },
           },
@@ -999,6 +999,7 @@ export default defineConfig({
   branch,
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
   token: process.env.TINA_TOKEN,
+  url: "https://tina.io",
   build: {
     outputFolder: "admin",
     publicFolder: "public",
@@ -1007,11 +1008,7 @@ export default defineConfig({
     loadCustomStore: async () => {
       const pack = await import("next-tinacms-cloudinary");
       return pack.TinaCloudCloudinaryMediaStore;
- },
-    // tina: {
-    //   mediaRoot: "uploads",
-    //   publicFolder: "public",
-    // },
+    },
   },
 
   schema: {
@@ -1060,7 +1057,7 @@ export default defineConfig({
             label: "Sponsor Category",
             ui: {
               component: "select",
-              options: [
+              list: [
                 { label: "Technology", value: "technology" },
                 { label: "Gaming", value: "gaming" },
                 { label: "Sports", value: "sports" },
@@ -1145,7 +1142,7 @@ export default defineConfig({
             label: "Features",
             list: true,
             ui: {
-              itemProps: (item) => {
+              itemProps: (item: any) => {
                 return { label: item || "New Feature" };
               },
             },
