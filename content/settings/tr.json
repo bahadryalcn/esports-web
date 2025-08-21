@@ -2,9 +2,9 @@
   "siteName": "AIM Agency",
   "siteDescription": "Profesyonel E-spor Takım Yönetimi ve Danışmanlığı",
   "logo": {
-    "main": "/uploads/ChatGPT Image Aug 21, 2025, 11_57_11 AM.png",
-    "footer": "/uploads/ChatGPT Image Aug 21, 2025, 11_57_11 AM.png",
-    "favicon": "/uploads/ChatGPT Image Aug 21, 2025, 11_57_11 AM.png"
+    "main": "/uploads/logo.png",
+    "footer": "/uploads/logo.png",
+    "favicon": "/uploads/logo.png"
   },
   "colors": {
     "primary": "#00ff88",
@@ -15,11 +15,7 @@
     "instagram": "https://instagram.com/aimagency",
     "youtube": "https://youtube.com/@aimagency",
     "discord": "https://discord.gg/aimagency",
-    "twitch": "https://twitch.tv/aimagency",
-    "facebook": "https://facebook.com/aimagency",
-    "linkedin": "https://linkedin.com/company/aimagency",
-    "tiktok": "https://tiktok.com/@aimagency",
-    "kick": "https://kick.com/aimagency"
+    "twitch": "https://twitch.tv/aimagency"
   },
   "contact": {
     "email": "info@aimagency.com",

@@ -93,4 +93,3 @@ public/uploads/*
 # Sentry
 .sentryclirc
 node_modules
-.env

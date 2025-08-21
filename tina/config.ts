@@ -1229,16 +1229,28 @@ export default defineConfig({
             name: 'siteDescription',
             label: 'Site Description',
           },
-          {
-            type: 'image',
-            name: 'logo',
-            label: 'Main Logo',
-          },
-          {
-            type: 'image',
-            name: 'favicon',
-            label: 'Favicon',
-          },
+                     {
+             type: 'object',
+             name: 'logo',
+             label: 'Logo Images',
+             fields: [
+               {
+                 type: 'image',
+                 name: 'main',
+                 label: 'Main Logo',
+               },
+               {
+                 type: 'image',
+                 name: 'footer',
+                 label: 'Footer Logo',
+               },
+               {
+                 type: 'image',
+                 name: 'favicon',
+                 label: 'Favicon',
+               },
+             ],
+           },
           {
             type: 'object',
             name: 'colors',
