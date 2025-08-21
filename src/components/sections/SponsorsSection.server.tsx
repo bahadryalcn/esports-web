@@ -85,10 +85,10 @@ export default async function SponsorsSection({
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gaming-darker via-gaming-dark to-gaming-darker" />
         
-        {/* Floating Elements */}
+        {/* Floating Elements - Optimized for performance */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-red-500/5 to-red-700/3 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tl from-red-600/4 to-red-400/2 rounded-full blur-2xl animate-pulse" />
+          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-red-500/5 to-red-700/3 rounded-full blur-lg animate-pulse" />
+          <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tl from-red-600/4 to-red-400/2 rounded-full blur-md animate-pulse" />
         </div>
 
         <div className="container-gaming relative z-20 text-center">
@@ -144,10 +144,10 @@ export default async function SponsorsSection({
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gaming-darker via-gaming-dark to-gaming-darker" />
         
-        {/* Floating Elements */}
+        {/* Floating Elements - Optimized for performance */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-red-500/5 to-red-700/3 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tl from-red-600/4 to-red-400/2 rounded-full blur-2xl animate-pulse" />
+          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-red-500/5 to-red-700/3 rounded-full blur-lg animate-pulse" />
+          <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tl from-red-600/4 to-red-400/2 rounded-full blur-md animate-pulse" />
         </div>
 
         <div className="container-gaming relative z-20 text-center">

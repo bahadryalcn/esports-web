@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink, Award, Handshake } from 'lucide-react';
 import Link from 'next/link';
 import { Sponsor } from '@/types';
@@ -40,9 +40,15 @@ export default function SponsorsClient({
   const [imageLoaded, setImageLoaded] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const shouldAutoScroll = showAutoScroll && sponsors.length > 6;
-  const maxIndex = Math.max(0, sponsors.length - 6);
-  const finalBackgroundImage = background?.image || null;
+  // Memoize expensive calculations
+  const shouldAutoScroll = useMemo(() => showAutoScroll && sponsors.length > 6, [showAutoScroll, sponsors.length]);
+  const maxIndex = useMemo(() => Math.max(0, sponsors.length - 6), [sponsors.length]);
+  const finalBackgroundImage = useMemo(() => background?.image || null, [background?.image]);
+
+  // Memoize background style to prevent unnecessary re-renders
+  const backgroundStyle = useMemo(() => ({
+    backgroundImage: finalBackgroundImage ? `url("${finalBackgroundImage}")` : 'none'
+  }), [finalBackgroundImage]);
 
   // Handle background image loading
   useEffect(() => {
@@ -54,45 +60,45 @@ export default function SponsorsClient({
     setImageLoaded(false);
     const img = new Image();
     img.onload = () => {
-      console.log('✅ Sponsors background loaded:', finalBackgroundImage);
       setImageLoaded(true);
     };
     img.onerror = () => {
-      console.error('❌ Sponsors background failed:', finalBackgroundImage);
       setImageLoaded(false);
     };
     img.src = finalBackgroundImage;
   }, [finalBackgroundImage]);
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality - Optimized with useCallback
+  const autoScroll = useCallback(() => {
+    if (!shouldAutoScroll || !isAutoScrolling || sponsors.length <= 6) return;
+    setCurrentIndex((prev) => (prev + 1) % (maxIndex + 1));
+  }, [shouldAutoScroll, isAutoScrolling, maxIndex, sponsors.length]);
+
   useEffect(() => {
     if (!shouldAutoScroll || !isAutoScrolling || sponsors.length <= 6) return;
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % (maxIndex + 1));
-    }, autoScrollSpeed);
-
+    const interval = setInterval(autoScroll, autoScrollSpeed);
     return () => clearInterval(interval);
-  }, [shouldAutoScroll, isAutoScrolling, maxIndex, autoScrollSpeed, sponsors.length]);
+  }, [shouldAutoScroll, isAutoScrolling, autoScrollSpeed, autoScroll]);
 
-  // Navigation functions
-  const nextSlide = () => {
+  // Navigation functions - Optimized with useCallback
+  const nextSlide = useCallback(() => {
     if (sponsors.length <= 6) return;
     setCurrentIndex((prev) => (prev + 1) % (maxIndex + 1));
     setIsAutoScrolling(false);
-  };
+  }, [sponsors.length, maxIndex]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     if (sponsors.length <= 6) return;
     setCurrentIndex((prev) => (prev - 1 + maxIndex + 1) % (maxIndex + 1));
     setIsAutoScrolling(false);
-  };
+  }, [maxIndex]);
 
-  const goToSlide = (index: number) => {
+  const goToSlide = useCallback((index: number) => {
     if (sponsors.length <= 6) return;
     setCurrentIndex(index);
     setIsAutoScrolling(false);
-  };
+  }, [sponsors.length]);
 
   // Resume auto-scroll after manual interaction
   useEffect(() => {
@@ -103,22 +109,37 @@ export default function SponsorsClient({
   }, [isAutoScrolling, shouldAutoScroll]);
 
   // Check if overlay should be shown
-  const shouldShowOverlay = background?.overlay && background.overlay.opacity !== undefined && background.overlay.opacity > 0;
+  const shouldShowOverlay = useMemo(() => 
+    background?.overlay && background.overlay.opacity !== undefined && background.overlay.opacity > 0,
+    [background?.overlay]
+  );
+
+  // Memoize grid style to prevent unnecessary recalculations
+  const gridStyle = useMemo(() => ({
+    gridTemplateColumns: sponsors.length <= 6 
+      ? `repeat(${Math.min(sponsors.length, 6)}, minmax(0, 1fr))`
+      : `repeat(${sponsors.length}, minmax(0, 1fr))`,
+    width: sponsors.length <= 6 ? '100%' : 'max-content'
+  }), [sponsors.length]);
+
+  // Memoize transform value for better performance
+  const transformValue = useMemo(() => 
+    shouldAutoScroll && sponsors.length > 6 ? `-${currentIndex * (100 / 6)}%` : 0,
+    [shouldAutoScroll, sponsors.length, currentIndex]
+  );
 
   return (
     <section className="relative overflow-hidden section-padding">
       {/* Modern Background Layer */}
       <div className="absolute inset-0">
-        {/* Background Image */}
+        {/* Background Image - bg-attachment-fixed kaldırıldı */}
         {finalBackgroundImage && (
           <motion.div 
-            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat bg-attachment-fixed"
-            style={{
-              backgroundImage: `url("${finalBackgroundImage}")`
-            }}
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={backgroundStyle}
             initial={{ opacity: 0 }}
             animate={{ opacity: imageLoaded ? 1 : 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           />
         )}
         
@@ -130,12 +151,12 @@ export default function SponsorsClient({
           <motion.div 
             className="absolute inset-0 z-10"
             style={{
-              backgroundColor: background.overlay.color || '#000000',
-              opacity: Math.min(background.overlay.opacity || 0.3, 0.4), // Maximum 0.4 opacity
+              backgroundColor: background!.overlay!.color || '#000000',
+              opacity: Math.min(background!.overlay!.opacity || 0.3, 0.4), // Maximum 0.4 opacity
             }}
             initial={{ opacity: 0 }}
-            animate={{ opacity: Math.min(background.overlay.opacity || 0.3, 0.4) }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            animate={{ opacity: Math.min(background!.overlay!.opacity || 0.3, 0.4) }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           />
         )}
         
@@ -144,22 +165,21 @@ export default function SponsorsClient({
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/15 z-10" />
         )}
 
-        {/* Modern Animated Elements */}
+        {/* Modern Animated Elements - Optimized */}
         <motion.div
           className="absolute inset-0 z-5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 0.5 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
         >
-          {/* Floating orbs */}
-          <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-red-500/8 to-red-700/4 rounded-full blur-3xl animate-pulse" 
+          {/* Floating orbs - Reduced blur for better performance */}
+          <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-red-500/8 to-red-700/4 rounded-full blur-lg animate-pulse" 
                style={{ animationDuration: '5s' }} />
-          <div className="absolute bottom-40 left-20 w-64 h-64 bg-gradient-to-tl from-red-600/6 to-red-400/3 rounded-full blur-2xl animate-pulse" 
+          <div className="absolute bottom-40 left-20 w-64 h-64 bg-gradient-to-tl from-red-600/6 to-red-400/3 rounded-full blur-md animate-pulse" 
                style={{ animationDuration: '7s', animationDelay: '1s' }} />
           
-          {/* Geometric elements */}
+          {/* Geometric elements - Reduced count */}
           <div className="absolute top-32 left-32 w-24 h-24 border border-red-500/15 rounded-full glass-effect" />
-          <div className="absolute bottom-32 right-32 w-16 h-16 border border-red-400/20 rounded-full glass-red" />
         </motion.div>
       </div>
 
@@ -168,14 +188,14 @@ export default function SponsorsClient({
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
           className="text-center mb-12 lg:mb-16"
         >
           {/* Title */}
           <motion.h2
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
            className="text-responsive-3xl font-gaming font-black text-white mb-4 lg:mb-6"
           >
             <span className="text-gaming-gradient">{title}</span>
@@ -186,7 +206,7 @@ export default function SponsorsClient({
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+              transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
               className="text-responsive-lg text-gray-200 max-w-4xl mx-auto leading-relaxed px-4 gaming-text-shadow"
             >
               {subtitle}
@@ -198,7 +218,7 @@ export default function SponsorsClient({
             className="mx-auto mt-6 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full"
             initial={{ width: 0, opacity: 0 }}
             animate={{ width: "120px", opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
           />
         </motion.div>
 
@@ -206,7 +226,7 @@ export default function SponsorsClient({
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.6, delay: 0.8, ease: 'easeOut' }}
           className="relative mb-12 lg:mb-16"
         >
           {/* Navigation Arrows */}
@@ -219,7 +239,7 @@ export default function SponsorsClient({
                 whileTap={{ scale: 0.9 }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2 }}
+                transition={{ delay: 1.0 }}
               >
                 <ChevronLeft className="w-5 h-5 text-white group-hover:text-red-400 transition-colors" />
               </motion.button>
@@ -231,7 +251,7 @@ export default function SponsorsClient({
                 whileTap={{ scale: 0.9 }}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2 }}
+                transition={{ delay: 1.0 }}
               >
                 <ChevronRight className="w-5 h-5 text-white group-hover:text-red-400 transition-colors" />
               </motion.button>
@@ -243,29 +263,23 @@ export default function SponsorsClient({
             <motion.div
               ref={scrollContainerRef}
               animate={{
-                x: shouldAutoScroll && sponsors.length > 6 ? `-${currentIndex * (100 / 6)}%` : 0,
+                x: transformValue,
               }}
               transition={{
                 type: 'spring',
-                stiffness: 300,
-                damping: 30,
-                duration: 0.5,
+                stiffness: 200, // Reduced for better performance
+                damping: 25, // Reduced for better performance
+                duration: 0.4, // Reduced for better performance
               }}
               className="grid gap-4 lg:gap-6"
-              style={{
-                gridTemplateColumns: sponsors.length <= 6 
-                  ? `repeat(${Math.min(sponsors.length, 6)}, minmax(0, 1fr))`
-                  : `repeat(${sponsors.length}, minmax(0, 1fr))`,
-                width: sponsors.length <= 6 ? '100%' : 'max-content'
-              }}
+              style={gridStyle}
             >
               {sponsors.map((sponsor: Sponsor, index: number) => (
                 <motion.div
                   key={sponsor.id || sponsor._sys?.filename || sponsor.name || index}
                   initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }} // Reduced delay for better performance
                   className="group w-full max-w-[200px]"
                 >
                   <a
@@ -312,7 +326,7 @@ export default function SponsorsClient({
               className="flex justify-center mt-8 gap-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.4 }}
+              transition={{ delay: 1.2 }}
             >
               <div className="flex items-center gap-2 px-4 py-2 glass-dark rounded-full border border-red-500/20">
                 {Array.from({ length: maxIndex + 1 }).map((_, index) => (
@@ -329,7 +343,7 @@ export default function SponsorsClient({
                       <motion.div
                         className="absolute inset-0 bg-red-500 rounded-full blur-sm opacity-50"
                         layoutId="activeSponsorDot"
-                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
                       />
                     )}
                   </motion.button>
@@ -342,9 +356,8 @@ export default function SponsorsClient({
         {/* Partnership CTA */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
           className="max-w-4xl mx-auto"
         >
           <div className="glass-dark rounded-3xl p-6 lg:p-8 border border-red-500/20 hover:border-red-400/30 transition-all duration-300">
@@ -404,8 +417,8 @@ export default function SponsorsClient({
             <motion.div
               className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-red-500/20"
               initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
             >
               <div className="text-center">
                 <div className="text-2xl lg:text-3xl font-black text-red-400 mb-1">
