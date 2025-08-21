@@ -12,7 +12,14 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/**',
+      },
     ],
+    unoptimized: process.env.NODE_ENV === 'production',
   },
   typescript: {
     // !! WARN !!

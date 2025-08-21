@@ -1026,7 +1026,7 @@ export default defineConfig({
   // },
   media: {
     tina: {
-      mediaRoot: "uploads",
+      mediaRoot: process.env.NODE_ENV === 'production' ? "public/uploads" : "uploads",
       publicFolder: "public",
     },
   },
