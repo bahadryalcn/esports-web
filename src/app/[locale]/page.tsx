@@ -62,7 +62,7 @@ export default async function LocaleHomePage({ params }: HomePageProps) {
     const pageData = homepageData.data.homepage;
 
     return (
-      <div className="-mt-16 min-h-screen">
+      <div className="min-h-screen">
         <DynamicPage pageData={pageData} />
       </div>
     );
@@ -70,7 +70,7 @@ export default async function LocaleHomePage({ params }: HomePageProps) {
     console.error('Error rendering homepage:', error);
 
     return (
-      <div className="-mt-16 flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="space-y-4 text-center">
           <h1 className="text-4xl font-bold text-white">AIM Agency</h1>
           <p className="text-xl text-gray-300">

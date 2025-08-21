@@ -81,7 +81,7 @@ export default function Header({ navigation }: HeaderProps) {
       <div className="absolute inset-0 bg-gradient-to-r from-red-500/0 via-red-500/20 to-red-500/0 opacity-30 blur-sm" />
 
       <div className="container relative mx-auto px-4">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-16 lg:h-20 items-center justify-between">
           {/* Enhanced Logo */}
           <Link href="/" className="group relative flex items-center space-x-4">
             <motion.div
@@ -91,17 +91,17 @@ export default function Header({ navigation }: HeaderProps) {
               transition={{ type: 'spring', stiffness: 400 }}
             >
               {/* Main Icon Container */}
-              <div className="relative z-10 rounded-2xl border border-red-500/50 bg-gradient-to-br from-red-500/30 to-red-700/40 p-4 shadow-lg shadow-red-500/20 backdrop-blur-sm">
+              <div className="relative z-10 rounded-2xl border border-red-500/50 bg-gradient-to-br from-red-500/30 to-red-700/40 p-3 lg:p-4 shadow-lg shadow-red-500/20 backdrop-blur-sm">
                 {siteSettings?.logo?.main ? (
                   <Image
                     src={siteSettings.logo.main}
                     alt={siteSettings.siteName || 'AIM AGENCY'}
                     width={82}
                     height={82}
-                    className="h-8 w-8 object-cover"
+                    className="h-6 w-6 lg:h-8 lg:w-8 object-cover"
                   />
                 ) : (
-                  <Gamepad2 className="h-8 w-8 text-red-300 transition-all duration-300 group-hover:text-red-200" />
+                  <Gamepad2 className="h-6 w-6 lg:h-8 lg:w-8 text-red-300 transition-all duration-300 group-hover:text-red-200" />
                 )}
 
                 {/* Animated Sparkles */}
@@ -110,7 +110,7 @@ export default function Header({ navigation }: HeaderProps) {
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                 >
-                  <Sparkles className="h-4 w-4 text-yellow-400" />
+                  <Sparkles className="h-3 w-3 lg:h-4 lg:w-4 text-yellow-400" />
                 </motion.div>
               </div>
 
@@ -135,7 +135,7 @@ export default function Header({ navigation }: HeaderProps) {
             {/* Logo Text */}
             <div className="relative">
               <motion.span
-                className="bg-gradient-to-r from-red-400 via-red-300 to-red-500 bg-clip-text font-gaming text-2xl font-bold text-transparent"
+                className="bg-gradient-to-r from-red-400 via-red-300 to-red-500 bg-clip-text font-gaming text-xl lg:text-2xl font-bold text-transparent"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
@@ -155,7 +155,7 @@ export default function Header({ navigation }: HeaderProps) {
           {/* Enhanced Mobile Menu Button */}
           <motion.button
             onClick={toggleMobileMenu}
-            className="group relative rounded-2xl p-3 text-red-400 transition-all duration-300 hover:text-red-300 lg:hidden"
+            className="group relative rounded-2xl p-2 lg:p-3 text-red-400 transition-all duration-300 hover:text-red-300 lg:hidden"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Mobil menüyü aç/kapat"
@@ -177,7 +177,7 @@ export default function Header({ navigation }: HeaderProps) {
                     exit={{ rotate: 90, opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                   >
-                    <X className="h-6 w-6" />
+                    <X className="h-5 w-5 lg:h-6 lg:w-6" />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -187,7 +187,7 @@ export default function Header({ navigation }: HeaderProps) {
                     exit={{ rotate: -90, opacity: 0 }}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                   >
-                    <Menu className="h-6 w-6" />
+                    <Menu className="h-5 w-5 lg:h-6 lg:w-6" />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -208,7 +208,7 @@ export default function Header({ navigation }: HeaderProps) {
               {/* Mobile Menu Background Pattern */}
               <div className="absolute inset-0 bg-gradient-to-b from-red-950/30 via-transparent to-transparent" />
 
-              <div className="relative py-6">
+              <div className="relative py-4 lg:py-6">
                 <Navigation
                   navigation={navigation}
                   mobile
