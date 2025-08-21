@@ -1,8 +1,8 @@
 import { defineConfig } from 'tinacms';
 
-// Your hosting provider likely exposes this as an environment variable
+// Vercel deployment branch configuration
 const branch =
-  process.env.GITHUB_BRANCH ||
+  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF ||
   process.env.VERCEL_GIT_COMMIT_REF ||
   process.env.HEAD ||
   'master';
