@@ -15,8 +15,7 @@
     "lint:fix": "next lint --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "type-check": "tsc --noEmit",
-    "prepare": "husky"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
@@ -83,7 +82,6 @@
     "eslint-plugin-security": "^3.0.1",
     "eslint-plugin-unused-imports": "4.1.4",
     "frontmatter-markdown-loader": "^3.7.0",
-    "husky": "^9.0.0",
     "lint-staged": "^15.2.0",
     "postcss": "^8.4.31",
     "prettier": "3.5.3",
