@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
+  basePath: '',
   images: {
     domains: ['res.cloudinary.com', 'cloudinary.com'],
     formats: ['image/avif', 'image/webp'],

@@ -6,7 +6,8 @@ yarn-error.log*
 pnpm-debug.log*
 .cursor
 
-
+.e2nv
+.e2nv.local
 # Next.js
 .next/
 out/
