@@ -191,13 +191,13 @@
       "subtitle": "E-spor dünyasındaki en güncel gelişmeler ve takım haberlerimiz",
       "selectedNews": [
         {
-          "news": "content/news/championship-victory.tr.mdx"
+          "news": "content/news/championship-victory-tr.mdx"
         },
         {
-          "news": "content/news/championship-victory.en.mdx"
+          "news": "content/news/championship-victory-tr.mdx"
         },
         {
-          "news": "content/news/championship-victory.en.mdx"
+          "news": "content/news/championship-victory-tr.mdx"
         }
       ],
       "showFeaturedOnly": false,

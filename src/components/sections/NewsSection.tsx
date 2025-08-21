@@ -20,6 +20,8 @@ import {
   Share2,
   BookOpen,
   TrendingUp,
+  Sparkles,
+  CheckCircle,
 } from 'lucide-react';
 
 // Types
@@ -160,12 +162,13 @@ const NewsCard: React.FC<{
   return (
     <motion.article
       initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       transition={{
         duration: 0.6,
         delay: index * 0.1,
         ease: 'easeOut',
       }}
+      viewport={{ once: true }}
       whileHover={{
         scale: 1.02,
         y: -5,
@@ -173,9 +176,9 @@ const NewsCard: React.FC<{
       }}
       className="group"
     >
-      <div className="overflow-hidden rounded-2xl border border-red-500/30 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-red-500/50 hover:bg-black/60 hover:shadow-xl hover:shadow-red-500/20">
+      <div className="hover-lift h-full rounded-3xl border border-red-500/20 bg-black/40 backdrop-blur-md transition-all duration-300 hover:border-red-400/40 hover:bg-black/60 hover:shadow-xl hover:shadow-red-500/20 group-hover:glass-dark">
         {/* Featured Image */}
-        <div className="relative aspect-[16/9] overflow-hidden">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-t-3xl">
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-red-500/20 to-red-700/30">
             <span className="text-6xl text-red-400/50">📰</span>
           </div>
@@ -210,7 +213,7 @@ const NewsCard: React.FC<{
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-6 lg:p-8">
           {/* Meta Info */}
           <div className="mb-3 flex items-center gap-4 text-xs text-gray-400">
             <div className="flex items-center gap-1">
@@ -224,25 +227,30 @@ const NewsCard: React.FC<{
           </div>
 
           {/* Title */}
-          <h3 className="mb-3 line-clamp-2 font-gaming text-xl font-bold text-white transition-colors group-hover:text-red-200">
+          <h3 className="mb-3 line-clamp-2 font-gaming text-xl font-bold text-white transition-colors group-hover:text-red-200 lg:text-2xl">
             {article.title}
           </h3>
 
           {/* Excerpt */}
-          <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-gray-300">
+          <p className="mb-6 line-clamp-3 text-sm leading-relaxed text-gray-300 transition-colors duration-300 group-hover:text-gray-200 lg:text-base">
             {article.excerpt}
           </p>
 
           {/* Actions */}
           <div className="flex items-center justify-between">
             {showReadMore && (
-              <Link
-                href={`/news/${article.slug}`}
-                className="inline-flex items-center gap-2 text-sm font-medium text-red-400 transition-colors hover:text-red-300 group-hover:text-red-200"
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span>Devamını Oku</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+                <Link
+                  href={`/news/${article.slug}`}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-red-400 transition-all duration-300 hover:text-red-300 group-hover:gap-3 group-hover:text-red-200"
+                >
+                  <span>Devamını Oku</span>
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </motion.div>
             )}
 
             <div className="flex items-center gap-3 text-gray-400">
@@ -257,6 +265,9 @@ const NewsCard: React.FC<{
             </div>
           </div>
         </div>
+
+        {/* Card Background Glow */}
+        <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
     </motion.article>
   );
@@ -335,90 +346,128 @@ export default function NewsSection({
   };
 
   return (
-    <section className="relative py-16 lg:py-24 overflow-hidden" ref={parallaxRef}>
-      {/* Multi-layer parallax for background elements */}
+    <section className="section-padding relative overflow-hidden" ref={parallaxRef}>
+      {/* Modern Background Layer */}
       <div className="absolute inset-0">
-        {/* Fallback Gradient Background */}
-        {!background?.image && (
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-red-950 to-red-900" />
-        )}
-
-        {/* Background Image with Parallax */}
+        {/* Background Image */}
         {background?.image && (
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform-gpu"
+          <motion.div
+            className="bg-attachment-fixed absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `url(${background.image})`,
-              backgroundSize: 'cover',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              transform: `translate3d(0, ${offsets[0] * 2}px, 0)` // 2x daha belirgin
+              backgroundImage: `url("${background.image}")`,
             }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
           />
         )}
 
-        {/* Background Overlay */}
-        {background?.overlay && (
-          <div className="absolute inset-0 z-10" style={overlayStyle} />
+        {/* Fallback Gradient - çok hafif */}
+        {!background?.image && (
+          <div className="absolute inset-0 bg-gradient-to-br from-gaming-darker/25 via-gaming-dark/15 to-gaming-darker/25" />
         )}
 
-        {/* Subtle Background Pattern with Parallax */}
-        <div 
-          className="absolute inset-0 opacity-10 transform-gpu"
-          style={{
-            zIndex: 5,
-            transform: `translate3d(0, ${offsets[1] || 0}px, 0)`
-          }}
-        >
-          <div className="absolute inset-0 bg-[url('/assets/hero-pattern.svg')] bg-repeat" />
-        </div>
+        {/* Custom Overlay */}
+        {background?.overlay && (
+          <motion.div
+            className="absolute inset-0 z-10"
+            style={{
+              backgroundColor: background?.overlay?.color || '#000000',
+              opacity: Math.min(background?.overlay?.opacity || 0.3, 0.4), // Maximum 0.4 opacity
+            }}
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: Math.min(background?.overlay?.opacity || 0.3, 0.4),
+            }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          />
+        )}
 
-        {/* Floating Elements with Parallax */}
-        <div 
-          className="absolute inset-0 transform-gpu"
-          style={{
-            transform: `translate3d(0, ${offsets[2] || 0}px, 0)`
-          }}
+        {/* Default Overlay - çok hafif */}
+        {!background?.overlay && (
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/25 via-transparent to-black/15" />
+        )}
+
+        {/* Modern Animated Elements */}
+        <motion.div
+          className="z-5 absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, delay: 0.5 }}
         >
-          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-red-500/5 to-red-700/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tl from-red-700/5 to-red-500/5 rounded-full blur-2xl" />
-          <div className="absolute top-1/2 left-1/4 w-32 h-32 border border-red-500/10 rounded-full opacity-20" />
-          <div className="absolute bottom-1/3 right-1/3 w-24 h-24 border border-red-400/10 rounded-full opacity-15" />
-        </div>
+          {/* Gaming themed floating elements */}
+          <div
+            className="from-red-500/8 to-red-700/4 absolute right-20 top-20 h-96 w-96 animate-pulse rounded-full bg-gradient-to-br blur-3xl"
+            style={{ animationDuration: '6s' }}
+          />
+          <div
+            className="from-red-600/6 to-red-400/3 absolute bottom-40 left-20 h-80 w-80 animate-pulse rounded-full bg-gradient-to-tl blur-2xl"
+            style={{ animationDuration: '8s', animationDelay: '1s' }}
+          />
+          <div
+            className="absolute left-1/3 top-1/3 h-64 w-64 animate-pulse rounded-full bg-gradient-to-br from-red-500/5 to-transparent blur-xl"
+            style={{ animationDuration: '10s', animationDelay: '2s' }}
+          />
+
+          {/* Geometric gaming elements */}
+          <div className="glass-effect absolute left-32 top-32 h-32 w-32 rounded-full border border-red-500/20" />
+          <div className="absolute bottom-32 right-32 h-24 w-24 rounded-full border border-red-400/15 glass-red" />
+          <div className="absolute right-1/4 top-2/3 h-20 w-20 rounded-full border border-red-600/25 glass-dark" />
+        </motion.div>
       </div>
 
-      <div className="container relative z-20 mx-auto px-4" ref={contentRef}>
-        {/* Section Header with Parallax */}
+      <div className="container-gaming relative z-20" ref={contentRef}>
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="mb-16 text-center transform-gpu"
-          style={{
-            transform: `translate3d(0, ${contentOffset.y * 0.3}px, 0)`
-          }}
+          className="mb-12 text-center lg:mb-16"
         >
+          {/* Gaming Badge */}
+          <motion.div
+            className="mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 glass-red"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <Sparkles className="h-4 w-4 text-red-400" />
+            <span className="text-sm font-medium text-red-300">
+              Latest Gaming News
+            </span>
+            <Sparkles className="h-4 w-4 text-red-400" />
+          </motion.div>
+
+          {/* Title */}
           <motion.h2
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-            className="mb-6 font-gaming text-5xl font-bold leading-tight text-white md:text-7xl lg:text-8xl"
+            className="text-responsive-3xl mb-4 font-gaming font-black text-white lg:mb-6"
           >
-            {title}
+            <span className="text-gaming-gradient">{title}</span>
           </motion.h2>
-          {subtitle && (
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
-              className="mx-auto max-w-4xl font-display text-xl leading-relaxed text-gray-200 md:text-2xl lg:text-3xl"
-            >
-              {subtitle}
-            </motion.p>
-          )}
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+            className="text-responsive-lg gaming-text-shadow mx-auto max-w-4xl px-4 leading-relaxed text-gray-200"
+          >
+            {subtitle}
+          </motion.p>
+
+          {/* Decorative line */}
+          <motion.div
+            className="mx-auto mt-6 h-1 rounded-full bg-gradient-to-r from-transparent via-red-500 to-transparent"
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: '150px', opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          />
         </motion.div>
 
-        {/* News Grid with Parallax */}
+        {/* News Grid */}
         {loading ? (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -426,7 +475,7 @@ export default function NewsSection({
             transition={{ duration: 0.8, delay: 0.8 }}
             className="py-16 text-center"
           >
-            <div className="mx-auto max-w-md rounded-2xl border border-red-500/30 bg-black/40 p-8 backdrop-blur-md">
+            <div className="mx-auto max-w-md rounded-3xl border border-red-500/30 bg-black/40 p-8 backdrop-blur-md glass-dark">
               <div className="mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-red-500 border-t-transparent" />
               <p className="font-display text-lg text-gray-300">
                 Loading news...
@@ -440,7 +489,7 @@ export default function NewsSection({
             transition={{ duration: 0.8, delay: 0.8 }}
             className="py-16 text-center"
           >
-            <div className="mx-auto max-w-md rounded-2xl border border-red-500/30 bg-black/40 p-8 backdrop-blur-md">
+            <div className="mx-auto max-w-md rounded-3xl border border-red-500/30 bg-black/40 p-8 backdrop-blur-md glass-dark">
               <BookOpen className="mx-auto mb-4 h-16 w-16 text-red-400" />
               <p className="mb-2 font-display text-lg text-gray-300">
                 Error loading news
@@ -453,7 +502,7 @@ export default function NewsSection({
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
-            className={`mb-16 grid gap-8 ${getGridCols()}`}
+            className={`mb-12 grid gap-6 lg:mb-16 lg:gap-8 ${getGridCols()}`}
           >
             {newsToShow.map((article, index) => (
               <NewsCard
@@ -473,7 +522,7 @@ export default function NewsSection({
             transition={{ duration: 0.8, delay: 0.8 }}
             className="py-16 text-center"
           >
-            <div className="mx-auto max-w-md rounded-2xl border border-red-500/30 bg-black/40 p-8 backdrop-blur-md">
+            <div className="mx-auto max-w-md rounded-3xl border border-red-500/30 bg-black/40 p-8 backdrop-blur-md glass-dark">
               <BookOpen className="mx-auto mb-4 h-16 w-16 text-red-400" />
               <p className="font-display text-lg text-gray-300">
                 No news articles to display yet.
@@ -482,30 +531,98 @@ export default function NewsSection({
           </motion.div>
         )}
 
-        {/* View All Button with Parallax */}
+        {/* View All Button */}
         {showViewAllButton && newsToShow.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0, ease: 'easeOut' }}
-            className="text-center transform-gpu"
-            style={{
-              transform: `translate3d(0, ${contentOffset.y * 0.2}px, 0)`
-            }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-center"
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group inline-block"
-            >
-              <Link
-                href={viewAllButtonLink}
-                className="inline-flex items-center justify-center space-x-3 rounded-xl bg-gradient-to-r from-red-600 to-red-800 px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:from-red-700 hover:to-red-900 hover:shadow-xl hover:shadow-red-500/25"
-              >
-                <span>{viewAllButtonText}</span>
-                <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
+            {/* CTA Container */}
+            <div className="mx-auto max-w-3xl">
+              <div className="rounded-3xl border border-red-500/20 p-8 glass-dark lg:p-12">
+                {/* CTA Header */}
+                <motion.div
+                  className="mb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl glass-red">
+                    <BookOpen className="h-8 w-8 text-red-400" />
+                  </div>
+
+                  <h3 className="mb-4 font-gaming text-2xl font-bold text-white lg:text-3xl">
+                    Tüm Haberleri Keşfedin
+                  </h3>
+
+                  <p className="leading-relaxed text-gray-300">
+                    E-spor dünyasından en son gelişmeler, turnuva sonuçları ve takım haberleri için tüm içeriklerimizi inceleyin.
+                  </p>
+                </motion.div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Link
+                      href={viewAllButtonLink}
+                      className="btn-gaming-primary inline-flex items-center gap-3"
+                    >
+                      <BookOpen className="h-5 w-5" />
+                      <span>{viewAllButtonText}</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </motion.div>
+
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Link
+                      href="/contact"
+                      className="btn-gaming-outline inline-flex items-center gap-3"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      <span>Haber Aboneliği</span>
+                    </Link>
+                  </motion.div>
+                </div>
+
+                {/* Trust indicators */}
+                <motion.div
+                  className="mt-8 grid grid-cols-1 gap-4 border-t border-red-500/20 pt-6 sm:grid-cols-3"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <div className="text-center">
+                    <div className="mb-1 text-xl font-black text-red-400 lg:text-2xl">
+                      100+
+                    </div>
+                    <div className="text-sm text-gray-400">Haber Makalesi</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="mb-1 text-xl font-black text-red-400 lg:text-2xl">
+                      24/7
+                    </div>
+                    <div className="text-sm text-gray-400">Güncel İçerik</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="mb-1 text-xl font-black text-red-400 lg:text-2xl">
+                      50K+
+                    </div>
+                    <div className="text-sm text-gray-400">
+                      Okuyucu
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
           </motion.div>
         )}
       </div>
