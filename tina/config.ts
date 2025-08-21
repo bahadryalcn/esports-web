@@ -1018,10 +1018,16 @@ export default defineConfig({
     outputFolder: 'admin',
     publicFolder: 'public',
   },
+  // media: {
+  //   loadCustomStore: async () => {
+  //     const pack = await import('next-tinacms-cloudinary');
+  //     return pack.TinaCloudCloudinaryMediaStore;
+  //   },
+  // },
   media: {
-    loadCustomStore: async () => {
-      const pack = await import('next-tinacms-cloudinary');
-      return pack.TinaCloudCloudinaryMediaStore;
+    tina: {
+      mediaRoot: "uploads",
+      publicFolder: "public",
     },
   },
 
