@@ -95,41 +95,50 @@
     letter-spacing: -0.01em;
   }
 
-  /* Smooth scrolling */
+  /* Smooth scrolling with performance optimizations */
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 2rem;
+    /* Performance optimizations */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
   }
 
-  /* Performance optimizations */
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
+  /* Performance optimizations for animations */
+  .hero-section {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 
-  /* Remove default margins */
-  h1, h2, h3, h4, h5, h6, p {
-    margin: 0;
+  .hero-background {
+    will-change: opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  .hero-content {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+  /* Optimize blur effects */
+  .blur-optimized {
+    will-change: filter;
+    transform: translateZ(0);
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, hsl(var(--gaming-primary)), hsl(var(--gaming-secondary)));
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, hsl(var(--gaming-secondary)), hsl(var(--gaming-accent)));
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 

@@ -57,39 +57,20 @@ export function ContactForm({
     });
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
   return (
     <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
       className="backdrop-blur-sm bg-black/20 border border-gaming-primary/20 rounded-3xl p-8 md:p-10 hover:border-gaming-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-gaming-primary/10"
     >
       {/* Form Header - Minimalist */}
-      <motion.div variants={itemVariants} className="mb-8 space-y-3">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+        className="mb-8 space-y-3"
+      >
         <h3 className="text-3xl md:text-4xl font-gaming font-bold text-white">
           {title}
         </h3>
@@ -101,9 +82,20 @@ export function ContactForm({
       </motion.div>
 
       {/* Form */}
-      <motion.form variants={itemVariants} onSubmit={handleSubmit} className="space-y-6">
+      <motion.form 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+        onSubmit={handleSubmit} 
+        className="space-y-6"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <motion.div variants={itemVariants} className="space-y-2">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+            className="space-y-2"
+          >
             <Label htmlFor="name" className="text-gray-300 text-sm">İsim</Label>
             <Input
               id="name"
@@ -117,7 +109,12 @@ export function ContactForm({
             />
           </motion.div>
           
-          <motion.div variants={itemVariants} className="space-y-2">
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+            className="space-y-2"
+          >
             <Label htmlFor="email" className="text-gray-300 text-sm">E-mail</Label>
             <Input
               id="email"
@@ -132,7 +129,12 @@ export function ContactForm({
           </motion.div>
         </div>
 
-        <motion.div variants={itemVariants} className="space-y-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+          className="space-y-2"
+        >
           <Label htmlFor="subject" className="text-gray-300 text-sm">Konu</Label>
           <Input
             id="subject"
@@ -146,7 +148,12 @@ export function ContactForm({
           />
         </motion.div>
 
-        <motion.div variants={itemVariants} className="space-y-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
+          className="space-y-2"
+        >
           <Label htmlFor="message" className="text-gray-300 text-sm">Mesaj</Label>
           <Textarea
             id="message"
@@ -160,14 +167,29 @@ export function ContactForm({
           />
         </motion.div>
 
-        <motion.div variants={itemVariants}>
+        {/* Submit Button */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
+          className="pt-4"
+        >
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full group bg-gaming-primary hover:bg-gaming-primary/80 text-white font-medium py-4 px-8 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-gaming-primary/30 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
+            className="w-full bg-gradient-to-r from-gaming-primary to-red-600 hover:from-gaming-primary/90 hover:to-red-600/90 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-gaming-primary/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            <span className="text-lg">{isSubmitting ? 'Gönderiliyor...' : 'Mesaj Gönder'}</span>
-            <Send className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
+            {isSubmitting ? (
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Gönderiliyor...</span>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Send className="w-5 h-5" />
+                <span>Mesaj Gönder</span>
+              </div>
+            )}
           </Button>
         </motion.div>
       </motion.form>

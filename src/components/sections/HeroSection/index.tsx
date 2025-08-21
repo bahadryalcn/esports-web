@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { HeroBackground } from './components/HeroBackground';
 import { HeroContent } from './components/HeroContent';
 import { HeroNavigation } from './components/HeroNavigation';
@@ -33,15 +33,20 @@ export default function HeroSection({
   // Auto-play functionality
   useHeroAutoplay({ autoplay, autoplaySpeed, slidesLength: heroSlides.length, setCurrentSlide });
 
-  const currentSlideData = heroSlides[currentSlide];
+  // Memoize current slide data to prevent unnecessary re-renders
+  const currentSlideData = useMemo(() => heroSlides[currentSlide], [heroSlides, currentSlide]);
   
-  // Eğer slides varsa, onları kullan; yoksa fallback
-  const hasSlides = slides && slides.length > 0;
-  const currentBackgroundImage = hasSlides ? currentSlideData.backgroundImage : (backgroundImage || '/bg/1.jpg');
-  const currentOverlay = hasSlides ? currentSlideData.overlay : overlay;
+  // Memoize background image and overlay to prevent unnecessary re-renders
+  const { currentBackgroundImage, currentOverlay } = useMemo(() => {
+    const hasSlides = slides && slides.length > 0;
+    return {
+      currentBackgroundImage: hasSlides ? currentSlideData.backgroundImage : (backgroundImage || '/bg/1.jpg'),
+      currentOverlay: hasSlides ? currentSlideData.overlay : overlay
+    };
+  }, [slides, currentSlideData, backgroundImage, overlay]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-section">
       {/* Background Container */}
       <HeroBackground 
         currentSlide={currentSlide}

@@ -1,72 +1,30 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import type { ContactContentProps } from '../types';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export function ContactContent({ 
-  title, 
-  subtitle, 
-  contentAlignment = 'center',
-  children 
-}: ContactContentProps) {
-  const getAlignmentClasses = () => {
-    switch (contentAlignment) {
-      case 'left':
-        return 'text-left items-start';
-      case 'right':
-        return 'text-right items-end';
-      default:
-        return 'text-center items-center';
-    }
-  };
+interface ContactContentProps {
+  children?: React.ReactNode;
+}
 
+export function ContactContent({ children }: ContactContentProps) {
   return (
-    <motion.div 
-      className={`relative z-10 container mx-auto px-4 ${getAlignmentClasses()}`}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <div className="space-y-8">
-        {/* Hero-style Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
+    <div className="relative z-20 min-h-screen flex items-center justify-center px-4">
+      <AnimatePresence mode="wait">
+        <motion.div 
+          className="container mx-auto max-w-7xl text-center"
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="space-y-6 mb-16"
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ 
+            duration: 0.8, 
+            ease: [0.25, 0.46, 0.45, 0.94] // easeOutQuart
+          }}
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-gaming font-bold text-white leading-tight">
-            <motion.span 
-              className="block text-gaming-primary"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            >
-              {title}
-            </motion.span>
-          </h2>
-          
-          {subtitle && (
-            <motion.p 
-              className="text-lg md:text-xl lg:text-2xl text-gray-200 max-w-4xl mx-auto font-display leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            >
-              {subtitle}
-            </motion.p>
-          )}
+          <div className="space-y-8 lg:space-y-12">
+            {children}
+          </div>
         </motion.div>
-
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-        >
-          {children}
-        </motion.div>
-      </div>
-    </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }

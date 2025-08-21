@@ -38,23 +38,6 @@ export interface ContactSectionProps {
   className?: string;
 }
 
-export interface ContactBackgroundProps {
-  variant?: 'default' | 'gradient' | 'pattern';
-  backgroundImage?: string;
-  overlay?: {
-    color?: string;
-    opacity?: number;
-  };
-  parallaxOffsets?: number[];
-}
-
-export interface ContactContentProps {
-  title: string;
-  subtitle?: string;
-  contentAlignment?: 'left' | 'center' | 'right';
-  children?: React.ReactNode;
-}
-
 export interface ContactFormProps {
   title?: string;
   subtitle?: string;
