@@ -12,13 +12,16 @@ interface NewsPageProps {
 
 const locales = ['tr', 'en'];
 
-export async function generateMetadata({ params }: NewsPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: NewsPageProps): Promise<Metadata> {
   const { locale } = await params;
-  
+
   const title = locale === 'tr' ? 'Haberler - AIM Agency' : 'News - AIM Agency';
-  const description = locale === 'tr' 
-    ? 'E-spor dünyasından en güncel haberler, turnuva sonuçları ve takım haberleri.'
-    : 'Latest news from the e-sports world, tournament results and team news.';
+  const description =
+    locale === 'tr'
+      ? 'E-spor dünyasından en güncel haberler, turnuva sonuçları ve takım haberleri.'
+      : 'Latest news from the e-sports world, tournament results and team news.';
 
   return {
     title,
@@ -33,7 +36,7 @@ export async function generateMetadata({ params }: NewsPageProps): Promise<Metad
 
 export default async function NewsPage({ params }: NewsPageProps) {
   const { locale } = await params;
-  
+
   if (!locales.includes(locale)) {
     notFound();
   }
@@ -43,30 +46,31 @@ export default async function NewsPage({ params }: NewsPageProps) {
     const articles = newsData.data.news;
 
     const pageTitle = locale === 'tr' ? 'Haberler' : 'News';
-    const pageSubtitle = locale === 'tr' 
-      ? 'E-spor dünyasından en güncel haberler'
-      : 'Latest news from the e-sports world';
+    const pageSubtitle =
+      locale === 'tr'
+        ? 'E-spor dünyasından en güncel haberler'
+        : 'Latest news from the e-sports world';
 
     return (
       <div className="min-h-screen bg-gaming-dark">
         <div className="container-custom py-16">
           {/* Page Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-gaming font-bold mb-6">
+          <div className="mb-16 text-center">
+            <h1 className="mb-6 font-gaming text-4xl font-bold md:text-6xl">
               <span className="neon-text">{pageTitle}</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-xl text-gray-300">
               {pageSubtitle}
             </p>
           </div>
 
           {/* News Grid */}
           {articles.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {articles.map((article, index) => (
                 <article
                   key={`${article.slug}-${index}`}
-                  className="gaming-card overflow-hidden group hover:scale-105 transition-all duration-300"
+                  className="gaming-card group overflow-hidden transition-all duration-300 hover:scale-105"
                 >
                   {/* Featured Image */}
                   {article.featuredImage && (
@@ -75,19 +79,19 @@ export default async function NewsPage({ params }: NewsPageProps) {
                         src={article.featuredImage}
                         alt={article.title}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="object-cover transition-transform duration-300 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-black/20"></div>
                     </div>
                   )}
 
                   {/* Content */}
-                  <div className="p-6 space-y-4">
+                  <div className="space-y-4 p-6">
                     {/* Category & Date */}
                     <div className="flex items-center justify-between text-sm text-gray-400">
                       <div className="flex items-center gap-2">
                         <Tag size={16} />
-                        <span className="bg-gaming-primary/20 text-gaming-primary px-2 py-1 rounded">
+                        <span className="bg-gaming-primary/20 text-gaming-primary rounded px-2 py-1">
                           {article.category}
                         </span>
                       </div>
@@ -98,12 +102,12 @@ export default async function NewsPage({ params }: NewsPageProps) {
                     </div>
 
                     {/* Title */}
-                    <h2 className="text-xl font-bold text-white group-hover:text-gaming-primary transition-colors">
+                    <h2 className="group-hover:text-gaming-primary text-xl font-bold text-white transition-colors">
                       {article.title}
                     </h2>
 
                     {/* Excerpt */}
-                    <p className="text-gray-300 line-clamp-3">
+                    <p className="line-clamp-3 text-gray-300">
                       {article.excerpt}
                     </p>
 
@@ -118,25 +122,26 @@ export default async function NewsPage({ params }: NewsPageProps) {
                     {/* Read More Link */}
                     <Link
                       href={`/${locale}/news/${article.slug}`}
-                      className="inline-flex items-center text-gaming-primary hover:text-gaming-primary/80 font-semibold group-hover:underline"
+                      className="text-gaming-primary hover:text-gaming-primary/80 inline-flex items-center font-semibold group-hover:underline"
                     >
                       {locale === 'tr' ? 'Devamını Oku' : 'Read More'}
-                      <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+                      <span className="ml-1 transition-transform group-hover:translate-x-1">
+                        →
+                      </span>
                     </Link>
                   </div>
                 </article>
               ))}
             </div>
           ) : (
-            <div className="text-center py-16">
-              <h3 className="text-2xl font-bold text-gray-400 mb-4">
+            <div className="py-16 text-center">
+              <h3 className="mb-4 text-2xl font-bold text-gray-400">
                 {locale === 'tr' ? 'Henüz haber yok' : 'No news yet'}
               </h3>
               <p className="text-gray-500">
-                {locale === 'tr' 
+                {locale === 'tr'
                   ? 'Yakında yeni haberlerle karşınızda olacağız.'
-                  : 'We will be back with new news soon.'
-                }
+                  : 'We will be back with new news soon.'}
               </p>
             </div>
           )}
@@ -145,18 +150,17 @@ export default async function NewsPage({ params }: NewsPageProps) {
     );
   } catch (error) {
     console.error('Error loading news page:', error);
-    
+
     return (
-      <div className="min-h-screen bg-gaming-dark flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gaming-dark">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">
+          <h1 className="mb-4 text-2xl font-bold text-white">
             {locale === 'tr' ? 'Hata' : 'Error'}
           </h1>
           <p className="text-gray-400">
-            {locale === 'tr' 
+            {locale === 'tr'
               ? 'Haberler yüklenirken bir hata oluştu.'
-              : 'An error occurred while loading news.'
-            }
+              : 'An error occurred while loading news.'}
           </p>
         </div>
       </div>

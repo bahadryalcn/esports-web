@@ -15,6 +15,7 @@
     "lint:fix": "next lint --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
+    "type-check": "tsc --noEmit",
     "prepare": "husky"
   },
   "dependencies": {
@@ -89,6 +90,18 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix --max-warnings=0"
+    ],
+    "*.{json,md,css,scss}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "tsc --noEmit --skipLibCheck"
+    ]
   },
   "engines": {
     "node": ">=18.0.0"

@@ -7,15 +7,14 @@ interface DynamicPageProps {
   className?: string;
 }
 
-const DynamicPage: React.FC<DynamicPageProps> = ({ pageData, className = '' }) => {
+const DynamicPage: React.FC<DynamicPageProps> = ({
+  pageData,
+  className = '',
+}) => {
   return (
     <div className={`dynamic-page ${className}`}>
       {pageData.components?.map((component, index) => (
-        <ComponentRenderer
-          key={index}
-          component={component}
-          index={index}
-        />
+        <ComponentRenderer key={index} component={component} index={index} />
       ))}
     </div>
   );

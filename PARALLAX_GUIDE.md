@@ -5,11 +5,13 @@ Bu kılavuz, AIM Agency e-spor websitesinde uygulanan Apple tarzı gelişmiş pa
 ## 🚀 Özellikler
 
 ### ✨ Gelişmiş Parallax Hook'ları
+
 - **useAdvancedParallax**: Tek katmanlı, özelleştirilebilir parallax
 - **useMultiLayerParallax**: Çok katmanlı parallax efektleri
 - **useStickyParallax**: Yapışkan parallax (Apple tarzı)
 
 ### 🎨 Görsel Efektler
+
 - **Çok Katmanlı Arka Plan**: Farklı hızlarda hareket eden elementler
 - **Yumuşak Geçişler**: Easing fonksiyonları ile doğal hareket
 - **Floating Elements**: Yüzen geometrik şekiller ve gradient orbs
@@ -41,20 +43,20 @@ import { useAdvancedParallax } from '@/lib/hooks/useAdvancedParallax';
 
 function MyComponent() {
   const { ref, offset, progress, isVisible } = useAdvancedParallax({
-    speed: 0.5,                    // Hareket hızı
-    direction: 'up',               // Yön: 'up', 'down', 'left', 'right'
-    easing: 'ease-out',           // Geçiş tipi
-    threshold: 0.1,               // Tetikleme eşiği
-    rootMargin: '0px',            // Root margin
-    triggerOnce: false            // Tek seferlik tetikleme
+    speed: 0.5, // Hareket hızı
+    direction: 'up', // Yön: 'up', 'down', 'left', 'right'
+    easing: 'ease-out', // Geçiş tipi
+    threshold: 0.1, // Tetikleme eşiği
+    rootMargin: '0px', // Root margin
+    triggerOnce: false, // Tek seferlik tetikleme
   });
 
   return (
-    <div 
+    <div
       ref={ref}
       className="transform-gpu"
       style={{
-        transform: `translate3d(0, ${offset.y}px, 0)`
+        transform: `translate3d(0, ${offset.y}px, 0)`,
       }}
     >
       {/* İçerik */}
@@ -70,38 +72,38 @@ import { useMultiLayerParallax } from '@/lib/hooks/useAdvancedParallax';
 
 function MyComponent() {
   const { ref, offsets } = useMultiLayerParallax([
-    { speed: 0.3, direction: 'up' },     // Ana arka plan
-    { speed: 0.6, direction: 'up' },     // Orta katman
-    { speed: 0.1, direction: 'down' }    // Ön katman
+    { speed: 0.3, direction: 'up' }, // Ana arka plan
+    { speed: 0.6, direction: 'up' }, // Orta katman
+    { speed: 0.1, direction: 'down' }, // Ön katman
   ]);
 
   return (
     <div ref={ref}>
       {/* Ana arka plan */}
-      <div 
+      <div
         className="transform-gpu"
         style={{
-          transform: `translate3d(0, ${offsets[0]}px, 0)`
+          transform: `translate3d(0, ${offsets[0]}px, 0)`,
         }}
       >
         Arka plan resmi
       </div>
 
       {/* Orta katman */}
-      <div 
+      <div
         className="transform-gpu"
         style={{
-          transform: `translate3d(0, ${offsets[1]}px, 0)`
+          transform: `translate3d(0, ${offsets[1]}px, 0)`,
         }}
       >
         Gradient orbs
       </div>
 
       {/* Ön katman */}
-      <div 
+      <div
         className="transform-gpu"
         style={{
-          transform: `translate3d(0, ${offsets[2]}px, 0)`
+          transform: `translate3d(0, ${offsets[2]}px, 0)`,
         }}
       >
         Floating elements
@@ -122,10 +124,10 @@ function MyComponent() {
   return (
     <div ref={ref}>
       {isSticky && (
-        <div 
-          className="fixed top-0 left-0 w-full z-50"
+        <div
+          className="fixed left-0 top-0 z-50 w-full"
           style={{
-            transform: `translateY(${progress * 100}px)`
+            transform: `translateY(${progress * 100}px)`,
           }}
         >
           Yapışkan header
@@ -139,6 +141,7 @@ function MyComponent() {
 ## 🎨 CSS Sınıfları
 
 ### Performans Optimizasyonları
+
 ```css
 .transform-gpu          /* Hardware acceleration */
 .parallax-layer        /* Parallax katmanı */
@@ -147,6 +150,7 @@ function MyComponent() {
 ```
 
 ### Responsive Design
+
 ```css
 .parallax-mobile-optimized    /* Mobil optimizasyon */
 .parallax-reduced-motion      /* Azaltılmış hareket */
@@ -155,23 +159,24 @@ function MyComponent() {
 ## ⚡ Performans İpuçları
 
 ### 1. Hardware Acceleration
+
 ```tsx
 // Her zaman transform-gpu kullanın
-<div className="transform-gpu">
-  {/* İçerik */}
-</div>
+<div className="transform-gpu">{/* İçerik */}</div>
 ```
 
 ### 2. Will-change Optimizasyonu
+
 ```tsx
 // Sadece gerekli olduğunda will-change kullanın
 const { ref, offset } = useAdvancedParallax({
-  threshold: 0.1,  // Görünür olduğunda tetikle
-  triggerOnce: false
+  threshold: 0.1, // Görünür olduğunda tetikle
+  triggerOnce: false,
 });
 ```
 
 ### 3. Debounced Scroll Events
+
 ```tsx
 // Hook otomatik olarak optimize edilmiştir
 // Passive event listeners kullanır
@@ -181,6 +186,7 @@ const { ref, offset } = useAdvancedParallax({
 ## 📱 Mobil Optimizasyon
 
 ### Otomatik Mobil Optimizasyon
+
 ```tsx
 // Mobil cihazlarda parallax otomatik olarak devre dışı kalır
 // CSS media query ile kontrol edilir
@@ -193,6 +199,7 @@ const { ref, offset } = useAdvancedParallax({
 ```
 
 ### Reduced Motion Desteği
+
 ```tsx
 // Kullanıcı tercihlerine saygı gösterir
 @media (prefers-reduced-motion: reduce) {
@@ -207,6 +214,7 @@ const { ref, offset } = useAdvancedParallax({
 ## 🔧 Özelleştirme
 
 ### Parallax Hızları
+
 ```tsx
 // Farklı hızlar için
 const slowParallax = useAdvancedParallax({ speed: 0.2 });
@@ -215,6 +223,7 @@ const fastParallax = useAdvancedParallax({ speed: 0.8 });
 ```
 
 ### Easing Fonksiyonları
+
 ```tsx
 // Farklı geçiş efektleri
 const smoothParallax = useAdvancedParallax({ easing: 'ease-out' });
@@ -225,6 +234,7 @@ const linearParallax = useAdvancedParallax({ easing: 'linear' });
 ## 🎭 Görsel Efektler
 
 ### Floating Elements
+
 ```tsx
 // Yüzen geometrik şekiller
 <div className="absolute top-20 left-20 w-32 h-32 border border-red-500/10 rounded-full opacity-20" />
@@ -232,6 +242,7 @@ const linearParallax = useAdvancedParallax({ easing: 'linear' });
 ```
 
 ### Gradient Orbs
+
 ```tsx
 // Gradient blur efektleri
 <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-red-500/5 to-red-700/5 rounded-full blur-3xl" />
@@ -241,16 +252,19 @@ const linearParallax = useAdvancedParallax({ easing: 'linear' });
 ## 🚨 Sorun Giderme
 
 ### Parallax Çalışmıyor
+
 1. `transform-gpu` class'ının eklendiğinden emin olun
 2. `ref`'in doğru şekilde bağlandığını kontrol edin
 3. Console'da hata olup olmadığını kontrol edin
 
 ### Performans Sorunları
+
 1. Çok fazla parallax element kullanmayın
 2. `will-change` property'sini optimize edin
 3. Mobil cihazlarda test edin
 
 ### Smooth Scrolling Sorunları
+
 1. CSS'te `scroll-behavior: smooth` olduğundan emin olun
 2. Browser compatibility'yi kontrol edin
 3. `prefers-reduced-motion` tercihini test edin

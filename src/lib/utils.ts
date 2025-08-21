@@ -5,7 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: string | Date, locale: string = 'tr-TR'): string {
+export function formatDate(
+  date: string | Date,
+  locale: string = 'tr-TR'
+): string {
   return new Date(date).toLocaleDateString(locale, {
     year: 'numeric',
     month: 'long',
@@ -13,7 +16,10 @@ export function formatDate(date: string | Date, locale: string = 'tr-TR'): strin
   });
 }
 
-export function formatDateTime(date: string | Date, locale: string = 'tr-TR'): string {
+export function formatDateTime(
+  date: string | Date,
+  locale: string = 'tr-TR'
+): string {
   return new Date(date).toLocaleString(locale, {
     year: 'numeric',
     month: 'long',
@@ -60,12 +66,12 @@ export function throttle<T extends (...args: any[]) => any>(
   limit: number
 ): (...args: Parameters<T>) => void {
   let inThrottle: boolean;
-  return function(this: any, ...args: Parameters<T>) {
+  return function (this: any, ...args: Parameters<T>) {
     const context = this;
     if (!inThrottle) {
       func.apply(context, args);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+      setTimeout(() => (inThrottle = false), limit);
     }
   };
 }
@@ -90,14 +96,17 @@ interface ImageTransformations {
   format?: string;
 }
 
-export function getImageUrl(path: string, transformations: ImageTransformations = {}): string {
+export function getImageUrl(
+  path: string,
+  transformations: ImageTransformations = {}
+): string {
   // This will be used with Cloudinary
   const baseUrl = process.env.NEXT_PUBLIC_CLOUDINARY_URL || '';
   const { width, height, quality = 'auto', format = 'auto' } = transformations;
-  
+
   let transformString = `q_${quality},f_${format}`;
   if (width) transformString += `,w_${width}`;
   if (height) transformString += `,h_${height}`;
-  
+
   return `${baseUrl}/image/upload/${transformString}/${path}`;
 }

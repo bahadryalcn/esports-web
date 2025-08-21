@@ -15,11 +15,13 @@ Modern ve özelleştirilebilir e-spor takımı web sitesi. Kapsamlı admin panel
 ## 🛠 Teknoloji Yığını
 
 ### Core Framework
+
 - **Next.js 15.4.5** with App Router
 - **React 19.1.1** with latest features
 - **JavaScript** (TypeScript kullanılmıyor)
 
 ### UI & Styling
+
 - **ShadCN UI** components
 - **TweakCN Gaming Theme**
 - **Tailwind CSS** for styling
@@ -27,11 +29,13 @@ Modern ve özelleştirilebilir e-spor takımı web sitesi. Kapsamlı admin panel
 - **Lucide React** for icons
 
 ### CMS & Content Management
+
 - **Decap CMS** as primary CMS
 - **Custom Admin Panel** for advanced controls
 - **React DnD** for drag-and-drop components
 
 ### State Management
+
 - **TanStack Query (React Query) v5** for data fetching
 - **Zustand** for global state management
 - **SWR** for real-time features
@@ -39,12 +43,14 @@ Modern ve özelleştirilebilir e-spor takımı web sitesi. Kapsamlı admin panel
 ## 🚀 Hızlı Başlangıç
 
 ### Gereksinimler
+
 - Node.js 18+
 - pnpm (önerilen) veya npm
 
 ### Kurulum
 
 1. **Bağımlılıkları yükleyin:**
+
 ```bash
 pnpm install
 # veya
@@ -52,6 +58,7 @@ npm install
 ```
 
 2. **Development server'ı başlatın:**
+
 ```bash
 pnpm dev
 # veya
@@ -59,11 +66,13 @@ npm run dev
 ```
 
 3. **Tarayıcınızda açın:**
+
 ```
 http://localhost:3000
 ```
 
 4. **Admin paneline erişin:**
+
 ```
 http://localhost:3000/admin
 ```
@@ -71,6 +80,7 @@ http://localhost:3000/admin
 ### ShadCN UI Gaming Theme Kurulumu
 
 Gaming temasını yüklemek için:
+
 ```bash
 pnpm dlx shadcn@latest add https://tweakcn.com/r/themes/cmdq4fy4m000204l2eip2hfov
 ```
@@ -99,6 +109,7 @@ esport-web/
 ## 🎨 Customization
 
 ### Renk Teması
+
 `tailwind.config.js` dosyasında gaming renklerini özelleştirebilirsiniz:
 
 ```javascript
@@ -112,6 +123,7 @@ gaming: {
 ```
 
 ### Content Management
+
 - **Decap CMS**: `/admin` - Temel içerik yönetimi
 - **Custom Admin**: `/admin/dashboard` - Gelişmiş yönetim paneli
 - **Page Builder**: Sürükle-bırak sayfa oluşturucu
@@ -119,11 +131,13 @@ gaming: {
 ## 🌐 Deployment
 
 ### Vercel (Önerilen)
+
 1. GitHub'a push edin
 2. Vercel'e bağlayın
 3. Otomatik deploy
 
 ### Netlify
+
 1. GitHub'a push edin
 2. Netlify'a bağlayın
 3. Build komutları:

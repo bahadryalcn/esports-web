@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# Type check
+echo "🔍 Checking TypeScript types..."
+npm run type-check
+
+# Build check (sadece Next.js build, TinaCMS problemleri yüzünden)
+echo "🏗️ Testing build..."
+npm run build:next
+
+echo "✅ Pre-push checks passed! Ready to push."

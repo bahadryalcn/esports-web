@@ -210,13 +210,13 @@ export interface ContactComponent {
   backgroundVariant?: 'gradient' | 'image' | 'solid';
 }
 
-export type PageComponent = 
-  | HeroComponent 
-  | ServicesComponent 
-  | HomepageAboutComponent 
-  | NewsComponent 
-  | PlayersComponent 
-  | SponsorsComponent 
+export type PageComponent =
+  | HeroComponent
+  | ServicesComponent
+  | HomepageAboutComponent
+  | NewsComponent
+  | PlayersComponent
+  | SponsorsComponent
   | ContactComponent;
 
 // Site Settings
@@ -515,7 +515,7 @@ export interface AboutCTAComponent {
   buttonLink: string;
 }
 
-export type AboutComponent = 
+export type AboutComponent =
   | AboutHeroComponent
   | AboutContentComponent
   | AboutStatsComponent

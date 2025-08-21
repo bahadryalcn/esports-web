@@ -44,7 +44,8 @@ interface SEOConfig {
 
 export const seoConfig: SEOConfig = {
   title: 'AIM Agency - Professional E-Sports Team',
-  description: 'Professional e-sports team and gaming agency. Championship wins, professional players, and cutting-edge gaming services.',
+  description:
+    'Professional e-sports team and gaming agency. Championship wins, professional players, and cutting-edge gaming services.',
   canonical: 'https://aimagency.com',
   openGraph: {
     type: 'website',
@@ -52,7 +53,8 @@ export const seoConfig: SEOConfig = {
     url: 'https://aimagency.com',
     siteName: 'AIM Agency',
     title: 'AIM Agency - Professional E-Sports Team',
-    description: 'Professional e-sports team and gaming agency. Championship wins, professional players, and cutting-edge gaming services.',
+    description:
+      'Professional e-sports team and gaming agency. Championship wins, professional players, and cutting-edge gaming services.',
     images: [
       {
         url: '/assets/og-image.jpg',
@@ -70,7 +72,8 @@ export const seoConfig: SEOConfig = {
   additionalMetaTags: [
     {
       name: 'keywords',
-      content: 'esports, gaming, professional team, tournaments, championships, AIM Agency, valorant, league of legends, csgo',
+      content:
+        'esports, gaming, professional team, tournaments, championships, AIM Agency, valorant, league of legends, csgo',
     },
     {
       name: 'author',
@@ -120,13 +123,13 @@ interface PageSEO {
 }
 
 export function generatePageSEO(
-  title: string, 
-  description: string, 
-  path: string = '', 
+  title: string,
+  description: string,
+  path: string = '',
   image: string | null = null
 ): PageSEO {
   const url = `https://aimagency.com${path}`;
-  
+
   return {
     title: `${title} | AIM Agency`,
     description,
@@ -135,14 +138,16 @@ export function generatePageSEO(
       title: `${title} | AIM Agency`,
       description,
       url,
-      images: image ? [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ] : seoConfig.openGraph.images,
+      images: image
+        ? [
+            {
+              url: image,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ]
+        : seoConfig.openGraph.images,
     },
     twitter: {
       title: `${title} | AIM Agency`,

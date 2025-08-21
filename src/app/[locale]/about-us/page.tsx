@@ -9,7 +9,7 @@ interface AboutPageProps {
 
 export default async function AboutPageRoute({ params }: AboutPageProps) {
   const { locale } = await params;
-  
+
   // Only allow English locale for this route
   if (locale !== 'en') {
     notFound();
@@ -17,7 +17,7 @@ export default async function AboutPageRoute({ params }: AboutPageProps) {
 
   try {
     const aboutData = await getAbout(locale);
-    
+
     return <AboutPage data={aboutData.data.about} />;
   } catch (error) {
     console.error('Error loading about page:', error);
@@ -25,9 +25,11 @@ export default async function AboutPageRoute({ params }: AboutPageProps) {
   }
 }
 
-export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: AboutPageProps): Promise<Metadata> {
   const { locale } = await params;
-  
+
   try {
     const aboutData = await getAbout(locale);
     const { seo } = aboutData.data.about;
@@ -55,7 +57,8 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
   } catch (error) {
     return {
       title: 'About Us - AIM Agency',
-      description: 'AIM Agency provides professional team management, player development, and consulting services in the esports world with years of experience.',
+      description:
+        'AIM Agency provides professional team management, player development, and consulting services in the esports world with years of experience.',
     };
   }
-} 
+}

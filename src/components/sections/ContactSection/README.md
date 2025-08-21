@@ -15,56 +15,56 @@ const socialMediaContactInfo = [
     icon: 'youtube',
     label: 'YouTube',
     value: 'AIM Agency Gaming',
-    href: 'https://youtube.com/@aimagency'
+    href: 'https://youtube.com/@aimagency',
   },
   {
     icon: 'twitch',
     label: 'Twitch',
     value: 'aimagency',
-    href: 'https://twitch.tv/aimagency'
+    href: 'https://twitch.tv/aimagency',
   },
   {
     icon: 'twitter', // veya 'x'
     label: 'Twitter/X',
     value: '@aimagency',
-    href: 'https://twitter.com/aimagency'
+    href: 'https://twitter.com/aimagency',
   },
   {
     icon: 'instagram',
     label: 'Instagram',
     value: '@aimagency',
-    href: 'https://instagram.com/aimagency'
+    href: 'https://instagram.com/aimagency',
   },
   {
     icon: 'tiktok',
     label: 'TikTok',
     value: '@aimagency',
-    href: 'https://tiktok.com/@aimagency'
+    href: 'https://tiktok.com/@aimagency',
   },
   {
     icon: 'discord',
     label: 'Discord',
     value: 'AIM Agency',
-    href: 'https://discord.gg/aimagency'
+    href: 'https://discord.gg/aimagency',
   },
   {
     icon: 'kick',
     label: 'Kick',
     value: 'aimagency',
-    href: 'https://kick.com/aimagency'
+    href: 'https://kick.com/aimagency',
   },
   {
     icon: 'linkedin',
     label: 'LinkedIn',
     value: 'AIM Agency',
-    href: 'https://linkedin.com/company/aimagency'
+    href: 'https://linkedin.com/company/aimagency',
   },
   {
     icon: 'facebook',
     label: 'Facebook',
     value: 'AIM Agency',
-    href: 'https://facebook.com/aimagency'
-  }
+    href: 'https://facebook.com/aimagency',
+  },
 ];
 ```
 
@@ -80,20 +80,20 @@ const traditionalContactInfo = [
     icon: Mail,
     label: 'E-mail',
     value: 'info@aimagency.com',
-    href: 'mailto:info@aimagency.com'
+    href: 'mailto:info@aimagency.com',
   },
   {
     icon: Phone,
     label: 'Telefon',
     value: '+90 555 123 45 67',
-    href: 'tel:+905551234567'
+    href: 'tel:+905551234567',
   },
   {
     icon: MapPin,
     label: 'Adres',
     value: 'İstanbul, Türkiye',
-    href: '#'
-  }
+    href: '#',
+  },
 ];
 ```
 
@@ -107,20 +107,20 @@ const mixedContactInfo = [
     icon: Mail,
     label: 'E-mail',
     value: 'info@aimagency.com',
-    href: 'mailto:info@aimagency.com'
+    href: 'mailto:info@aimagency.com',
   },
   {
     icon: 'youtube',
     label: 'YouTube',
     value: 'AIM Agency Gaming',
-    href: 'https://youtube.com/@aimagency'
+    href: 'https://youtube.com/@aimagency',
   },
   {
     icon: 'linkedin',
     label: 'LinkedIn',
     value: 'AIM Agency',
-    href: 'https://linkedin.com/company/aimagency'
-  }
+    href: 'https://linkedin.com/company/aimagency',
+  },
 ];
 ```
 
@@ -156,13 +156,13 @@ const mixedContactInfo = [
 TinaCMS'te icon alanına string olarak platform adını yazmanız yeterli:
 
 ```yaml
-- label: "YouTube"
-  value: "AIM Agency Gaming"
-  href: "https://youtube.com/@aimagency"
-  icon: "youtube"
+- label: 'YouTube'
+  value: 'AIM Agency Gaming'
+  href: 'https://youtube.com/@aimagency'
+  icon: 'youtube'
 
-- label: "LinkedIn"
-  value: "AIM Agency"
-  href: "https://linkedin.com/company/aimagency"
-  icon: "linkedin"
+- label: 'LinkedIn'
+  value: 'AIM Agency'
+  href: 'https://linkedin.com/company/aimagency'
+  icon: 'linkedin'
 ```

@@ -30,9 +30,7 @@ export default function Providers({ children }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <DndProvider backend={HTML5Backend}>
-        {children}
-      </DndProvider>
+      <DndProvider backend={HTML5Backend}>{children}</DndProvider>
     </QueryClientProvider>
   );
 }

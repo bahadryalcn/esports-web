@@ -2,27 +2,32 @@
 
 import { motion } from 'framer-motion';
 import { SocialMediaIcon } from './SocialMediaIcon';
-import type { ContactInfoProps, ContactInfo as ContactInfoType } from '../types';
+import type {
+  ContactInfoProps,
+  ContactInfo as ContactInfoType,
+} from '../types';
 
-export function ContactInfo({ 
+export function ContactInfo({
   title = 'İletişim Bilgileri',
   subtitle = 'Profesyonel e-spor hizmetleri için bizimle iletişime geçin.',
   contactInfo,
-  contentAlignment = 'left'
+  contentAlignment = 'left',
 }: ContactInfoProps) {
   const renderIcon = (contactItem: ContactInfoType) => {
     if (typeof contactItem.icon === 'string') {
       // Social media icon
       return (
-        <SocialMediaIcon 
-          icon={contactItem.icon} 
-          className="w-5 h-5 text-gaming-primary group-hover:text-white transition-colors duration-300" 
+        <SocialMediaIcon
+          icon={contactItem.icon}
+          className="text-gaming-primary h-5 w-5 transition-colors duration-300 group-hover:text-white"
         />
       );
     } else {
       // Lucide icon
       const Icon = contactItem.icon;
-      return <Icon className="w-5 h-5 text-gaming-primary group-hover:text-white transition-colors duration-300" />;
+      return (
+        <Icon className="text-gaming-primary h-5 w-5 transition-colors duration-300 group-hover:text-white" />
+      );
     }
   };
 
@@ -62,32 +67,32 @@ export function ContactInfo({
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+      transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
       className="space-y-6"
     >
       {/* Info Header - Minimalist */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
         className="space-y-3"
       >
-        <h3 className="text-2xl md:text-3xl font-gaming font-bold text-white">
+        <h3 className="font-gaming text-2xl font-bold text-white md:text-3xl">
           {title}
         </h3>
         {subtitle && (
-          <p className="text-gray-400 leading-relaxed text-base max-w-md">
+          <p className="max-w-md text-base leading-relaxed text-gray-400">
             {subtitle}
           </p>
         )}
       </motion.div>
 
       {/* Contact Items - Grid layout: 1 column on mobile, 2 columns on large screens */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-        className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+        transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+        className="grid grid-cols-1 gap-4 lg:grid-cols-2"
       >
         {contactInfo.map((info, index) => {
           return (
@@ -95,26 +100,40 @@ export function ContactInfo({
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 + (index * 0.1), ease: "easeOut" }}
+              transition={{
+                duration: 0.6,
+                delay: 0.5 + index * 0.1,
+                ease: 'easeOut',
+              }}
               whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-              className="flex items-center space-x-3 group cursor-pointer"
+              className="group flex cursor-pointer items-center space-x-3"
             >
-              <div className={`p-2.5 rounded-lg border backdrop-blur-sm transition-all duration-300 flex-shrink-0 ${getIconBackgroundColor(info)}`}>
+              <div
+                className={`flex-shrink-0 rounded-lg border p-2.5 backdrop-blur-sm transition-all duration-300 ${getIconBackgroundColor(info)}`}
+              >
                 {renderIcon(info)}
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-gray-400 text-xs font-medium mb-1 uppercase tracking-wider">{info.label}</p>
+              <div className="min-w-0 flex-1">
+                <p className="mb-1 text-xs font-medium uppercase tracking-wider text-gray-400">
+                  {info.label}
+                </p>
                 {info.href !== '#' ? (
                   <a
                     href={info.href}
                     target={info.href.startsWith('http') ? '_blank' : '_self'}
-                    rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-white hover:text-gaming-primary transition-colors duration-300 font-medium text-sm truncate block"
+                    rel={
+                      info.href.startsWith('http')
+                        ? 'noopener noreferrer'
+                        : undefined
+                    }
+                    className="hover:text-gaming-primary block truncate text-sm font-medium text-white transition-colors duration-300"
                   >
                     {info.value}
                   </a>
                 ) : (
-                  <p className="text-white font-medium text-sm truncate">{info.value}</p>
+                  <p className="truncate text-sm font-medium text-white">
+                    {info.value}
+                  </p>
                 )}
               </div>
             </motion.div>

@@ -26,46 +26,64 @@ export default function HeroSection({
   showArrows = true,
 }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  
+
   // Convert single slide props to slides array for backwards compatibility
-  const heroSlides = useHeroSlides({ title, subtitle, ctaText, ctaLink, backgroundImage, overlay, slides });
-  
+  const heroSlides = useHeroSlides({
+    title,
+    subtitle,
+    ctaText,
+    ctaLink,
+    backgroundImage,
+    overlay,
+    slides,
+  });
+
   // Auto-play functionality
-  useHeroAutoplay({ autoplay, autoplaySpeed, slidesLength: heroSlides.length, setCurrentSlide });
+  useHeroAutoplay({
+    autoplay,
+    autoplaySpeed,
+    slidesLength: heroSlides.length,
+    setCurrentSlide,
+  });
 
   // Memoize current slide data to prevent unnecessary re-renders
-  const currentSlideData = useMemo(() => heroSlides[currentSlide], [heroSlides, currentSlide]);
-  
+  const currentSlideData = useMemo(
+    () => heroSlides[currentSlide],
+    [heroSlides, currentSlide]
+  );
+
   // Memoize background image and overlay to prevent unnecessary re-renders
   const { currentBackgroundImage, currentOverlay } = useMemo(() => {
     const hasSlides = slides && slides.length > 0;
     return {
-      currentBackgroundImage: hasSlides ? currentSlideData.backgroundImage : (backgroundImage || '/bg/1.jpg'),
-      currentOverlay: hasSlides ? currentSlideData.overlay : overlay
+      currentBackgroundImage: hasSlides
+        ? currentSlideData.backgroundImage
+        : backgroundImage || '/bg/1.jpg',
+      currentOverlay: hasSlides ? currentSlideData.overlay : overlay,
     };
   }, [slides, currentSlideData, backgroundImage, overlay]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-section">
+    <section className="hero-section relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Background Container */}
-      <HeroBackground 
+      <HeroBackground
         currentSlide={currentSlide}
         backgroundImage={currentBackgroundImage}
         overlay={currentOverlay}
       />
 
       {/* Content Container */}
-      <div className="container relative z-20 mx-auto px-4 flex items-center justify-center min-h-screen">
+      <div className="container relative z-20 mx-auto flex min-h-screen items-center justify-center px-4">
         {/* Main Content */}
         <HeroContent currentSlide={currentSlide}>
-          <HeroHeading 
+          <HeroHeading
             headline={currentSlideData.headline}
             subtext={currentSlideData.subtext}
           />
 
           {/* CTA Buttons */}
           {(currentSlideData.buttonText || currentSlideData.buttonLink) && (
-            <HeroCTA 
+            <HeroCTA
               buttonText={currentSlideData.buttonText}
               buttonLink={currentSlideData.buttonLink}
             />

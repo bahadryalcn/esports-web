@@ -9,7 +9,11 @@ interface ExtendedNavigationProps extends NavigationProps {
   navigation?: NavigationType;
 }
 
-export default function Navigation({ navigation, mobile = false, onItemClick }: ExtendedNavigationProps) {
+export default function Navigation({
+  navigation,
+  mobile = false,
+  onItemClick,
+}: ExtendedNavigationProps) {
   const pathname = usePathname();
 
   // Fallback navigation items if TinaCMS data is not available
@@ -25,7 +29,13 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
   const navigationItems = navigation?.header?.menuItems || fallbackItems;
 
   // Desktop Navigation Item Component
-  const DesktopNavItem = ({ item, isActive }: { item: any; isActive: boolean }) => (
+  const DesktopNavItem = ({
+    item,
+    isActive,
+  }: {
+    item: any;
+    isActive: boolean;
+  }) => (
     <motion.div
       className="relative"
       whileHover={{ y: -1 }}
@@ -33,15 +43,13 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
     >
       <Link
         href={item.href}
-        className={`relative px-4 py-2 text-base font-gaming font-medium tracking-wide transition-all duration-300 ${
-          isActive 
-            ? 'text-red-400' 
-            : 'text-gray-300 hover:text-red-300'
+        className={`relative px-4 py-2 font-gaming text-base font-medium tracking-wide transition-all duration-300 ${
+          isActive ? 'text-red-400' : 'text-gray-300 hover:text-red-300'
         }`}
         onClick={onItemClick}
       >
         {item.label}
-        
+
         {/* Active Indicator */}
         {isActive && (
           <motion.div
@@ -52,7 +60,7 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
             transition={{ duration: 0.3 }}
           />
         )}
-        
+
         {/* Hover Underline */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-400/50"
@@ -65,7 +73,13 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
   );
 
   // Mobile Navigation Item Component
-  const MobileNavItem = ({ item, isActive }: { item: any; isActive: boolean }) => (
+  const MobileNavItem = ({
+    item,
+    isActive,
+  }: {
+    item: any;
+    isActive: boolean;
+  }) => (
     <motion.div
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
@@ -73,10 +87,10 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
     >
       <Link
         href={item.href}
-        className={`block px-6 py-3 text-lg font-gaming font-medium transition-all duration-300 ${
-          isActive 
-            ? 'text-red-400 bg-red-500/10 border-l-2 border-red-400' 
-            : 'text-gray-300 hover:text-red-300 hover:bg-red-500/5'
+        className={`block px-6 py-3 font-gaming text-lg font-medium transition-all duration-300 ${
+          isActive
+            ? 'border-l-2 border-red-400 bg-red-500/10 text-red-400'
+            : 'text-gray-300 hover:bg-red-500/5 hover:text-red-300'
         }`}
         onClick={onItemClick}
       >
@@ -91,7 +105,7 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
       href={item.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center space-x-2 px-4 py-2 text-base font-gaming font-medium text-gray-300 hover:text-red-300 transition-all duration-300 ${
+      className={`inline-flex items-center space-x-2 px-4 py-2 font-gaming text-base font-medium text-gray-300 transition-all duration-300 hover:text-red-300 ${
         mobile ? 'block px-6 py-3 text-lg' : ''
       }`}
       onClick={onItemClick}
@@ -99,13 +113,13 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
       transition={{ duration: 0.2 }}
     >
       <span>{item.label}</span>
-      <span className="text-red-400 text-sm">↗</span>
+      <span className="text-sm text-red-400">↗</span>
     </motion.a>
   );
 
   if (mobile) {
     return (
-      <motion.nav 
+      <motion.nav
         className="space-y-1"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -113,19 +127,21 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
       >
         {navigationItems.map((item) => {
           const isActive = pathname === item.href;
-          
+
           if (item.external) {
             return <ExternalNavItem key={item.href} item={item} />;
           }
-          
-          return <MobileNavItem key={item.href} item={item} isActive={isActive} />;
+
+          return (
+            <MobileNavItem key={item.href} item={item} isActive={isActive} />
+          );
         })}
       </motion.nav>
     );
   }
 
   return (
-    <motion.nav 
+    <motion.nav
       className="flex items-center space-x-1"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
@@ -133,12 +149,14 @@ export default function Navigation({ navigation, mobile = false, onItemClick }: 
     >
       {navigationItems.map((item) => {
         const isActive = pathname === item.href;
-        
+
         if (item.external) {
           return <ExternalNavItem key={item.href} item={item} />;
         }
-        
-        return <DesktopNavItem key={item.href} item={item} isActive={isActive} />;
+
+        return (
+          <DesktopNavItem key={item.href} item={item} isActive={isActive} />
+        );
       })}
     </motion.nav>
   );

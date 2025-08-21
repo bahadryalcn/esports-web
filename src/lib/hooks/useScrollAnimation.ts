@@ -9,11 +9,7 @@ interface ScrollAnimationOptions {
 }
 
 export const useScrollAnimation = (options: ScrollAnimationOptions = {}) => {
-  const {
-    threshold = 0.1,
-    triggerOnce = true,
-    rootMargin = '0px'
-  } = options;
+  const { threshold = 0.1, triggerOnce = true, rootMargin = '0px' } = options;
 
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -78,14 +74,15 @@ export const useScrollProgress = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const totalHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const currentProgress = (window.pageYOffset / totalHeight) * 100;
       setProgress(Math.min(Math.max(currentProgress, 0), 100));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial calculation
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []); // Empty dependency array is correct here
 
@@ -102,10 +99,10 @@ export const useMouseParallax = (strength: number = 0.1) => {
         const rect = ref.current.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        
+
         const deltaX = (e.clientX - centerX) * strength;
         const deltaY = (e.clientY - centerY) * strength;
-        
+
         setPosition({ x: deltaX, y: deltaY });
       }
     };

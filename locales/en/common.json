@@ -42,7 +42,11 @@
     "tournaments": {
       "title": "Tournament Organization",
       "description": "Professional tournament organization and event management.",
-      "features": ["Tournament Planning", "Live Broadcasting", "Sponsor Management"]
+      "features": [
+        "Tournament Planning",
+        "Live Broadcasting",
+        "Sponsor Management"
+      ]
     },
     "streaming": {
       "title": "Content Creation",
@@ -50,9 +54,13 @@
       "features": ["Live Streaming", "Video Editing", "Social Media"]
     },
     "coaching": {
-      "title": "Player Coaching", 
+      "title": "Player Coaching",
       "description": "Individual and team coaching for performance improvement.",
-      "features": ["Individual Training", "Team Strategies", "Performance Analysis"]
+      "features": [
+        "Individual Training",
+        "Team Strategies",
+        "Performance Analysis"
+      ]
     },
     "branding": {
       "title": "Brand Management",
@@ -62,7 +70,11 @@
     "consulting": {
       "title": "Consulting",
       "description": "Gaming industry consulting and strategic planning.",
-      "features": ["Strategic Planning", "Market Analysis", "Business Development"]
+      "features": [
+        "Strategic Planning",
+        "Market Analysis",
+        "Business Development"
+      ]
     }
   },
   "About": {
@@ -78,7 +90,7 @@
         "description": "Our customers' success is our priority."
       },
       "innovation": {
-        "title": "Innovation", 
+        "title": "Innovation",
         "description": "We follow and implement innovations in the gaming world."
       },
       "teamwork": {
@@ -111,7 +123,7 @@
     "links": {
       "about": "About",
       "services": "Services",
-      "players": "Players", 
+      "players": "Players",
       "matches": "Matches",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",

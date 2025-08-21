@@ -20,13 +20,17 @@ const positionColors: Record<string, string> = {
   top: 'bg-orange-500/20 text-orange-400',
 };
 
-export async function generateMetadata({ params }: PlayersPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PlayersPageProps): Promise<Metadata> {
   const { locale } = await params;
-  
-  const title = locale === 'tr' ? 'Oyuncular - AIM Agency' : 'Players - AIM Agency';
-  const description = locale === 'tr' 
-    ? 'Profesyonel e-spor takımımızın yetenekli oyuncularını tanıyın.'
-    : 'Meet our professional e-sports team\'s talented players.';
+
+  const title =
+    locale === 'tr' ? 'Oyuncular - AIM Agency' : 'Players - AIM Agency';
+  const description =
+    locale === 'tr'
+      ? 'Profesyonel e-spor takımımızın yetenekli oyuncularını tanıyın.'
+      : "Meet our professional e-sports team's talented players.";
 
   return {
     title,
@@ -41,7 +45,7 @@ export async function generateMetadata({ params }: PlayersPageProps): Promise<Me
 
 export default async function PlayersPage({ params }: PlayersPageProps) {
   const { locale } = await params;
-  
+
   if (!locales.includes(locale)) {
     notFound();
   }
@@ -51,30 +55,31 @@ export default async function PlayersPage({ params }: PlayersPageProps) {
     const players = playersData.data.players;
 
     const pageTitle = locale === 'tr' ? 'Oyuncularımız' : 'Our Players';
-    const pageSubtitle = locale === 'tr' 
-      ? 'Profesyonel takımımızın yetenekli üyeleri'
-      : 'Talented members of our professional team';
+    const pageSubtitle =
+      locale === 'tr'
+        ? 'Profesyonel takımımızın yetenekli üyeleri'
+        : 'Talented members of our professional team';
 
     return (
       <div className="min-h-screen bg-gaming-dark">
         <div className="container-custom py-16">
           {/* Page Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-gaming font-bold mb-6">
+          <div className="mb-16 text-center">
+            <h1 className="mb-6 font-gaming text-4xl font-bold md:text-6xl">
               <span className="neon-text">{pageTitle}</span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-xl text-gray-300">
               {pageSubtitle}
             </p>
           </div>
 
           {/* Players Grid */}
           {players.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {players.map((player, index) => (
                 <div
                   key={`${player.slug}-${index}`}
-                  className="gaming-card overflow-hidden group hover:scale-105 transition-all duration-300"
+                  className="gaming-card group overflow-hidden transition-all duration-300 hover:scale-105"
                 >
                   {/* Player Avatar */}
                   <div className="relative h-64 overflow-hidden">
@@ -83,36 +88,37 @@ export default async function PlayersPage({ params }: PlayersPageProps) {
                         src={player.avatar}
                         alt={player.name}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="object-cover transition-transform duration-300 group-hover:scale-110"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-gaming-primary/20 to-gaming-dark flex items-center justify-center">
-                        <div className="text-6xl font-bold text-gaming-primary/50">
+                      <div className="from-gaming-primary/20 flex h-full w-full items-center justify-center bg-gradient-to-br to-gaming-dark">
+                        <div className="text-gaming-primary/50 text-6xl font-bold">
                           {player.nickname.charAt(0).toUpperCase()}
                         </div>
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-gaming-dark/80 to-transparent"></div>
-                    
+
                     {/* Position Badge */}
-                    <div className="absolute top-4 right-4">
-                      <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                        positionColors[player.position] || 'bg-gray-500/20 text-gray-400'
-                      }`}>
+                    <div className="absolute right-4 top-4">
+                      <span
+                        className={`rounded-full px-3 py-1 text-sm font-semibold ${
+                          positionColors[player.position] ||
+                          'bg-gray-500/20 text-gray-400'
+                        }`}
+                      >
                         {player.position.toUpperCase()}
                       </span>
                     </div>
 
                     {/* Player Info Overlay */}
                     <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-xl font-bold text-white mb-1">
+                      <h3 className="mb-1 text-xl font-bold text-white">
                         {player.nickname}
                       </h3>
-                      <p className="text-gray-300 text-sm">
-                        {player.name}
-                      </p>
+                      <p className="text-sm text-gray-300">{player.name}</p>
                       {player.nationality && (
-                        <p className="text-gray-400 text-xs mt-1">
+                        <p className="mt-1 text-xs text-gray-400">
                           {player.nationality}
                         </p>
                       )}
@@ -120,7 +126,7 @@ export default async function PlayersPage({ params }: PlayersPageProps) {
                   </div>
 
                   {/* Player Stats */}
-                  <div className="p-6 space-y-4">
+                  <div className="space-y-4 p-6">
                     {/* Basic Info */}
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       {player.age && (
@@ -145,9 +151,9 @@ export default async function PlayersPage({ params }: PlayersPageProps) {
 
                     {/* Player Stats */}
                     {player.stats && (
-                      <div className="grid grid-cols-3 gap-2 py-4 border-t border-gray-700">
+                      <div className="grid grid-cols-3 gap-2 border-t border-gray-700 py-4">
                         <div className="text-center">
-                          <div className="text-lg font-bold text-gaming-primary">
+                          <div className="text-gaming-primary text-lg font-bold">
                             {player.stats.matches}
                           </div>
                           <div className="text-xs text-gray-400">
@@ -173,11 +179,13 @@ export default async function PlayersPage({ params }: PlayersPageProps) {
 
                     {/* Achievements Preview */}
                     {player.achievements && player.achievements.length > 0 && (
-                      <div className="pt-4 border-t border-gray-700">
-                        <div className="flex items-center gap-2 mb-2">
+                      <div className="border-t border-gray-700 pt-4">
+                        <div className="mb-2 flex items-center gap-2">
                           <Trophy size={16} className="text-gaming-primary" />
                           <span className="text-sm font-semibold text-gray-300">
-                            {locale === 'tr' ? 'Son Başarı' : 'Latest Achievement'}
+                            {locale === 'tr'
+                              ? 'Son Başarı'
+                              : 'Latest Achievement'}
                           </span>
                         </div>
                         <p className="text-sm text-gray-400">
@@ -189,7 +197,7 @@ export default async function PlayersPage({ params }: PlayersPageProps) {
                     {/* View Profile Link */}
                     <Link
                       href={`/${locale}/players/${player.slug}`}
-                      className="block w-full text-center gaming-button mt-4"
+                      className="gaming-button mt-4 block w-full text-center"
                     >
                       {locale === 'tr' ? 'Profili Görüntüle' : 'View Profile'}
                     </Link>
@@ -198,15 +206,14 @@ export default async function PlayersPage({ params }: PlayersPageProps) {
               ))}
             </div>
           ) : (
-            <div className="text-center py-16">
-              <h3 className="text-2xl font-bold text-gray-400 mb-4">
+            <div className="py-16 text-center">
+              <h3 className="mb-4 text-2xl font-bold text-gray-400">
                 {locale === 'tr' ? 'Henüz oyuncu yok' : 'No players yet'}
               </h3>
               <p className="text-gray-500">
-                {locale === 'tr' 
+                {locale === 'tr'
                   ? 'Yakında takım üyelerimizi tanıtacağız.'
-                  : 'We will introduce our team members soon.'
-                }
+                  : 'We will introduce our team members soon.'}
               </p>
             </div>
           )}
@@ -215,18 +222,17 @@ export default async function PlayersPage({ params }: PlayersPageProps) {
     );
   } catch (error) {
     console.error('Error loading players page:', error);
-    
+
     return (
-      <div className="min-h-screen bg-gaming-dark flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gaming-dark">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">
+          <h1 className="mb-4 text-2xl font-bold text-white">
             {locale === 'tr' ? 'Hata' : 'Error'}
           </h1>
           <p className="text-gray-400">
-            {locale === 'tr' 
+            {locale === 'tr'
               ? 'Oyuncular yüklenirken bir hata oluştu.'
-              : 'An error occurred while loading players.'
-            }
+              : 'An error occurred while loading players.'}
           </p>
         </div>
       </div>

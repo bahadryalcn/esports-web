@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['res.cloudinary.com', 'cloudinary.com'],
     formats: ['image/avif', 'image/webp'],
-   
+
     remotePatterns: [
       {
         protocol: 'https',
@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-  }, 
+  },
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     config.module.rules.push({
       test: /\.md$/,
       loader: 'frontmatter-markdown-loader',
-      options: { mode: ['react-component'] }
+      options: { mode: ['react-component'] },
     });
 
     return config;

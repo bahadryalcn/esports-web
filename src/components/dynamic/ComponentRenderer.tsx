@@ -15,29 +15,34 @@ interface ComponentRendererProps {
   index?: number;
 }
 
-const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index = 0 }) => {
+const ComponentRenderer: React.FC<ComponentRendererProps> = ({
+  component,
+  index = 0,
+}) => {
   const renderComponent = () => {
     switch (component._template) {
       case 'hero':
         // Support both old format (single slide) and new format (multi-slide)
-        const heroProps = component.slides ? {
-          // New multi-slide format - slides array'i direkt geçir
-          slides: component.slides,
-          autoplay: component.autoplay,
-          autoplaySpeed: component.autoplaySpeed,
-          showDots: component.showDots,
-          showArrows: component.showArrows,
-        } : {
-          // Old single-slide format (backwards compatibility)
-          title: component.headline,
-          subtitle: component.subtext,
-          ctaText: component.buttonText,
-          ctaLink: component.buttonLink,
-          backgroundImage: component.backgroundImage,
-          overlay: component.overlay,
-          stats: component.stats,
-        };
-        
+        const heroProps = component.slides
+          ? {
+              // New multi-slide format - slides array'i direkt geçir
+              slides: component.slides,
+              autoplay: component.autoplay,
+              autoplaySpeed: component.autoplaySpeed,
+              showDots: component.showDots,
+              showArrows: component.showArrows,
+            }
+          : {
+              // Old single-slide format (backwards compatibility)
+              title: component.headline,
+              subtitle: component.subtext,
+              ctaText: component.buttonText,
+              ctaLink: component.buttonLink,
+              backgroundImage: component.backgroundImage,
+              overlay: component.overlay,
+              stats: component.stats,
+            };
+
         return <HeroSection {...heroProps} />;
 
       case 'about':
@@ -70,24 +75,24 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
           />
         );
 
-              case 'news':
-          return (
-            <NewsSection
-              title={component.title}
-              subtitle={component.subtitle}
-              selectedNews={component.selectedNews}
-              showFeaturedOnly={component.showFeaturedOnly}
-              maxArticles={component.maxArticles}
-              layout={component.layout}
-              showCategories={component.showCategories}
-              showReadMore={component.showReadMore}
-              cardStyle={component.cardStyle}
-              background={component.background}
-              showViewAllButton={component.showViewAllButton}
-              viewAllButtonText={component.viewAllButtonText}
-              viewAllButtonLink={component.viewAllButtonLink}
-            />
-          );
+      case 'news':
+        return (
+          <NewsSection
+            title={component.title}
+            subtitle={component.subtitle}
+            selectedNews={component.selectedNews}
+            showFeaturedOnly={component.showFeaturedOnly}
+            maxArticles={component.maxArticles}
+            layout={component.layout}
+            showCategories={component.showCategories}
+            showReadMore={component.showReadMore}
+            cardStyle={component.cardStyle}
+            background={component.background}
+            showViewAllButton={component.showViewAllButton}
+            viewAllButtonText={component.viewAllButtonText}
+            viewAllButtonLink={component.viewAllButtonLink}
+          />
+        );
 
       case 'players':
         return (
@@ -119,15 +124,11 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
         );
 
       case 'contact':
-        return (
-          <ContactSection
-            {...(component as any)}
-          />
-        );
+        return <ContactSection {...(component as any)} />;
 
       default:
         return (
-          <div className="py-16 bg-gray-50">
+          <div className="bg-gray-50 py-16">
             <div className="container mx-auto px-4">
               <div className="text-center text-gray-500">
                 Unknown component type: {(component as any)._template}
@@ -139,7 +140,11 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({ component, index 
   };
 
   return (
-    <div className="component-wrapper" data-component-type={component._template} data-index={index}>
+    <div
+      className="component-wrapper"
+      data-component-type={component._template}
+      data-index={index}
+    >
       {renderComponent()}
     </div>
   );

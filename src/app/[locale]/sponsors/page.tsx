@@ -19,19 +19,25 @@ interface SponsorsPageData {
   sponsors: Sponsor[];
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const client = getTinaClient();
-  
+
   try {
     const response = await client.queries.homepage(locale);
     const sponsorsComponent = response.data.homepage.components.find(
       (comp: any) => comp._template === 'sponsors'
     ) as any;
-    
+
     const title = sponsorsComponent?.title || 'Sponsorlarımız';
-    const description = sponsorsComponent?.subtitle || 'Bize güvenen ve destekleyen değerli partnerlerimiz';
-    
+    const description =
+      sponsorsComponent?.subtitle ||
+      'Bize güvenen ve destekleyen değerli partnerlerimiz';
+
     return {
       title: `${title} - AIM Agency`,
       description,
@@ -49,22 +55,29 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 }
 
-export default async function SponsorsPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function SponsorsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   const client = getTinaClient();
   let sponsors: Sponsor[] = [];
   let pageTitle = 'Sponsorlarımız';
   let pageSubtitle = 'Bize güvenen ve destekleyen değerli partnerlerimız';
-  
+
   try {
     const response = await client.queries.homepage(locale);
     const sponsorsComponent = response.data.homepage.components.find(
       (comp: any) => comp._template === 'sponsors'
     ) as any;
-    
+
     if (sponsorsComponent) {
       // Extract sponsors from TinaCMS reference field structure
-      sponsors = sponsorsComponent.selectedSponsors?.map((item: any) => item.sponsor).filter(Boolean) || [];
+      sponsors =
+        sponsorsComponent.selectedSponsors
+          ?.map((item: any) => item.sponsor)
+          .filter(Boolean) || [];
       pageTitle = sponsorsComponent.title || pageTitle;
       pageSubtitle = sponsorsComponent.subtitle || pageSubtitle;
     }
@@ -77,17 +90,17 @@ export default async function SponsorsPage({ params }: { params: Promise<{ local
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32">
         <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-transparent to-red-800/20"></div>
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-gaming font-bold mb-6 text-white">
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <h1 className="mb-6 font-gaming text-4xl font-bold text-white md:text-6xl">
             {pageTitle}
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-4xl text-xl leading-relaxed text-gray-300 md:text-2xl">
             {pageSubtitle}
           </p>
           <div className="mt-8 flex justify-center">
             <Link
               href="/"
-              className="inline-flex items-center justify-center space-x-2 px-6 py-3 text-white bg-red-600 hover:bg-red-700 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl border border-red-500/30 hover:border-red-400"
+              className="inline-flex items-center justify-center space-x-2 rounded-xl border border-red-500/30 bg-red-600 px-6 py-3 text-white shadow-lg transition-all duration-300 hover:border-red-400 hover:bg-red-700 hover:shadow-xl"
             >
               <span>Ana Sayfaya Dön</span>
             </Link>
@@ -99,69 +112,74 @@ export default async function SponsorsPage({ params }: { params: Promise<{ local
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
           {sponsors.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="w-24 h-24 mx-auto mb-6 bg-red-500/20 rounded-full flex items-center justify-center">
+            <div className="py-16 text-center">
+              <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-red-500/20">
                 <span className="text-4xl">🏢</span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">Henüz Sponsor Eklenmemiş</h3>
-              <p className="text-gray-400 mb-8 max-w-md mx-auto">
-                Sponsorlarımız yakında burada listelenecek. Ana sayfadaki sponsorlar section'ından sponsor ekleyebilirsiniz.
+              <h3 className="mb-4 text-2xl font-bold text-white">
+                Henüz Sponsor Eklenmemiş
+              </h3>
+              <p className="mx-auto mb-8 max-w-md text-gray-400">
+                Sponsorlarımız yakında burada listelenecek. Ana sayfadaki
+                sponsorlar section'ından sponsor ekleyebilirsiniz.
               </p>
               <Link
                 href="/"
-                className="inline-flex items-center justify-center space-x-2 px-6 py-3 text-white bg-red-600 hover:bg-red-700 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center space-x-2 rounded-xl bg-red-600 px-6 py-3 text-white shadow-lg transition-all duration-300 hover:bg-red-700 hover:shadow-xl"
               >
                 <span>Ana Sayfaya Dön</span>
               </Link>
             </div>
           ) : (
             <>
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-gaming font-bold mb-4 text-white">
+              <div className="mb-16 text-center">
+                <h2 className="mb-4 font-gaming text-3xl font-bold text-white md:text-4xl">
                   Tüm Sponsorlarımız
                 </h2>
-                <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                <p className="mx-auto max-w-2xl text-lg text-gray-300">
                   E-spor dünyasında birlikte büyüdüğümüz değerli iş ortaklarımız
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {sponsors.map((sponsor: Sponsor, index: number) => (
                   <div
                     key={sponsor.id}
-                    className="group bg-black/60 backdrop-blur-md rounded-2xl border border-red-500/30 hover:bg-black/80 hover:border-red-500/50 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden"
+                    className="group overflow-hidden rounded-2xl border border-red-500/30 bg-black/60 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-red-500/50 hover:bg-black/80 hover:shadow-xl"
                   >
                     <a
                       href={sponsor.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block p-6 h-48"
+                      className="block h-48 p-6"
                     >
-                      <div className="h-full flex flex-col items-center justify-center text-center">
+                      <div className="flex h-full flex-col items-center justify-center text-center">
                         {/* Sponsor Logo */}
                         {sponsor.logo ? (
-                          <div className="w-20 h-20 mx-auto mb-4 bg-white/10 rounded-xl flex items-center justify-center p-2 group-hover:bg-white/20 transition-all duration-300">
-                            <img 
-                              src={sponsor.logo} 
+                          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-white/10 p-2 transition-all duration-300 group-hover:bg-white/20">
+                            <img
+                              src={sponsor.logo}
                               alt={sponsor.name}
-                              className="w-full h-full object-contain"
+                              className="h-full w-full object-contain"
                             />
                           </div>
                         ) : (
-                          <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-red-500/40 to-red-700/40 rounded-xl flex items-center justify-center group-hover:from-red-500/60 group-hover:to-red-700/60 transition-all duration-300">
-                            <span className="text-red-400 text-3xl group-hover:text-white transition-colors">🏢</span>
+                          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-gradient-to-br from-red-500/40 to-red-700/40 transition-all duration-300 group-hover:from-red-500/60 group-hover:to-red-700/60">
+                            <span className="text-3xl text-red-400 transition-colors group-hover:text-white">
+                              🏢
+                            </span>
                           </div>
                         )}
-                        
+
                         {/* Sponsor Name */}
-                        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-red-400 transition-colors duration-300">
+                        <h3 className="mb-2 text-lg font-semibold text-white transition-colors duration-300 group-hover:text-red-400">
                           {sponsor.name}
                         </h3>
-                        
+
                         {/* Visit Website */}
-                        <div className="flex items-center justify-center space-x-2 text-sm text-gray-400 group-hover:text-red-300 transition-colors duration-300">
+                        <div className="flex items-center justify-center space-x-2 text-sm text-gray-400 transition-colors duration-300 group-hover:text-red-300">
                           <span>Web Sitesini Ziyaret Et</span>
-                          <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                          <ExternalLink className="h-4 w-4 opacity-0 transition-all duration-300 group-hover:opacity-100" />
                         </div>
                       </div>
                     </a>
@@ -170,26 +188,27 @@ export default async function SponsorsPage({ params }: { params: Promise<{ local
               </div>
 
               {/* Partnership CTA */}
-              <div className="text-center mt-20">
-                <div className="p-8 max-w-3xl mx-auto bg-black/60 backdrop-blur-md rounded-2xl border border-red-500/30 shadow-xl">
-                  <h3 className="text-3xl font-bold text-white mb-6">
+              <div className="mt-20 text-center">
+                <div className="mx-auto max-w-3xl rounded-2xl border border-red-500/30 bg-black/60 p-8 shadow-xl backdrop-blur-md">
+                  <h3 className="mb-6 text-3xl font-bold text-white">
                     İş Ortağımız Olmak İster misiniz?
                   </h3>
-                  <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                    E-spor dünyasında büyüyen markamızla birlikte büyümek için bizimle iletişime geçin. 
-                    Profesyonel ekip yönetimi, oyuncu gelişimi ve turnuva organizasyonu konularında 
-                    uzman ekibimizle tanışın.
+                  <p className="mb-8 text-xl leading-relaxed text-gray-300">
+                    E-spor dünyasında büyüyen markamızla birlikte büyümek için
+                    bizimle iletişime geçin. Profesyonel ekip yönetimi, oyuncu
+                    gelişimi ve turnuva organizasyonu konularında uzman
+                    ekibimizle tanışın.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <div className="flex flex-col justify-center gap-4 sm:flex-row">
                     <Link
                       href="/contact"
-                      className="inline-flex items-center justify-center space-x-2 px-8 py-4 text-white bg-gradient-to-r from-red-600 to-red-800 rounded-xl hover:from-red-700 hover:to-red-900 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold text-lg"
+                      className="inline-flex items-center justify-center space-x-2 rounded-xl bg-gradient-to-r from-red-600 to-red-800 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:from-red-700 hover:to-red-900 hover:shadow-xl"
                     >
                       <span>İletişime Geç</span>
                     </Link>
                     <Link
                       href="/services"
-                      className="inline-flex items-center justify-center space-x-2 px-8 py-4 text-white bg-transparent border-2 border-red-500/50 rounded-xl hover:bg-red-500/10 hover:border-red-400 transition-all duration-300 font-semibold text-lg"
+                      className="inline-flex items-center justify-center space-x-2 rounded-xl border-2 border-red-500/50 bg-transparent px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:border-red-400 hover:bg-red-500/10"
                     >
                       <span>Hizmetlerimizi İncele</span>
                     </Link>

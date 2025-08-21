@@ -7,7 +7,10 @@ import { AboutValues } from './components/AboutValues';
 import { AboutStats } from './components/AboutStats';
 import { useAboutValues } from './hooks/useAboutValues';
 import { useAboutContent } from './hooks/useAboutContent';
-import { useAdvancedParallax, useMultiLayerParallax } from '@/lib/hooks/useAdvancedParallax';
+import {
+  useAdvancedParallax,
+  useMultiLayerParallax,
+} from '@/lib/hooks/useAdvancedParallax';
 import { AboutSectionProps } from './types';
 
 export default function AboutSection({
@@ -22,32 +25,35 @@ export default function AboutSection({
   showValues = true,
   className = '',
   overlay,
-  logo
+  logo,
 }: AboutSectionProps) {
   // Use custom values or default ones
   const aboutValues = useAboutValues(values);
-  
+
   // Use custom content or default ones from TinaCMS
   const { main, secondary, vision } = useAboutContent(content);
 
   // Multi-layer parallax for background elements
   const { ref: parallaxRef, offsets } = useMultiLayerParallax([
-    { speed: 0.2, direction: 'up' },    // Background image
-    { speed: 0.4, direction: 'up' },    // Gradient elements
-    { speed: 0.1, direction: 'down' }   // Subtle elements
+    { speed: 0.2, direction: 'up' }, // Background image
+    { speed: 0.4, direction: 'up' }, // Gradient elements
+    { speed: 0.1, direction: 'down' }, // Subtle elements
   ]);
 
   // Advanced parallax for content
   const { ref: contentRef, offset: contentOffset } = useAdvancedParallax({
     speed: 0.3,
     direction: 'up',
-    easing: 'ease-out'
+    easing: 'ease-out',
   });
 
   return (
-    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden ${className}`} ref={parallaxRef}>
+    <section
+      className={`relative flex min-h-screen items-center justify-center overflow-hidden ${className}`}
+      ref={parallaxRef}
+    >
       {/* Background Container */}
-      <AboutBackground 
+      <AboutBackground
         variant={backgroundVariant}
         backgroundImage={image}
         overlay={overlay}
@@ -55,32 +61,34 @@ export default function AboutSection({
       />
 
       {/* Main Container with Grid Layout */}
-      <div className="relative z-10 container mx-auto px-4 w-full" ref={contentRef}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
-          
+      <div
+        className="container relative z-10 mx-auto w-full px-4"
+        ref={contentRef}
+      >
+        <div className="grid min-h-screen grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2">
           {/* Left Side - Logo + Content + Values */}
-          <div 
-            className="space-y-8 transform-gpu"
+          <div
+            className="transform-gpu space-y-8"
             style={{
-              transform: `translate3d(0, ${contentOffset.y * 0.3}px, 0)`
+              transform: `translate3d(0, ${contentOffset.y * 0.3}px, 0)`,
             }}
           >
             {/* Logo and Content Card */}
-            <div className="glass-dark rounded-3xl p-8 border border-red-500/20 hover:border-red-400/30 transition-all duration-300">
+            <div className="rounded-3xl border border-red-500/20 p-8 transition-all duration-300 glass-dark hover:border-red-400/30">
               <div className="space-y-6">
                 {/* Logo */}
                 {logo && (
                   <div className="flex justify-center">
-                    <div className="relative group">
+                    <div className="group relative">
                       {/* Glow effect behind image */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-red-700/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      
+                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-red-500/20 to-red-700/20 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-100"></div>
+
                       {/* Image container */}
-                      <div className="relative glass-dark rounded-3xl p-6 border border-red-500/20 group-hover:border-red-400/40 transition-all duration-300">
-                        <img 
-                          src={logo} 
+                      <div className="relative rounded-3xl border border-red-500/20 p-6 transition-all duration-300 glass-dark group-hover:border-red-400/40">
+                        <img
+                          src={logo}
                           alt={`${title} Logo`}
-                          className="w-auto h-auto max-w-[160px] max-h-[160px] lg:max-w-[200px] lg:max-h-[200px] object-contain"
+                          className="h-auto max-h-[160px] w-auto max-w-[160px] object-contain lg:max-h-[200px] lg:max-w-[200px]"
                         />
                       </div>
                     </div>
@@ -88,17 +96,17 @@ export default function AboutSection({
                 )}
 
                 {/* Title and Content */}
-                <div className="text-center space-y-4">
-                  <h2 className="text-2xl lg:text-3xl font-gaming font-bold text-white">
+                <div className="space-y-4 text-center">
+                  <h2 className="font-gaming text-2xl font-bold text-white lg:text-3xl">
                     <span className="text-gaming-gradient">{title}</span>
                   </h2>
-                  
-                  <p className="text-gray-300 leading-relaxed text-base lg:text-lg">
+
+                  <p className="text-base leading-relaxed text-gray-300 lg:text-lg">
                     {main}
                   </p>
 
                   {/* Decorative line */}
-                  <div className="mx-auto h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full w-24"></div>
+                  <div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
                 </div>
               </div>
             </div>
@@ -106,22 +114,19 @@ export default function AboutSection({
             {/* Values Section - 4 items in a row */}
             {showValues && (
               <div>
-                <h3 className="text-2xl font-gaming font-bold text-white mb-6 text-center">
+                <h3 className="mb-6 text-center font-gaming text-2xl font-bold text-white">
                   <span className="text-gaming-gradient">Değerlerimiz</span>
                 </h3>
-                <AboutValues 
-                  values={aboutValues}
-                  layout="grid-4"
-                />
+                <AboutValues values={aboutValues} layout="grid-4" />
               </div>
             )}
           </div>
 
           {/* Right Side - Mission and Vision */}
-          <div 
-            className="lg:pl-8 transform-gpu"
+          <div
+            className="transform-gpu lg:pl-8"
             style={{
-              transform: `translate3d(0, ${contentOffset.y * 0.5}px, 0)`
+              transform: `translate3d(0, ${contentOffset.y * 0.5}px, 0)`,
             }}
           >
             <AboutContent
@@ -131,10 +136,7 @@ export default function AboutSection({
             >
               {/* Stats */}
               {showStats && stats && stats.length > 0 && (
-                <AboutStats 
-                  stats={stats} 
-                  variant="compact"
-                />
+                <AboutStats stats={stats} variant="compact" />
               )}
             </AboutContent>
           </div>

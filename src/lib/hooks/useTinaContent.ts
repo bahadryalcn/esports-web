@@ -35,14 +35,14 @@ export function useTinaContent(): UseTinaContentReturn {
 }
 
 // Hook for a specific section
-export function useHomepageSection<T extends keyof HomepageResponse['homepage']>(
-  section: T
-): HomepageResponse['homepage'][T] | null {
+export function useHomepageSection<
+  T extends keyof HomepageResponse['homepage'],
+>(section: T): HomepageResponse['homepage'][T] | null {
   const { data } = useTinaContent();
-  
+
   if (!data?.data?.homepage) {
     return null;
   }
-  
+
   return data.data.homepage[section];
 }

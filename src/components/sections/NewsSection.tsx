@@ -8,7 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNewsData } from '@/lib/hooks/useNewsData';
-import { useAdvancedParallax, useMultiLayerParallax } from '@/lib/hooks/useAdvancedParallax';
+import {
+  useAdvancedParallax,
+  useMultiLayerParallax,
+} from '@/lib/hooks/useAdvancedParallax';
 import {
   Calendar,
   ArrowRight,
@@ -284,22 +287,22 @@ export default function NewsSection({
   layout = 'grid',
   cardStyle = 'modern',
   showCategories = true,
-  showReadMore = true
+  showReadMore = true,
 }: NewsSectionProps) {
   const { resolvedNews, loading, error } = useNewsData(selectedNews);
 
   // Multi-layer parallax for background elements
   const { ref: parallaxRef, offsets } = useMultiLayerParallax([
-    { speed: 0.2, direction: 'up' },    // Background image
-    { speed: 0.4, direction: 'up' },    // Pattern layer
-    { speed: 0.1, direction: 'down' }   // Floating elements
+    { speed: 0.2, direction: 'up' }, // Background image
+    { speed: 0.4, direction: 'up' }, // Pattern layer
+    { speed: 0.1, direction: 'down' }, // Floating elements
   ]);
 
   // Advanced parallax for content
   const { ref: contentRef, offset: contentOffset } = useAdvancedParallax({
     speed: 0.3,
     direction: 'up',
-    easing: 'ease-out'
+    easing: 'ease-out',
   });
 
   // Process news based on settings
@@ -346,7 +349,10 @@ export default function NewsSection({
   };
 
   return (
-    <section className="section-padding relative overflow-hidden" ref={parallaxRef}>
+    <section
+      className="section-padding relative overflow-hidden"
+      ref={parallaxRef}
+    >
       {/* Modern Background Layer */}
       <div className="absolute inset-0">
         {/* Background Image */}
@@ -559,7 +565,8 @@ export default function NewsSection({
                   </h3>
 
                   <p className="leading-relaxed text-gray-300">
-                    E-spor dünyasından en son gelişmeler, turnuva sonuçları ve takım haberleri için tüm içeriklerimizi inceleyin.
+                    E-spor dünyasından en son gelişmeler, turnuva sonuçları ve
+                    takım haberleri için tüm içeriklerimizi inceleyin.
                   </p>
                 </motion.div>
 
@@ -616,9 +623,7 @@ export default function NewsSection({
                     <div className="mb-1 text-xl font-black text-red-400 lg:text-2xl">
                       50K+
                     </div>
-                    <div className="text-sm text-gray-400">
-                      Okuyucu
-                    </div>
+                    <div className="text-sm text-gray-400">Okuyucu</div>
                   </div>
                 </motion.div>
               </div>
@@ -628,4 +633,4 @@ export default function NewsSection({
       </div>
     </section>
   );
-};
+}

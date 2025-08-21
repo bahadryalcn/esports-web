@@ -12,29 +12,30 @@ interface ContactBackgroundProps {
   };
 }
 
-export function ContactBackground({ 
+export function ContactBackground({
   variant = 'default',
-  backgroundImage, 
-  overlay 
+  backgroundImage,
+  overlay,
 }: ContactBackgroundProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
-  
+
   // Fallback background image if none provided
   const fallbackImage = '/bg/2.jpg';
   const finalBackgroundImage = backgroundImage || fallbackImage;
-  
+
   // Debug logs
   console.log('🎨 ContactBackground Render:', {
     variant,
     backgroundImage,
     finalBackgroundImage,
     overlay,
-    imageLoaded
+    imageLoaded,
   });
 
   // Check if overlay should be shown
-  const shouldShowOverlay = overlay && overlay.opacity !== undefined && overlay.opacity > 0;
-  
+  const shouldShowOverlay =
+    overlay && overlay.opacity !== undefined && overlay.opacity > 0;
+
   // Handle image loading
   useEffect(() => {
     setImageLoaded(false);
@@ -53,31 +54,31 @@ export function ContactBackground({
   return (
     <div className="absolute inset-0 overflow-hidden">
       {/* Main Background Layer */}
-      <motion.div 
+      <motion.div
         key={`contact-bg-${finalBackgroundImage}`}
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 h-full w-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: imageLoaded ? 1 : 0 }}
-        transition={{ 
-          duration: 0.8, 
-          ease: "easeOut"
+        transition={{
+          duration: 0.8,
+          ease: 'easeOut',
         }}
       >
         {/* Background Image */}
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat bg-attachment-fixed"
+        <div
+          className="bg-attachment-fixed absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url("${finalBackgroundImage}")`
+            backgroundImage: `url("${finalBackgroundImage}")`,
           }}
         />
-        
+
         {/* Fallback Gradient - very light */}
         <div className="absolute inset-0 bg-gradient-to-br from-red-950/20 via-black/10 to-red-900/20" />
       </motion.div>
 
       {/* Custom Overlay */}
       {shouldShowOverlay && (
-        <motion.div 
+        <motion.div
           className="absolute inset-0 z-10"
           style={{
             backgroundColor: overlay.color || '#000000',
@@ -88,57 +89,63 @@ export function ContactBackground({
           transition={{ duration: 0.8, delay: 0.3 }}
         />
       )}
-      
+
       {/* Default Overlay for Readability - very light */}
       {!shouldShowOverlay && (
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20 z-10" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/30 via-transparent to-black/20" />
       )}
 
       {/* Animated Background Elements */}
       <motion.div
-        className="absolute inset-0 z-5"
+        className="z-5 absolute inset-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 0.5 }}
       >
         {/* Gaming Orbs - Modern glassmorphism style */}
-        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-red-500/10 to-red-700/5 rounded-full blur-3xl animate-pulse" 
-             style={{ animationDuration: '4s' }} />
-        <div className="absolute bottom-40 left-20 w-80 h-80 bg-gradient-to-tl from-red-600/8 to-red-400/4 rounded-full blur-2xl animate-pulse" 
-             style={{ animationDuration: '6s', animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-red-500/6 to-transparent rounded-full blur-xl animate-pulse" 
-             style={{ animationDuration: '8s', animationDelay: '2s' }} />
+        <div
+          className="absolute right-20 top-20 h-96 w-96 animate-pulse rounded-full bg-gradient-to-br from-red-500/10 to-red-700/5 blur-3xl"
+          style={{ animationDuration: '4s' }}
+        />
+        <div
+          className="from-red-600/8 to-red-400/4 absolute bottom-40 left-20 h-80 w-80 animate-pulse rounded-full bg-gradient-to-tl blur-2xl"
+          style={{ animationDuration: '6s', animationDelay: '1s' }}
+        />
+        <div
+          className="from-red-500/6 absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 transform animate-pulse rounded-full bg-gradient-to-br to-transparent blur-xl"
+          style={{ animationDuration: '8s', animationDelay: '2s' }}
+        />
       </motion.div>
 
       {/* Geometric Elements */}
       <motion.div
-        className="absolute inset-0 z-5"
+        className="z-5 absolute inset-0"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, delay: 1 }}
       >
         {/* Modern geometric shapes */}
-        <div className="absolute top-24 left-24 w-32 h-32 border border-red-500/20 rounded-full backdrop-blur-sm bg-white/5" />
-        <div className="absolute top-48 right-32 w-24 h-24 border border-red-400/15 rounded-full backdrop-blur-sm bg-red-500/5" />
-        <div className="absolute bottom-32 left-1/4 w-20 h-20 border border-red-600/25 rounded-full backdrop-blur-sm bg-red-600/5" />
-        
+        <div className="absolute left-24 top-24 h-32 w-32 rounded-full border border-red-500/20 bg-white/5 backdrop-blur-sm" />
+        <div className="absolute right-32 top-48 h-24 w-24 rounded-full border border-red-400/15 bg-red-500/5 backdrop-blur-sm" />
+        <div className="absolute bottom-32 left-1/4 h-20 w-20 rounded-full border border-red-600/25 bg-red-600/5 backdrop-blur-sm" />
+
         {/* Modern grid pattern overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-5"
           style={{
             backgroundImage: `
               linear-gradient(rgba(239, 68, 68, 0.1) 1px, transparent 1px),
               linear-gradient(90deg, rgba(239, 68, 68, 0.1) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px'
+            backgroundSize: '50px 50px',
           }}
         />
       </motion.div>
 
       {/* Noise Texture for depth */}
-      <div className="absolute inset-0 z-5 opacity-20 mix-blend-overlay">
-        <div 
-          className="w-full h-full"
+      <div className="z-5 absolute inset-0 opacity-20 mix-blend-overlay">
+        <div
+          className="h-full w-full"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
@@ -146,8 +153,8 @@ export function ContactBackground({
       </div>
 
       {/* Vignette Effect */}
-      <div className="absolute inset-0 z-15 pointer-events-none">
-        <div className="w-full h-full bg-gradient-radial from-transparent via-transparent to-black/30" />
+      <div className="z-15 pointer-events-none absolute inset-0">
+        <div className="h-full w-full bg-gradient-radial from-transparent via-transparent to-black/30" />
       </div>
     </div>
   );

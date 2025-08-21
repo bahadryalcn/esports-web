@@ -8,7 +8,7 @@ export default function ScrollProgress() {
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   const progress = useScrollProgress();
@@ -17,26 +17,23 @@ export default function ScrollProgress() {
     <>
       {/* Top Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-destructive to-primary z-50"
+        className="fixed left-0 right-0 top-0 z-50 h-1 bg-gradient-to-r from-primary via-destructive to-primary"
         style={{ scaleX, transformOrigin: '0%' }}
       />
-      
+
       {/* Circular Progress Indicator */}
       <motion.div
         className="fixed bottom-8 right-8 z-50"
         initial={{ opacity: 0, scale: 0 }}
-        animate={{ 
+        animate={{
           opacity: progress > 10 ? 1 : 0,
-          scale: progress > 10 ? 1 : 0
+          scale: progress > 10 ? 1 : 0,
         }}
         transition={{ duration: 0.3 }}
       >
-        <div className="relative w-16 h-16">
+        <div className="relative h-16 w-16">
           {/* Background Circle */}
-          <svg
-            className="w-16 h-16 transform -rotate-90"
-            viewBox="0 0 64 64"
-          >
+          <svg className="h-16 w-16 -rotate-90 transform" viewBox="0 0 64 64">
             <circle
               cx="32"
               cy="32"
@@ -64,28 +61,28 @@ export default function ScrollProgress() {
               </linearGradient>
             </defs>
           </svg>
-          
+
           {/* Center Content */}
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.button
-              className="w-10 h-10 bg-gradient-to-br from-primary/20 to-destructive/20 backdrop-blur-xl rounded-full border border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-black transition-all duration-300"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-gradient-to-br from-primary/20 to-destructive/20 text-primary backdrop-blur-xl transition-all duration-300 hover:bg-primary hover:text-black"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
-              <svg 
-                className="w-5 h-5" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M5 10l7-7m0 0l7 7m-7-7v18" 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 10l7-7m0 0l7 7m-7-7v18"
                 />
               </svg>
             </motion.button>

@@ -15,7 +15,7 @@ import {
   BarChart3,
   Gamepad2,
   Home,
-  LogOut
+  LogOut,
 } from 'lucide-react';
 
 const sidebarItems = [
@@ -39,8 +39,16 @@ const sidebarItems = [
     icon: LayoutDashboard,
     children: [
       { title: 'Sayfalar', href: '/admin/pages', icon: FileText },
-      { title: 'Sayfa Oluşturucu', href: '/admin/page-builder', icon: LayoutDashboard },
-      { title: 'Menü Yönetimi', href: '/admin/navigation', icon: LayoutDashboard },
+      {
+        title: 'Sayfa Oluşturucu',
+        href: '/admin/page-builder',
+        icon: LayoutDashboard,
+      },
+      {
+        title: 'Menü Yönetimi',
+        href: '/admin/navigation',
+        icon: LayoutDashboard,
+      },
     ],
   },
   {
@@ -57,7 +65,11 @@ const sidebarItems = [
     title: 'Ayarlar',
     icon: Settings,
     children: [
-      { title: 'Genel Ayarlar', href: '/admin/settings/general', icon: Settings },
+      {
+        title: 'Genel Ayarlar',
+        href: '/admin/settings/general',
+        icon: Settings,
+      },
       { title: 'SEO Ayarları', href: '/admin/settings/seo', icon: BarChart3 },
       { title: 'Görünüm', href: '/admin/settings/appearance', icon: Image },
     ],
@@ -73,7 +85,7 @@ export default function AdminSidebar() {
         {/* Logo */}
         <div className="flex h-16 items-center border-b border-gray-700 px-6">
           <Link href="/" className="flex items-center space-x-2">
-            <Gamepad2 className="h-8 w-8 text-gaming-primary" />
+            <Gamepad2 className="text-gaming-primary h-8 w-8" />
             <span className="text-xl font-bold text-white">AIM Agency</span>
           </Link>
         </div>
@@ -81,11 +93,7 @@ export default function AdminSidebar() {
         {/* Navigation */}
         <nav className="flex-1 space-y-1 px-3 py-4">
           {sidebarItems.map((item, index) => (
-            <SidebarItem
-              key={index}
-              item={item}
-              pathname={pathname}
-            />
+            <SidebarItem key={index} item={item} pathname={pathname} />
           ))}
         </nav>
 
@@ -93,12 +101,12 @@ export default function AdminSidebar() {
         <div className="border-t border-gray-700 p-4">
           <Link
             href="/"
-            className="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            className="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-300 transition-colors hover:bg-gray-700 hover:text-white"
           >
             <Home className="h-5 w-5" />
             <span>Ana Siteye Git</span>
           </Link>
-          <button className="flex w-full items-center space-x-3 rounded-lg px-3 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+          <button className="flex w-full items-center space-x-3 rounded-lg px-3 py-2 text-gray-300 transition-colors hover:bg-gray-700 hover:text-white">
             <LogOut className="h-5 w-5" />
             <span>Çıkış Yap</span>
           </button>
@@ -131,7 +139,7 @@ function SidebarItem({ item, pathname }) {
                 className={cn(
                   'flex items-center space-x-3 rounded-lg px-3 py-2 text-sm transition-colors',
                   isChildActive
-                    ? 'bg-gaming-primary text-gaming-dark font-medium'
+                    ? 'bg-gaming-primary font-medium text-gaming-dark'
                     : 'text-gray-400 hover:bg-gray-700 hover:text-white'
                 )}
               >
@@ -151,7 +159,7 @@ function SidebarItem({ item, pathname }) {
       className={cn(
         'flex items-center space-x-3 rounded-lg px-3 py-2 transition-colors',
         isActive
-          ? 'bg-gaming-primary text-gaming-dark font-medium'
+          ? 'bg-gaming-primary font-medium text-gaming-dark'
           : 'text-gray-300 hover:bg-gray-700 hover:text-white'
       )}
     >

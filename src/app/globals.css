@@ -40,18 +40,18 @@
     --gaming-dark: 222 84% 5%; /* Near black */
     --gaming-darker: 0 0% 3%; /* Pure black */
     --gaming-light: 210 40% 98%; /* White */
-    
+
     /* Animation timing */
     --animation-duration-fast: 0.3s;
     --animation-duration-normal: 0.6s;
     --animation-duration-slow: 1.2s;
     --animation-timing: cubic-bezier(0.16, 1, 0.3, 1);
-    
+
     /* Glass morphism properties */
     --glass-opacity: 0.05;
     --glass-blur: 16px;
     --glass-border: rgba(255, 255, 255, 0.1);
-    
+
     /* Shadow properties */
     --shadow-gaming: 0 4px 15px rgba(239, 68, 68, 0.3);
     --shadow-gaming-hover: 0 8px 25px rgba(239, 68, 68, 0.5);
@@ -78,7 +78,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 0 72.2% 50.6%;
-    
+
     /* Dark theme glass properties */
     --glass-opacity: 0.2;
     --glass-border: rgba(255, 255, 255, 0.2);
@@ -90,8 +90,10 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background font-body text-foreground;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
     letter-spacing: -0.01em;
   }
 
@@ -144,7 +146,7 @@
 
 @layer components {
   /* Modern Gaming Components */
-  
+
   /* Glass morphism effects */
   .glass-effect {
     background: rgba(255, 255, 255, var(--glass-opacity));
@@ -169,32 +171,40 @@
 
   /* Modern Button Styles */
   .btn-gaming-primary {
-    @apply px-6 py-3 font-semibold text-white rounded-xl;
-    background: linear-gradient(135deg, hsl(var(--gaming-primary)) 0%, hsl(var(--gaming-secondary)) 100%);
+    @apply rounded-xl px-6 py-3 font-semibold text-white;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gaming-primary)) 0%,
+      hsl(var(--gaming-secondary)) 100%
+    );
     border: 1px solid rgba(239, 68, 68, 0.3);
     box-shadow: var(--shadow-gaming);
     transition: all var(--animation-duration-fast) var(--animation-timing);
   }
 
   .btn-gaming-primary:hover {
-    background: linear-gradient(135deg, hsl(var(--gaming-secondary)) 0%, hsl(var(--gaming-accent)) 100%);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gaming-secondary)) 0%,
+      hsl(var(--gaming-accent)) 100%
+    );
     box-shadow: var(--shadow-gaming-hover);
     transform: translateY(-2px) scale(1.02);
   }
 
   .btn-gaming-outline {
-    @apply px-6 py-3 font-semibold text-red-400 rounded-xl border-2 border-red-500/50;
+    @apply rounded-xl border-2 border-red-500/50 px-6 py-3 font-semibold text-red-400;
     background: transparent;
     transition: all var(--animation-duration-fast) var(--animation-timing);
   }
 
   .btn-gaming-outline:hover {
-    @apply bg-red-500 text-white border-red-500;
+    @apply border-red-500 bg-red-500 text-white;
     box-shadow: var(--shadow-gaming);
   }
 
   .btn-glass {
-    @apply glass-effect px-6 py-3 font-semibold text-white rounded-xl;
+    @apply glass-effect rounded-xl px-6 py-3 font-semibold text-white;
     transition: all var(--animation-duration-fast) var(--animation-timing);
   }
 
@@ -212,22 +222,28 @@
   .card-gaming:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), var(--shadow-gaming);
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.1),
+      var(--shadow-gaming);
   }
 
   .card-gaming-dark {
-    @apply glass-dark rounded-2xl p-6;
+    @apply rounded-2xl p-6 glass-dark;
     transition: all var(--animation-duration-fast) var(--animation-timing);
   }
 
   .card-gaming-hover {
-    @apply transform hover:scale-105 hover:-translate-y-2;
+    @apply transform hover:-translate-y-2 hover:scale-105;
     transition: all var(--animation-duration-fast) var(--animation-timing);
   }
 
   /* Text Effects */
   .text-gaming-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, hsl(var(--gaming-primary)) 100%);
+    background: linear-gradient(
+      135deg,
+      #ffffff 0%,
+      hsl(var(--gaming-primary)) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -245,19 +261,24 @@
 
   /* Hero Section Specific Styles */
   .hero-gradient-bg {
-    background: linear-gradient(135deg, 
-      rgba(0, 0, 0, 0.3) 0%, 
-      rgba(239, 68, 68, 0.05) 50%, 
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(239, 68, 68, 0.05) 50%,
       rgba(0, 0, 0, 0.3) 100%
     );
   }
 
   .hero-text-shadow {
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.6);
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.8),
+      0 0 20px rgba(0, 0, 0, 0.6);
   }
 
   .gaming-text-shadow {
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.6);
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.8),
+      0 0 20px rgba(0, 0, 0, 0.6);
   }
 
   /* Layout Components */
@@ -266,7 +287,7 @@
   }
 
   .container-gaming {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
   /* Performance Optimized Animations */
@@ -290,7 +311,8 @@
   }
 
   .animate-fade-down {
-    animation: fade-down var(--animation-duration-normal) var(--animation-timing);
+    animation: fade-down var(--animation-duration-normal)
+      var(--animation-timing);
   }
 
   .animate-scale-in {
@@ -311,7 +333,7 @@
 
   /* Hover Effects */
   .hover-lift {
-    @apply transition-all duration-300 hover:scale-105 hover:-translate-y-2;
+    @apply transition-all duration-300 hover:-translate-y-2 hover:scale-105;
   }
 
   .hover-glow {
@@ -335,30 +357,54 @@
   }
 
   /* Responsive Text Sizes */
-  .text-responsive-xs { @apply text-xs sm:text-sm; }
-  .text-responsive-sm { @apply text-sm sm:text-base; }
-  .text-responsive-base { @apply text-base sm:text-lg; }
-  .text-responsive-lg { @apply text-lg sm:text-xl; }
-  .text-responsive-xl { @apply text-xl sm:text-2xl; }
-  .text-responsive-2xl { @apply text-2xl sm:text-3xl lg:text-4xl; }
-  .text-responsive-3xl { @apply text-3xl sm:text-4xl lg:text-5xl; }
-  .text-responsive-hero { @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl; }
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm;
+  }
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl;
+  }
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl;
+  }
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+  .text-responsive-3xl {
+    @apply text-3xl sm:text-4xl lg:text-5xl;
+  }
+  .text-responsive-hero {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
+  }
 
   /* Gaming specific utilities */
-  .bg-gaming-gradient { 
-    background: linear-gradient(135deg, hsl(var(--gaming-primary)) 0%, hsl(var(--gaming-secondary)) 100%); 
-  }
-  
-  .bg-gaming-gradient-hover { 
-    background: linear-gradient(135deg, hsl(var(--gaming-secondary)) 0%, hsl(var(--gaming-accent)) 100%); 
-  }
-
-  .border-gaming { 
-    border-color: hsl(var(--gaming-primary)); 
+  .bg-gaming-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gaming-primary)) 0%,
+      hsl(var(--gaming-secondary)) 100%
+    );
   }
 
-  .text-gaming { 
-    color: hsl(var(--gaming-primary)); 
+  .bg-gaming-gradient-hover {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gaming-secondary)) 0%,
+      hsl(var(--gaming-accent)) 100%
+    );
+  }
+
+  .border-gaming {
+    border-color: hsl(var(--gaming-primary));
+  }
+
+  .text-gaming {
+    color: hsl(var(--gaming-primary));
   }
 
   /* Scrollbar utilities */
@@ -372,12 +418,24 @@
   }
 
   /* Stagger Animation Delays */
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
-  .stagger-6 { animation-delay: 0.6s; }
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
+  .stagger-5 {
+    animation-delay: 0.5s;
+  }
+  .stagger-6 {
+    animation-delay: 0.6s;
+  }
 }
 
 /* Enhanced Keyframe Animations */
@@ -415,25 +473,32 @@
 }
 
 @keyframes glow-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
   }
   50% {
-    box-shadow: 0 0 40px rgba(239, 68, 68, 0.6), 0 0 60px rgba(239, 68, 68, 0.4);
+    box-shadow:
+      0 0 40px rgba(239, 68, 68, 0.6),
+      0 0 60px rgba(239, 68, 68, 0.4);
   }
 }
 
 @keyframes text-glow {
-  0%, 100% {
+  0%,
+  100% {
     text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
   }
   50% {
-    text-shadow: 0 0 40px rgba(239, 68, 68, 0.8), 0 0 60px rgba(239, 68, 68, 0.6);
+    text-shadow:
+      0 0 40px rgba(239, 68, 68, 0.8),
+      0 0 60px rgba(239, 68, 68, 0.6);
   }
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -455,7 +520,7 @@
   .bg-attachment-fixed {
     background-attachment: fixed;
   }
-  
+
   /* Mobile background optimization - fixed attachment can cause issues */
   @media (max-width: 768px) {
     .bg-attachment-fixed {

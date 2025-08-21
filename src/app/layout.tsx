@@ -5,7 +5,8 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'AIM Agency - E-spor Ajansı',
-  description: 'E-spor dünyasında öncü ajans. Profesyonel oyuncu yönetimi, turnuva organizasyonu ve gaming içerik üretimi.',
+  description:
+    'E-spor dünyasında öncü ajans. Profesyonel oyuncu yönetimi, turnuva organizasyonu ve gaming içerik üretimi.',
   icons: {
     icon: '/assets/favicon.ico',
     shortcut: '/assets/favicon.ico',
@@ -25,9 +26,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
       </head>
       <body className="min-h-screen bg-gaming-dark text-white">
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

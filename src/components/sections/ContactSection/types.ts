@@ -1,6 +1,16 @@
 import { LucideIcon } from 'lucide-react';
 
-export type SocialMediaIcon = 'youtube' | 'twitch' | 'twitter' | 'x' | 'instagram' | 'tiktok' | 'discord' | 'kick' | 'linkedin' | 'facebook';
+export type SocialMediaIcon =
+  | 'youtube'
+  | 'twitch'
+  | 'twitter'
+  | 'x'
+  | 'instagram'
+  | 'tiktok'
+  | 'discord'
+  | 'kick'
+  | 'linkedin'
+  | 'facebook';
 
 export interface ContactInfo {
   icon: LucideIcon | SocialMediaIcon;

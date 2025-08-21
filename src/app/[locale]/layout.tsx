@@ -16,7 +16,7 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   const { locale } = await params;
-  
+
   // Validate locale
   if (!locales.includes(locale)) {
     notFound();
@@ -32,10 +32,8 @@ export default async function LocaleLayout({
       <div lang={locale}>
         <ScrollProgress />
         <Header navigation={navigationData.data.navigation} />
-        <main className="pt-16">
-          {children}
-        </main>
-        <Footer 
+        <main className="pt-16">{children}</main>
+        <Footer
           navigation={navigationData.data.navigation}
           settings={settingsData.data.settings}
         />
@@ -47,9 +45,7 @@ export default async function LocaleLayout({
       <div lang={locale}>
         <ScrollProgress />
         <Header />
-        <main className="pt-16">
-          {children}
-        </main>
+        <main className="pt-16">{children}</main>
         <Footer />
       </div>
     );

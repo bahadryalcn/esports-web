@@ -42,8 +42,10 @@ export const useNewsData = (selectedNews: SelectedNews[]) => {
           if (!newsRef.news) continue;
 
           try {
-            const response = await fetch(`/api/news/resolve?path=${encodeURIComponent(newsRef.news)}`);
-            
+            const response = await fetch(
+              `/api/news/resolve?path=${encodeURIComponent(newsRef.news)}`
+            );
+
             if (!response.ok) {
               console.warn(`Failed to resolve news: ${newsRef.news}`);
               continue;

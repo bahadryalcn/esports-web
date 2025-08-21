@@ -32,13 +32,15 @@ async function fetchSponsors(sponsorPaths: string[]): Promise<Sponsor[]> {
     const sponsorPromises = sponsorPaths.map(async (path) => {
       try {
         // Extract filename from path
-        const filename = path.replace('content/sponsors/', '').replace('.json', '');
-        
+        const filename = path
+          .replace('content/sponsors/', '')
+          .replace('.json', '');
+
         // Query single sponsor
         const response = await client.queries.sponsors({
-          relativePath: `${filename}.json`
+          relativePath: `${filename}.json`,
         });
-        
+
         return response.data.sponsors;
       } catch (error) {
         console.error(`Error fetching sponsor ${path}:`, error);
@@ -62,69 +64,76 @@ export default async function SponsorsSection({
   showAutoScroll = true,
   autoScrollSpeed = 3000,
   viewAllButtonText = 'Tüm Sponsorlarımız',
-  viewAllButtonLink = '/sponsors'
+  viewAllButtonLink = '/sponsors',
 }: SponsorsSectionProps) {
-  
   // Extract sponsor paths from selectedSponsors
-  const sponsorPaths = selectedSponsors?.map(item => {
-    // If sponsor is a string (file path)
-    if (typeof item.sponsor === 'string') {
-      return item.sponsor;
-    }
-    // If sponsor is an object with _sys path
-    if (item.sponsor && typeof item.sponsor === 'object' && item.sponsor._sys?.path) {
-      return item.sponsor._sys.path;
-    }
-    return null;
-  }).filter(Boolean) || [];
+  const sponsorPaths =
+    selectedSponsors
+      ?.map((item) => {
+        // If sponsor is a string (file path)
+        if (typeof item.sponsor === 'string') {
+          return item.sponsor;
+        }
+        // If sponsor is an object with _sys path
+        if (
+          item.sponsor &&
+          typeof item.sponsor === 'object' &&
+          item.sponsor._sys?.path
+        ) {
+          return item.sponsor._sys.path;
+        }
+        return null;
+      })
+      .filter(Boolean) || [];
 
   // If no sponsor paths selected, show empty state
   if (sponsorPaths.length === 0) {
     return (
-      <section className="relative section-padding overflow-hidden">
+      <section className="section-padding relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gaming-darker via-gaming-dark to-gaming-darker" />
-        
+
         {/* Floating Elements - Optimized for performance */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-red-500/5 to-red-700/3 rounded-full blur-lg animate-pulse" />
-          <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tl from-red-600/4 to-red-400/2 rounded-full blur-md animate-pulse" />
+          <div className="to-red-700/3 absolute right-20 top-20 h-64 w-64 animate-pulse rounded-full bg-gradient-to-br from-red-500/5 blur-lg" />
+          <div className="from-red-600/4 to-red-400/2 absolute bottom-40 left-20 h-48 w-48 animate-pulse rounded-full bg-gradient-to-tl blur-md" />
         </div>
 
         <div className="container-gaming relative z-20 text-center">
           {/* Header */}
           <div className="mb-12">
-            <h2 className="text-responsive-3xl font-gaming font-black text-white mb-4">
+            <h2 className="text-responsive-3xl mb-4 font-gaming font-black text-white">
               <span className="text-gaming-gradient">{title}</span>
             </h2>
-            <p className="text-responsive-lg text-gray-200 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-responsive-lg mx-auto max-w-4xl leading-relaxed text-gray-200">
               {subtitle}
             </p>
-            <div className="mx-auto mt-6 h-1 w-32 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full" />
+            <div className="mx-auto mt-6 h-1 w-32 rounded-full bg-gradient-to-r from-transparent via-red-500 to-transparent" />
           </div>
 
           {/* Empty State */}
-          <div className="max-w-2xl mx-auto">
-            <div className="glass-dark rounded-3xl p-8 lg:p-12 border border-red-500/20">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 glass-red rounded-2xl flex items-center justify-center">
-                  <Users className="w-8 h-8 text-red-400" />
+          <div className="mx-auto max-w-2xl">
+            <div className="rounded-3xl border border-red-500/20 p-8 glass-dark lg:p-12">
+              <div className="mb-6 flex justify-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl glass-red">
+                  <Users className="h-8 w-8 text-red-400" />
                 </div>
               </div>
-              
-              <h3 className="text-xl lg:text-2xl font-gaming font-bold text-white mb-4">
+
+              <h3 className="mb-4 font-gaming text-xl font-bold text-white lg:text-2xl">
                 Henüz Sponsor Seçilmemiş
               </h3>
-              
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                Bu bölüm için henüz sponsor seçilmemiş. Lütfen daha sonra tekrar kontrol edin.
+
+              <p className="mb-6 leading-relaxed text-gray-300">
+                Bu bölüm için henüz sponsor seçilmemiş. Lütfen daha sonra tekrar
+                kontrol edin.
               </p>
 
               <Link
                 href="/admin"
                 className="btn-gaming-outline inline-flex items-center gap-2"
               >
-                <Award className="w-4 h-4" />
+                <Award className="h-4 w-4" />
                 <span>Sponsor Ekle</span>
               </Link>
             </div>
@@ -140,57 +149,55 @@ export default async function SponsorsSection({
   // If no sponsors after fetching, show error state
   if (!sponsors || sponsors.length === 0) {
     return (
-      <section className="relative section-padding overflow-hidden">
+      <section className="section-padding relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gaming-darker via-gaming-dark to-gaming-darker" />
-        
+
         {/* Floating Elements - Optimized for performance */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-red-500/5 to-red-700/3 rounded-full blur-lg animate-pulse" />
-          <div className="absolute bottom-40 left-20 w-48 h-48 bg-gradient-to-tl from-red-600/4 to-red-400/2 rounded-full blur-md animate-pulse" />
+          <div className="to-red-700/3 absolute right-20 top-20 h-64 w-64 animate-pulse rounded-full bg-gradient-to-br from-red-500/5 blur-lg" />
+          <div className="from-red-600/4 to-red-400/2 absolute bottom-40 left-20 h-48 w-48 animate-pulse rounded-full bg-gradient-to-tl blur-md" />
         </div>
 
         <div className="container-gaming relative z-20 text-center">
           {/* Header */}
           <div className="mb-12">
-            <h2 className="text-responsive-3xl font-gaming font-black text-white mb-4">
+            <h2 className="text-responsive-3xl mb-4 font-gaming font-black text-white">
               <span className="text-gaming-gradient">{title}</span>
             </h2>
-            <p className="text-responsive-lg text-gray-200 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-responsive-lg mx-auto max-w-4xl leading-relaxed text-gray-200">
               {subtitle}
             </p>
-            <div className="mx-auto mt-6 h-1 w-32 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full" />
+            <div className="mx-auto mt-6 h-1 w-32 rounded-full bg-gradient-to-r from-transparent via-red-500 to-transparent" />
           </div>
 
           {/* Error State */}
-          <div className="max-w-2xl mx-auto">
-            <div className="glass-dark rounded-3xl p-8 lg:p-12 border border-red-500/30">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 glass-red rounded-2xl flex items-center justify-center">
-                  <AlertCircle className="w-8 h-8 text-red-400" />
+          <div className="mx-auto max-w-2xl">
+            <div className="rounded-3xl border border-red-500/30 p-8 glass-dark lg:p-12">
+              <div className="mb-6 flex justify-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl glass-red">
+                  <AlertCircle className="h-8 w-8 text-red-400" />
                 </div>
               </div>
-              
-              <h3 className="text-xl lg:text-2xl font-gaming font-bold text-white mb-4">
+
+              <h3 className="mb-4 font-gaming text-xl font-bold text-white lg:text-2xl">
                 Sponsorlar Yüklenemedi
               </h3>
-              
-              <p className="text-gray-300 mb-6 leading-relaxed">
-                Sponsorlar yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.
+
+              <p className="mb-6 leading-relaxed text-gray-300">
+                Sponsorlar yüklenirken bir hata oluştu. Lütfen daha sonra tekrar
+                deneyin.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button 
+              <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                <button
                   onClick={() => window.location.reload()}
                   className="btn-gaming-primary"
                 >
                   Tekrar Dene
                 </button>
-                
-                <Link
-                  href="/contact"
-                  className="btn-gaming-outline"
-                >
+
+                <Link href="/contact" className="btn-gaming-outline">
                   Destek Al
                 </Link>
               </div>

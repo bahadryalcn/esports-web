@@ -3,27 +3,33 @@
 ## ✅ Kurulum Tamamlandı!
 
 TinaCMS başarıyla kuruldu ve çalışıyor. Admin paneline erişim için:
+
 - **URL:** `http://localhost:3000/admin/index.html`
 - **Alternatif:** `http://localhost:3000/admin`
 
 ## 🚀 Hızlı Başlangıç
 
 ### 1. Geliştirme Sunucusunu Başlatma
+
 ```bash
 npm run dev
 ```
 
 ### 2. Admin Paneline Erişim
+
 Tarayıcınızda `http://localhost:3000/admin/index.html` adresine gidin.
 
 ### 3. Ana Sayfa Yönetimi
+
 Ana sayfa içeriğini yönetmek için:
+
 - **Yol:** `/admin/index.html` → Ana Sayfa
 - **Dosya:** `content/homepage/index.json`
 
 ## 📋 İçerik Yönetimi
 
 ### Ana Sayfa (Homepage) ⭐ YENİ!
+
 - **Yol:** `/admin/index.html` → Ana Sayfa
 - **Dosya Konumu:** `content/homepage/index.json`
 - **Alanlar:**
@@ -35,6 +41,7 @@ Ana sayfa içeriğini yönetmek için:
   - **Sponsorlar Bölümü:** Başlık, sponsor öğeleri (JSON formatında)
 
 ### Haberler (News)
+
 - **Yol:** `/admin/index.html` → Haberler
 - **Dosya Konumu:** `content/news/`
 - **Alanlar:**
@@ -47,6 +54,7 @@ Ana sayfa içeriğini yönetmek için:
   - Öne Çıkan (ana sayfada gösterilsin mi?)
 
 ### Oyuncular (Players)
+
 - **Yol:** `/admin/index.html` → Oyuncular
 - **Dosya Konumu:** `content/players/`
 - **Alanlar:**
@@ -62,6 +70,7 @@ Ana sayfa içeriğini yönetmek için:
   - Başarılar (rich-text - her başarıyı yeni satırda yazın)
 
 ### Maçlar (Matches)
+
 - **Yol:** `/admin/index.html` → Maçlar
 - **Dosya Konumu:** `content/matches/`
 - **Alanlar:**
@@ -77,6 +86,7 @@ Ana sayfa içeriğini yönetmek için:
   - Açıklama (rich-text)
 
 ### Hizmetler (Services)
+
 - **Yol:** `/admin/index.html` → Hizmetler
 - **Dosya Konumu:** `content/services/`
 - **Alanlar:**
@@ -88,6 +98,7 @@ Ana sayfa içeriğini yönetmek için:
   - Kategori (Oyuncu Yönetimi, Turnuva Organizasyonu, Sponsorluk, İçerik Üretimi, Eğitim)
 
 ### Site Ayarları (Settings)
+
 - **Yol:** `/admin/index.html` → Site Ayarları
 - **Dosya Konumu:** `content/settings/general.json`
 - **Alanlar:**
@@ -101,6 +112,7 @@ Ana sayfa içeriğini yönetmek için:
   - Sosyal Medya (Twitter, Instagram, YouTube, Twitch)
 
 ### Sayfalar (Pages)
+
 - **Yol:** `/admin/index.html` → Sayfalar
 - **Dosya Konumu:** `content/pages/`
 - **Alanlar:**
@@ -115,15 +127,18 @@ Ana sayfa içeriğini yönetmek için:
 ## ⚠️ Önemli Notlar
 
 ### 1. Windows Özel Notları
+
 - Environment variable'lar için `set` komutu kullanılır
 - Cross-env paketi yüklü (gerekirse)
 - Git Bash kullanılıyorsa Unix komutları çalışır
 
 ### 2. Dosya Formatları
+
 - **Markdown (.md):** Haberler, Oyuncular, Maçlar, Hizmetler, Sayfalar
 - **JSON (.json):** Site Ayarları, Ana Sayfa
 
 ### 3. Görsel Yükleme
+
 - Görseller `public/uploads/` klasörüne kaydedilir
 - Önerilen boyutlar:
   - Haber görselleri: 1200x630px
@@ -132,17 +147,21 @@ Ana sayfa içeriğini yönetmek için:
   - Hero arka plan: 1920x1080px
 
 ### 4. Rich Text Editörü
+
 - TinaCMS'in zengin metin editörü kullanılır
 - Markdown formatında kaydedilir
 - Görsel, video ve bağlantı eklenebilir
 
 ### 5. Liste Alanları
+
 - `achievements` ve `features` alanları artık rich-text
 - Her maddeyi yeni satırda yazın
 - Markdown listesi formatında: `- Madde 1`
 
 ### 6. Ana Sayfa JSON Formatı ⭐
+
 Ana sayfa için JSON formatında veri girişi:
+
 ```json
 {
   "hero": {
@@ -162,6 +181,7 @@ Ana sayfa için JSON formatında veri girişi:
 ## 🔧 Geliştirme İpuçları
 
 ### 1. Yerel Geliştirme
+
 ```bash
 # TinaCMS ile birlikte Next.js'i başlat
 npm run dev
@@ -171,6 +191,7 @@ npx tinacms dev
 ```
 
 ### 2. Build İşlemi
+
 ```bash
 # Production build
 npm run build
@@ -180,7 +201,9 @@ npx tinacms build
 ```
 
 ### 3. Environment Variables
+
 `.env.local` dosyasına ekleyin (opsiyonel):
+
 ```
 NEXT_PUBLIC_TINA_CLIENT_ID=your_client_id
 TINA_TOKEN=your_token
@@ -189,26 +212,31 @@ TINA_TOKEN=your_token
 ## 🐛 Sorun Giderme
 
 ### 1. TinaCMS Başlamıyor
+
 - Node.js 18+ kullandığınızdan emin olun
 - `npm install` komutunu çalıştırın
 - Port 4001'in boş olduğundan emin olun
 
 ### 2. İçerik Güncellenmiyor
+
 - Tarayıcı önbelleğini temizleyin
 - Sayfayı yenileyin (Ctrl+F5)
 - TinaCMS'i yeniden başlatın
 
 ### 3. Görsel Yüklenmiyor
+
 - `public/uploads/` klasörünün yazma izni olduğundan emin olun
 - Dosya boyutunun 10MB'dan küçük olduğundan emin olun
 - Desteklenen formatlar: JPG, PNG, GIF, WebP
 
 ### 4. Windows Özel Sorunları
+
 - Environment variable hatası: `set` komutu kullanın
 - Path sorunları: Git Bash kullanın
 - Port çakışması: Farklı port deneyin
 
 ### 5. Ana Sayfa JSON Hataları
+
 - JSON formatını kontrol edin
 - Tırnak işaretlerini doğru kullanın
 - Escape karakterlerini unutmayın
@@ -261,10 +289,11 @@ esport-web/
 ## 📞 Destek
 
 Sorunlarınız için:
+
 - TinaCMS Dokümantasyonu: https://tina.io/docs
 - GitHub Issues: Proje repository'sinde issue açın
 - E-posta: info@aimagency.com
 
 ---
 
-**🎉 TinaCMS başarıyla kuruldu ve ana sayfa yönetimi aktif!** 
+**🎉 TinaCMS başarıyla kuruldu ve ana sayfa yönetimi aktif!**

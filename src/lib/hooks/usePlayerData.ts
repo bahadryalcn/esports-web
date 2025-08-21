@@ -60,32 +60,43 @@ export function usePlayerData(selectedPlayers: PlayerReference[]) {
         const resolved: ResolvedPlayer[] = [];
 
         // Filter out empty player references
-        const validPlayerRefs = selectedPlayers.filter(ref => ref.player && ref.player.trim() !== '');
+        const validPlayerRefs = selectedPlayers.filter(
+          (ref) => ref.player && ref.player.trim() !== ''
+        );
         console.log('usePlayerData: Valid player refs:', validPlayerRefs);
 
         for (const playerRef of validPlayerRefs) {
           if (playerRef.player) {
             try {
               // Call API to get player data
-              const response = await fetch(`/api/players/resolve?path=${encodeURIComponent(playerRef.player)}`);
-              
+              const response = await fetch(
+                `/api/players/resolve?path=${encodeURIComponent(playerRef.player)}`
+              );
+
               if (response.ok) {
                 const playerData = await response.json();
                 if (playerData) {
                   resolved.push({ player: playerData });
                 }
               } else {
-                console.error(`Failed to fetch player data for ${playerRef.player}`);
+                console.error(
+                  `Failed to fetch player data for ${playerRef.player}`
+                );
               }
             } catch (fetchError) {
-              console.error(`Error fetching player ${playerRef.player}:`, fetchError);
+              console.error(
+                `Error fetching player ${playerRef.player}:`,
+                fetchError
+              );
             }
           }
         }
 
         setResolvedPlayers(resolved);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch player data');
+        setError(
+          err instanceof Error ? err.message : 'Failed to fetch player data'
+        );
         console.error('Error in usePlayerData:', err);
       } finally {
         setLoading(false);

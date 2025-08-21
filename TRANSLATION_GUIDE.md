@@ -37,6 +37,7 @@ locales/
 ## ⚙️ Konfigürasyon
 
 ### i18n.js
+
 ```javascript
 module.exports = {
   locales: ['en', 'tr'],
@@ -51,10 +52,11 @@ module.exports = {
   },
   loadLocaleFrom: (lang, ns) =>
     import(`./locales/${lang}/${ns}.json`).then((m) => m.default),
-}
+};
 ```
 
 ### next.config.ts
+
 ```typescript
 import nextTranslate from 'next-translate-plugin';
 
@@ -88,6 +90,7 @@ export const MyComponent = () => {
 ### 2. Sayfa Props Güncelleme
 
 **Eski (Hatalı):**
+
 ```typescript
 interface PageProps {
   params: { locale: string };
@@ -99,6 +102,7 @@ export default async function Page({ params }: PageProps) {
 ```
 
 **Yeni (Doğru):**
+
 ```typescript
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -113,9 +117,11 @@ export default async function Page({ params }: PageProps) {
 ### 3. Metadata Fonksiyonları
 
 ```typescript
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  
+
   return {
     title: locale === 'tr' ? 'Başlık' : 'Title',
     description: locale === 'tr' ? 'Açıklama' : 'Description',
@@ -126,6 +132,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 ## 📝 Çeviri Dosyaları
 
 ### JSON Yapısı
+
 ```json
 {
   "hero": {
@@ -143,6 +150,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 ```
 
 ### Nested Objeler
+
 ```json
 {
   "form": {
@@ -160,6 +168,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 ## 🔧 Yeni Çeviri Ekleme
 
 ### 1. JSON Dosyasına Ekle
+
 ```json
 // locales/tr/newpage.json
 {
@@ -170,6 +179,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 ```
 
 ### 2. i18n.js'e Ekle
+
 ```javascript
 pages: {
   '*': ['common'],
@@ -179,6 +189,7 @@ pages: {
 ```
 
 ### 3. Component'te Kullan
+
 ```typescript
 const { t } = useAppTranslation();
 
@@ -205,6 +216,7 @@ Test sayfası: `http://localhost:3000/tr/test-translation` veya `http://localhos
 ## 🔄 Dil Değiştirme
 
 URL tabanlı dil değişimi:
+
 - Türkçe: `/tr/...`
 - İngilizce: `/en/...`
 
@@ -216,4 +228,4 @@ URL tabanlı dil değişimi:
 
 ## 🎉 Başarı!
 
-Artık stabil ve güvenilir bir localization sisteminiz var! 🚀 
+Artık stabil ve güvenilir bir localization sisteminiz var! 🚀

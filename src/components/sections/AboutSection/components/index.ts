@@ -5,9 +5,9 @@ export { AboutValues } from './AboutValues';
 export { AboutStats } from './AboutStats';
 
 // Type exports
-export type { 
+export type {
   AboutBackgroundProps,
   AboutContentProps,
   AboutValuesProps,
-  AboutStatsProps 
+  AboutStatsProps,
 } from '../types';

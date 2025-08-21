@@ -4,7 +4,16 @@ import { AboutData, AboutComponent } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Target, Eye, Heart, Trophy, Users, Award, Calendar, Star } from 'lucide-react';
+import {
+  Target,
+  Eye,
+  Heart,
+  Trophy,
+  Users,
+  Award,
+  Calendar,
+  Star,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -32,17 +41,20 @@ export function AboutPage({ data }: AboutPageProps) {
         switch (component._template) {
           case 'about-hero':
             return (
-              <section key={index} className="relative bg-gaming-darker text-white py-20">
+              <section
+                key={index}
+                className="relative bg-gaming-darker py-20 text-white"
+              >
                 <div className="absolute inset-0 bg-black/50"></div>
-                <div className="container mx-auto px-4 relative z-10">
-                  <div className="max-w-4xl mx-auto text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6 neon-text">
+                <div className="container relative z-10 mx-auto px-4">
+                  <div className="mx-auto max-w-4xl text-center">
+                    <h1 className="neon-text mb-6 text-5xl font-bold md:text-6xl">
                       {component.title}
                     </h1>
-                    <h2 className="text-2xl md:text-3xl text-primary mb-6">
+                    <h2 className="mb-6 text-2xl text-primary md:text-3xl">
                       {component.subtitle}
                     </h2>
-                    <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+                    <p className="mx-auto mb-8 max-w-3xl text-xl text-muted-foreground">
                       {component.description}
                     </p>
                     {component.image && (
@@ -63,30 +75,34 @@ export function AboutPage({ data }: AboutPageProps) {
 
           case 'about-content':
             return (
-              <section key={index} className="py-20 bg-background">
+              <section key={index} className="bg-background py-20">
                 <div className="container mx-auto px-4">
-                  <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold text-foreground mb-8 text-center">
+                  <div className="mx-auto max-w-4xl">
+                    <h2 className="mb-8 text-center text-4xl font-bold text-foreground">
                       {component.mainTitle}
                     </h2>
-                    <p className="text-lg text-muted-foreground mb-12 text-center leading-relaxed">
+                    <p className="mb-12 text-center text-lg leading-relaxed text-muted-foreground">
                       {component.mainContent}
                     </p>
 
                     {/* Content Sections */}
-                    <div className="grid md:grid-cols-3 gap-8 mt-16">
+                    <div className="mt-16 grid gap-8 md:grid-cols-3">
                       {component.sections.map((section, sectionIndex) => {
-                        const IconComponent = iconMap[section.icon as keyof typeof iconMap];
+                        const IconComponent =
+                          iconMap[section.icon as keyof typeof iconMap];
                         return (
-                          <Card key={sectionIndex} className="gaming-card border-primary/20 hover:border-primary/40 transition-all duration-300">
+                          <Card
+                            key={sectionIndex}
+                            className="gaming-card border-primary/20 transition-all duration-300 hover:border-primary/40"
+                          >
                             <CardContent className="p-6 text-center">
-                              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <IconComponent className="w-8 h-8 text-primary" />
+                              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                                <IconComponent className="h-8 w-8 text-primary" />
                               </div>
-                              <h3 className="text-xl font-semibold text-foreground mb-3">
+                              <h3 className="mb-3 text-xl font-semibold text-foreground">
                                 {section.title}
                               </h3>
-                              <p className="text-muted-foreground leading-relaxed">
+                              <p className="leading-relaxed text-muted-foreground">
                                 {section.content}
                               </p>
                             </CardContent>
@@ -101,20 +117,20 @@ export function AboutPage({ data }: AboutPageProps) {
 
           case 'about-stats':
             return (
-              <section key={index} className="py-20 bg-gaming-dark">
+              <section key={index} className="bg-gaming-dark py-20">
                 <div className="container mx-auto px-4">
-                  <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-foreground mb-4">
+                  <div className="mb-16 text-center">
+                    <h2 className="mb-4 text-4xl font-bold text-foreground">
                       {component.title}
                     </h2>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                  <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
                     {component.items.map((item, itemIndex) => (
                       <div key={itemIndex} className="text-center">
-                        <div className="text-4xl md:text-5xl font-bold text-primary mb-2 animate-glow-pulse">
+                        <div className="mb-2 animate-glow-pulse text-4xl font-bold text-primary md:text-5xl">
                           {item.number}
                         </div>
-                        <div className="text-lg font-semibold text-foreground mb-2">
+                        <div className="mb-2 text-lg font-semibold text-foreground">
                           {item.label}
                         </div>
                         <p className="text-sm text-muted-foreground">
@@ -129,39 +145,42 @@ export function AboutPage({ data }: AboutPageProps) {
 
           case 'about-team':
             return (
-              <section key={index} className="py-20 bg-background">
+              <section key={index} className="bg-background py-20">
                 <div className="container mx-auto px-4">
-                  <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-foreground mb-4">
+                  <div className="mb-16 text-center">
+                    <h2 className="mb-4 text-4xl font-bold text-foreground">
                       {component.title}
                     </h2>
-                    <h3 className="text-2xl text-primary mb-6">
+                    <h3 className="mb-6 text-2xl text-primary">
                       {component.subtitle}
                     </h3>
-                    <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                    <p className="mx-auto max-w-3xl text-lg text-muted-foreground">
                       {component.description}
                     </p>
                   </div>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                     {component.members.map((member, memberIndex) => (
-                      <Card key={memberIndex} className="gaming-card text-center hover:scale-105 transition-transform duration-300">
+                      <Card
+                        key={memberIndex}
+                        className="gaming-card text-center transition-transform duration-300 hover:scale-105"
+                      >
                         <CardContent className="p-6">
-                          <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
+                          <div className="mx-auto mb-4 h-32 w-32 overflow-hidden rounded-full">
                             <Image
-                              src={member.image || '' }
+                              src={member.image || ''}
                               alt={member.name}
                               width={128}
                               height={128}
-                              className="w-full h-full object-cover"
+                              className="h-full w-full object-cover"
                             />
                           </div>
-                          <h3 className="text-xl font-semibold text-foreground mb-2">
+                          <h3 className="mb-2 text-xl font-semibold text-foreground">
                             {member.name}
                           </h3>
                           <Badge variant="secondary" className="mb-3">
                             {member.position}
                           </Badge>
-                          <p className="text-muted-foreground text-sm">
+                          <p className="text-sm text-muted-foreground">
                             {member.description}
                           </p>
                         </CardContent>
@@ -174,31 +193,37 @@ export function AboutPage({ data }: AboutPageProps) {
 
           case 'about-achievements':
             return (
-              <section key={index} className="py-20 bg-gaming-dark">
+              <section key={index} className="bg-gaming-dark py-20">
                 <div className="container mx-auto px-4">
-                  <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-foreground mb-4">
+                  <div className="mb-16 text-center">
+                    <h2 className="mb-4 text-4xl font-bold text-foreground">
                       {component.title}
                     </h2>
-                    <h3 className="text-2xl text-primary mb-6">
+                    <h3 className="mb-6 text-2xl text-primary">
                       {component.subtitle}
                     </h3>
                   </div>
-                  <div className="grid md:grid-cols-2 gap-8">
+                  <div className="grid gap-8 md:grid-cols-2">
                     {component.items.map((achievement, achievementIndex) => (
-                      <Card key={achievementIndex} className="gaming-card hover:scale-105 transition-transform duration-300">
+                      <Card
+                        key={achievementIndex}
+                        className="gaming-card transition-transform duration-300 hover:scale-105"
+                      >
                         <CardContent className="p-6">
                           <div className="flex items-start space-x-4">
-                            <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                              <Trophy className="w-10 h-10 text-primary" />
+                            <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-primary/10">
+                              <Trophy className="h-10 w-10 text-primary" />
                             </div>
                             <div className="flex-1">
-                              <div className="flex items-center space-x-2 mb-2">
-                                <Badge variant="outline" className="text-primary border-primary">
+                              <div className="mb-2 flex items-center space-x-2">
+                                <Badge
+                                  variant="outline"
+                                  className="border-primary text-primary"
+                                >
                                   {achievement.year}
                                 </Badge>
                               </div>
-                              <h3 className="text-xl font-semibold text-foreground mb-2">
+                              <h3 className="mb-2 text-xl font-semibold text-foreground">
                                 {achievement.title}
                               </h3>
                               <p className="text-muted-foreground">
@@ -213,7 +238,7 @@ export function AboutPage({ data }: AboutPageProps) {
                                 alt={achievement.title}
                                 width={400}
                                 height={200}
-                                className="rounded-lg w-full"
+                                className="w-full rounded-lg"
                               />
                             </div>
                           )}
@@ -227,13 +252,13 @@ export function AboutPage({ data }: AboutPageProps) {
 
           case 'about-cta':
             return (
-              <section key={index} className="py-20 bg-background">
+              <section key={index} className="bg-background py-20">
                 <div className="container mx-auto px-4">
-                  <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold text-foreground mb-6">
+                  <div className="mx-auto max-w-4xl text-center">
+                    <h2 className="mb-6 text-4xl font-bold text-foreground">
                       {component.title}
                     </h2>
-                    <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                    <p className="mx-auto mb-8 max-w-2xl text-xl text-muted-foreground">
                       {component.description}
                     </p>
                     <Button asChild size="lg" className="gaming-button">
@@ -252,4 +277,4 @@ export function AboutPage({ data }: AboutPageProps) {
       })}
     </div>
   );
-} 
+}

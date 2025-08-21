@@ -18,18 +18,19 @@ export default function Header({ navigation }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [lastScrollY, setLastScrollY] = useState<number>(0);
-  
+
   // Site settings hook'u - Türkçe locale ile
-  const { data: siteSettings, isLoading: settingsLoading } = useSiteSettings('tr');
+  const { data: siteSettings, isLoading: settingsLoading } =
+    useSiteSettings('tr');
 
   // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Check if scrolled down
       setIsScrolled(currentScrollY > 20);
-      
+
       // Hide/show header based on scroll direction
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         // Scrolling down - hide header
@@ -38,7 +39,7 @@ export default function Header({ navigation }: HeaderProps) {
         // Scrolling up - show header
         setIsVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
@@ -51,22 +52,22 @@ export default function Header({ navigation }: HeaderProps) {
   };
 
   return (
-    <motion.header 
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-black/95 backdrop-blur-xl border-b border-red-500/50 shadow-2xl shadow-red-500/20' 
-          : 'bg-black/80 backdrop-blur-md border-b border-red-500/30'
+    <motion.header
+      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+        isScrolled
+          ? 'border-b border-red-500/50 bg-black/95 shadow-2xl shadow-red-500/20 backdrop-blur-xl'
+          : 'border-b border-red-500/30 bg-black/80 backdrop-blur-md'
       }`}
       initial={{ y: -100, opacity: 0 }}
-      animate={{ 
-        y: isVisible ? 0 : -100, 
-        opacity: isVisible ? 1 : 0 
+      animate={{
+        y: isVisible ? 0 : -100,
+        opacity: isVisible ? 1 : 0,
       }}
-      transition={{ 
-        duration: 0.4, 
-        ease: "easeOut",
-        type: "spring",
-        stiffness: 100
+      transition={{
+        duration: 0.4,
+        ease: 'easeOut',
+        type: 'spring',
+        stiffness: 100,
       }}
     >
       {/* Animated Background Pattern */}
@@ -80,69 +81,69 @@ export default function Header({ navigation }: HeaderProps) {
       <div className="absolute inset-0 bg-gradient-to-r from-red-500/0 via-red-500/20 to-red-500/0 opacity-30 blur-sm" />
 
       <div className="container relative mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex h-20 items-center justify-between">
           {/* Enhanced Logo */}
-          <Link href="/" className="flex items-center space-x-4 group relative">
-            <motion.div 
+          <Link href="/" className="group relative flex items-center space-x-4">
+            <motion.div
               className="relative"
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 400 }}
             >
               {/* Main Icon Container */}
-              <div className="relative z-10 p-4 bg-gradient-to-br from-red-500/30 to-red-700/40 rounded-2xl border border-red-500/50 backdrop-blur-sm shadow-lg shadow-red-500/20">
+              <div className="relative z-10 rounded-2xl border border-red-500/50 bg-gradient-to-br from-red-500/30 to-red-700/40 p-4 shadow-lg shadow-red-500/20 backdrop-blur-sm">
                 {siteSettings?.logo?.main ? (
                   <Image
                     src={siteSettings.logo.main}
                     alt={siteSettings.siteName || 'AIM AGENCY'}
                     width={82}
                     height={82}
-                    className="w-8 h-8 object-cover"
+                    className="h-8 w-8 object-cover"
                   />
                 ) : (
-                  <Gamepad2 className="w-8 h-8 text-red-300 group-hover:text-red-200 transition-all duration-300" />
+                  <Gamepad2 className="h-8 w-8 text-red-300 transition-all duration-300 group-hover:text-red-200" />
                 )}
-                
+
                 {/* Animated Sparkles */}
                 <motion.div
-                  className="absolute -top-1 -right-1"
+                  className="absolute -right-1 -top-1"
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                 >
-                  <Sparkles className="w-4 h-4 text-yellow-400" />
+                  <Sparkles className="h-4 w-4 text-yellow-400" />
                 </motion.div>
               </div>
 
               {/* Glowing Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-red-700/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-              
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-500/20 to-red-700/30 blur-xl transition-all duration-500 group-hover:blur-2xl" />
+
               {/* Animated Ring */}
               <motion.div
                 className="absolute inset-0 rounded-2xl border border-red-500/30"
-                animate={{ 
+                animate={{
                   scale: [1, 1.1, 1],
-                  opacity: [0.5, 0.8, 0.5]
+                  opacity: [0.5, 0.8, 0.5],
                 }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
                 }}
               />
             </motion.div>
 
             {/* Logo Text */}
             <div className="relative">
-              <motion.span 
-                className="text-2xl font-gaming font-bold bg-gradient-to-r from-red-400 via-red-300 to-red-500 bg-clip-text text-transparent"
+              <motion.span
+                className="bg-gradient-to-r from-red-400 via-red-300 to-red-500 bg-clip-text font-gaming text-2xl font-bold text-transparent"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
                 {siteSettings?.siteName || 'AIM AGENCY'}
               </motion.span>
-              
+
               {/* Text Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-red-400 via-red-300 to-red-500 blur-lg opacity-30 group-hover:opacity-50 transition-all duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-red-400 via-red-300 to-red-500 opacity-30 blur-lg transition-all duration-300 group-hover:opacity-50" />
             </div>
           </Link>
 
@@ -154,17 +155,17 @@ export default function Header({ navigation }: HeaderProps) {
           {/* Enhanced Mobile Menu Button */}
           <motion.button
             onClick={toggleMobileMenu}
-            className="lg:hidden relative p-3 text-red-400 hover:text-red-300 rounded-2xl transition-all duration-300 group"
+            className="group relative rounded-2xl p-3 text-red-400 transition-all duration-300 hover:text-red-300 lg:hidden"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Mobil menüyü aç/kapat"
           >
             {/* Button Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 to-red-700/30 rounded-2xl border border-red-500/30 backdrop-blur-sm group-hover:border-red-500/50 transition-all duration-300" />
-            
+            <div className="absolute inset-0 rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-500/20 to-red-700/30 backdrop-blur-sm transition-all duration-300 group-hover:border-red-500/50" />
+
             {/* Button Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-700/20 rounded-2xl blur-md group-hover:blur-lg transition-all duration-300" />
-            
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-500/10 to-red-700/20 blur-md transition-all duration-300 group-hover:blur-lg" />
+
             {/* Icon */}
             <div className="relative z-10">
               <AnimatePresence mode="wait">
@@ -174,9 +175,9 @@ export default function Header({ navigation }: HeaderProps) {
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
                   >
-                    <X className="w-6 h-6" />
+                    <X className="h-6 w-6" />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -184,9 +185,9 @@ export default function Header({ navigation }: HeaderProps) {
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
                   >
-                    <Menu className="w-6 h-6" />
+                    <Menu className="h-6 w-6" />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -197,21 +198,21 @@ export default function Header({ navigation }: HeaderProps) {
         {/* Enhanced Mobile Navigation */}
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <motion.div 
-              className="lg:hidden border-t border-red-500/30 bg-black/95 backdrop-blur-xl shadow-2xl shadow-red-500/20"
+            <motion.div
+              className="border-t border-red-500/30 bg-black/95 shadow-2xl shadow-red-500/20 backdrop-blur-xl lg:hidden"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
             >
               {/* Mobile Menu Background Pattern */}
               <div className="absolute inset-0 bg-gradient-to-b from-red-950/30 via-transparent to-transparent" />
-              
+
               <div className="relative py-6">
-                <Navigation 
-                  navigation={navigation} 
-                  mobile 
-                  onItemClick={() => setIsMobileMenuOpen(false)} 
+                <Navigation
+                  navigation={navigation}
+                  mobile
+                  onItemClick={() => setIsMobileMenuOpen(false)}
                 />
               </div>
             </motion.div>
@@ -220,16 +221,16 @@ export default function Header({ navigation }: HeaderProps) {
       </div>
 
       {/* Bottom Glow Line */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500 to-transparent"
-        animate={{ 
+        animate={{
           opacity: [0.3, 1, 0.3],
-          scaleX: [0.8, 1, 0.8]
+          scaleX: [0.8, 1, 0.8],
         }}
-        transition={{ 
-          duration: 3, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: 'easeInOut',
         }}
       />
     </motion.header>

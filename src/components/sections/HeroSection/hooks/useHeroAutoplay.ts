@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import type { UseHeroAutoplayProps } from '../types';
 
-export function useHeroAutoplay({ 
-  autoplay, 
-  autoplaySpeed, 
-  slidesLength, 
-  setCurrentSlide 
+export function useHeroAutoplay({
+  autoplay,
+  autoplaySpeed,
+  slidesLength,
+  setCurrentSlide,
 }: UseHeroAutoplayProps) {
-  
   useEffect(() => {
     if (!autoplay || slidesLength <= 1) return;
 

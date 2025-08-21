@@ -11,23 +11,29 @@ export async function GET(request: NextRequest) {
     console.log('Player resolve API called with path:', filePath);
 
     if (!filePath) {
-      return NextResponse.json({ error: 'File path is required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'File path is required' },
+        { status: 400 }
+      );
     }
 
     // Remove "content/" prefix and get actual file path
     const cleanPath = filePath.replace('content/', '');
     const fullPath = path.join(process.cwd(), 'content', cleanPath);
-    
+
     if (!fs.existsSync(fullPath)) {
       console.error(`Player file not found: ${fullPath}`);
-      return NextResponse.json({ error: 'Player file not found' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'Player file not found' },
+        { status: 404 }
+      );
     }
 
     const fileContent = fs.readFileSync(fullPath, 'utf8');
     const { data } = matter(fileContent);
-    
+
     console.log('Player data loaded for:', filePath, 'Name:', data.name);
-    
+
     const playerData = {
       name: data.name || '',
       nickname: data.nickname || '',
@@ -48,7 +54,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error in player resolve API:', error);
     return NextResponse.json(
-      { error: 'Internal server error' }, 
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

@@ -6,7 +6,10 @@ interface SocialMediaIconProps {
   className?: string;
 }
 
-export function SocialMediaIcon({ icon, className = "w-5 h-5" }: SocialMediaIconProps) {
+export function SocialMediaIcon({
+  icon,
+  className = 'w-5 h-5',
+}: SocialMediaIconProps) {
   const getIconPath = (iconName: SocialMediaIconType) => {
     switch (iconName) {
       case 'youtube':

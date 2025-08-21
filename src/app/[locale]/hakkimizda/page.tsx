@@ -9,7 +9,7 @@ interface AboutPageProps {
 
 export default async function AboutPageRoute({ params }: AboutPageProps) {
   const { locale } = await params;
-  
+
   // Only allow Turkish locale for this route
   if (locale !== 'tr') {
     notFound();
@@ -17,7 +17,7 @@ export default async function AboutPageRoute({ params }: AboutPageProps) {
 
   try {
     const aboutData = await getAbout(locale);
-    
+
     return <AboutPage data={aboutData.data.about} />;
   } catch (error) {
     console.error('Error loading about page:', error);
@@ -25,9 +25,11 @@ export default async function AboutPageRoute({ params }: AboutPageProps) {
   }
 }
 
-export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: AboutPageProps): Promise<Metadata> {
   const { locale } = await params;
-  
+
   try {
     const aboutData = await getAbout(locale);
     const { seo } = aboutData.data.about;
@@ -55,7 +57,8 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
   } catch (error) {
     return {
       title: 'Hakkımızda - AIM Agency',
-      description: 'AIM Agency olarak e-spor dünyasında profesyonel takım yönetimi, oyuncu gelişimi ve danışmanlık hizmetleri sunuyoruz.',
+      description:
+        'AIM Agency olarak e-spor dünyasında profesyonel takım yönetimi, oyuncu gelişimi ve danışmanlık hizmetleri sunuyoruz.',
     };
   }
-} 
+}

@@ -40,7 +40,7 @@
       "features": ["Oyuncu Scouting", "Takım Antrenmanı", "Strateji Geliştirme"]
     },
     "tournaments": {
-      "title": "Turnuva Organizasyonu", 
+      "title": "Turnuva Organizasyonu",
       "description": "Profesyonel turnuva organizasyonu ve etkinlik yönetimi.",
       "features": ["Turnuva Planlama", "Canlı Yayın", "Sponsor Yönetimi"]
     },
@@ -52,7 +52,11 @@
     "coaching": {
       "title": "Oyuncu Koçluğu",
       "description": "Bireysel ve takım koçluğu ile performans artırma.",
-      "features": ["Bireysel Antrenman", "Takım Stratejileri", "Performans Analizi"]
+      "features": [
+        "Bireysel Antrenman",
+        "Takım Stratejileri",
+        "Performans Analizi"
+      ]
     },
     "branding": {
       "title": "Marka Yönetimi",
@@ -74,7 +78,7 @@
         "description": "Her projede en yüksek kalite standartlarını hedefliyoruz."
       },
       "success": {
-        "title": "Başarı", 
+        "title": "Başarı",
         "description": "Müşterilerimizin başarısı bizim önceliğimizdir."
       },
       "innovation": {
@@ -110,7 +114,7 @@
     "rights": "Tüm hakları saklıdır.",
     "links": {
       "about": "Hakkımızda",
-      "services": "Hizmetler", 
+      "services": "Hizmetler",
       "players": "Oyuncular",
       "matches": "Maçlar",
       "privacy": "Gizlilik Politikası",

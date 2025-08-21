@@ -9,7 +9,10 @@ export async function GET(request: NextRequest) {
     const filePath = searchParams.get('path');
 
     if (!filePath) {
-      return NextResponse.json({ error: 'Path parameter is required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Path parameter is required' },
+        { status: 400 }
+      );
     }
 
     // Clean the path and construct full file path
@@ -22,12 +25,15 @@ export async function GET(request: NextRequest) {
     // Check if file exists
     if (!fs.existsSync(fullPath)) {
       console.log('File not found:', fullPath);
-      return NextResponse.json({ error: 'News file not found' }, { status: 404 });
+      return NextResponse.json(
+        { error: 'News file not found' },
+        { status: 404 }
+      );
     }
 
     // Read the MDX file
     const fileContent = fs.readFileSync(fullPath, 'utf8');
-    
+
     // Parse frontmatter
     const { data: frontmatter } = matter(fileContent);
 

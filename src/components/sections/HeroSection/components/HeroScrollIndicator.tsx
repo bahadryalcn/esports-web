@@ -10,69 +10,69 @@ export function HeroScrollIndicator({}: HeroScrollIndicatorProps) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2.5, duration: 0.8 }}
-      className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+      className="absolute bottom-8 left-1/2 z-30 -translate-x-1/2 transform"
     >
-      <motion.div 
-        className="flex flex-col items-center space-y-3 cursor-pointer group"
+      <motion.div
+        className="group flex cursor-pointer flex-col items-center space-y-3"
         whileHover={{ scale: 1.1 }}
         onClick={() => {
-          window.scrollTo({ 
-            top: window.innerHeight, 
-            behavior: 'smooth' 
+          window.scrollTo({
+            top: window.innerHeight,
+            behavior: 'smooth',
           });
         }}
       >
         {/* Modern Scroll Indicator */}
         <div className="relative">
           {/* Outer Ring */}
-          <div className="w-8 h-12 border-2 border-red-500/50 rounded-full flex justify-center relative overflow-hidden group-hover:border-red-400 transition-colors duration-300 bg-black/20 backdrop-blur-sm">
+          <div className="relative flex h-12 w-8 justify-center overflow-hidden rounded-full border-2 border-red-500/50 bg-black/20 backdrop-blur-sm transition-colors duration-300 group-hover:border-red-400">
             {/* Inner Dot */}
-            <motion.div 
-              className="w-1.5 h-4 bg-gradient-to-b from-red-400 to-red-600 rounded-full mt-2"
+            <motion.div
+              className="mt-2 h-4 w-1.5 rounded-full bg-gradient-to-b from-red-400 to-red-600"
               animate={{ y: [0, 12, 0] }}
-              transition={{ 
-                duration: 2, 
+              transition={{
+                duration: 2,
                 repeat: Infinity,
-                ease: "easeInOut"
+                ease: 'easeInOut',
               }}
             />
-            
+
             {/* Glow Effect */}
-            <div className="absolute inset-0 bg-red-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
+            <div className="absolute inset-0 rounded-full bg-red-500/20 opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
           </div>
         </div>
-        
+
         {/* Mouse Icon Alternative */}
         <motion.div
-          className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           initial={{ scale: 0 }}
           whileHover={{ scale: 1 }}
         >
-          <MousePointer2 className="w-5 h-5 text-red-400" />
+          <MousePointer2 className="h-5 w-5 text-red-400" />
         </motion.div>
-        
+
         {/* Text Hint */}
-        <motion.div 
-          className="text-xs text-red-400/80 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        <motion.div
+          className="text-xs font-medium text-red-400/80 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           initial={{ y: 10 }}
           whileHover={{ y: 0 }}
         >
           Scroll Down
         </motion.div>
-        
+
         {/* Animated Arrow */}
         <motion.div
-          className="flex flex-col space-y-1 opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+          className="flex flex-col space-y-1 opacity-60 transition-opacity duration-300 group-hover:opacity-100"
           animate={{ y: [0, 5, 0] }}
-          transition={{ 
-            duration: 1.5, 
+          transition={{
+            duration: 1.5,
             repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
+            ease: 'easeInOut',
+            delay: 1,
           }}
         >
-          <div className="w-[2px] h-2 bg-gradient-to-b from-red-500/60 to-transparent mx-auto" />
-          <div className="w-[2px] h-1 bg-gradient-to-b from-red-500/40 to-transparent mx-auto" />
+          <div className="mx-auto h-2 w-[2px] bg-gradient-to-b from-red-500/60 to-transparent" />
+          <div className="mx-auto h-1 w-[2px] bg-gradient-to-b from-red-500/40 to-transparent" />
         </motion.div>
       </motion.div>
     </motion.div>
