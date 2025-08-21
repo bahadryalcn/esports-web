@@ -1,0 +1,57 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
+  "env": {
+    "NEXT_PUBLIC_TINA_CLIENT_ID": "ebd6ca61-1ec0-4d06-8c35-6317b05f7c18",
+    "TINA_TOKEN": "46e4f59463a446def1c19f6a72460429723f1ba7",
+    "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME": "dtlbxu8ya",
+    "CLOUDINARY_API_KEY": "671255211726649",
+    "CLOUDINARY_API_SECRET": "IcBPNLBHiml3LPagPpWejhnp2c4",
+    "NEXT_PUBLIC_SITE_URL": "https://www.aim-agency.vercel.app",
+    "NODE_ENV": "production",
+    "GITHUB_BRANCH": "master",
+    "VERCEL_GIT_COMMIT_REF": "master"
+  },
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/admin/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/admin/$1"
+    }
+  ]
+}

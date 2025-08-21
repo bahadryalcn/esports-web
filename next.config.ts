@@ -23,47 +23,47 @@ const nextConfig: NextConfig = {
 
     return config;
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/cms',
-  //       destination: '/cms/index.html',
-  //     },
-  //     {
-  //       source: '/cms/:path*',
-  //       destination: '/cms/:path*',
-  //     },
-  //     {
-  //       source: '/admin',
-  //       destination: '/admin/index.html',
-  //     },
-  //     {
-  //       source: '/admin/:path*',
-  //       destination: '/admin/:path*',
-  //     },
-  //   ];
-  // },
-  // async headers() {
-  //   return [
-  //     {
-  //       source: '/(.*)',
-  //       headers: [
-  //         {
-  //           key: 'X-Frame-Options',
-  //           value: 'DENY',
-  //         },
-  //         {
-  //           key: 'X-Content-Type-Options',
-  //           value: 'nosniff',
-  //         },
-  //         {
-  //           key: 'Referrer-Policy',
-  //           value: 'origin-when-cross-origin',
-  //         },
-  //       ],
-  //     },
-  //   ];
-  //   },
+  async rewrites() {
+    return [
+      {
+        source: '/admin',
+        destination: '/admin/index.html',
+      },
+      {
+        source: '/admin/(.*)',
+        destination: '/admin/$1',
+      },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: '/admin/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+        ],
+      },
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
+  experimental: {
+    serverComponentsExternalPackages: ['tinacms'],
+  },
 };
 
 export default nextConfig;

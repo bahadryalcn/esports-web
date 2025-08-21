@@ -5,7 +5,7 @@ const branch =
   process.env.GITHUB_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
   process.env.HEAD ||
-  "main";
+  "master";
 
 // Supported locales
 const locales = ["tr", "en"];
@@ -1004,11 +1004,16 @@ export default defineConfig({
     publicFolder: "public",
   },
   media: {
-    tina: {
-      mediaRoot: "uploads",
-      publicFolder: "public",
-    },
+    loadCustomStore: async () => {
+      const pack = await import("next-tinacms-cloudinary");
+      return pack.TinaCloudCloudinaryMediaStore;
+ },
+    // tina: {
+    //   mediaRoot: "uploads",
+    //   publicFolder: "public",
+    // },
   },
+
   schema: {
     collections: [
       // Sponsors Collection
