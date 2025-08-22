@@ -1,9 +1,28 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import type { HeroContentProps } from '../types';
 
 export function HeroContent({ currentSlide, children }: HeroContentProps) {
+  const [mounted, setMounted] = useState(false);
+
+  // Hydration sorununu önlemek için mounted state'i
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Hydration sırasında static content göster
+  if (!mounted) {
+    return (
+      <div className="hero-content relative z-20 flex min-h-screen items-center justify-center px-4 pt-0">
+        <div className="container mx-auto max-w-7xl text-center">
+          <div className="space-y-6 sm:space-y-8 lg:space-y-12">{children}</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="hero-content relative z-20 flex min-h-screen items-center justify-center px-4 pt-0">
       <motion.div

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { HeroBackground } from './components/HeroBackground';
 import { HeroContent } from './components/HeroContent';
 import { HeroNavigation } from './components/HeroNavigation';
@@ -26,6 +26,12 @@ export default function HeroSection({
   showArrows = true,
 }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [mounted, setMounted] = useState(false);
+
+  // Hydration sorununu önlemek için mounted state'i
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Convert single slide props to slides array for backwards compatibility
   const heroSlides = useHeroSlides({
@@ -38,30 +44,91 @@ export default function HeroSection({
     slides,
   });
 
-  // Auto-play functionality
+  // Auto-play functionality - sadece mount olduktan sonra başlat
   useHeroAutoplay({
-    autoplay,
+    autoplay: autoplay && mounted,
     autoplaySpeed,
     slidesLength: heroSlides.length,
     setCurrentSlide,
   });
 
   // Memoize current slide data to prevent unnecessary re-renders
-  const currentSlideData = useMemo(
-    () => heroSlides[currentSlide],
-    [heroSlides, currentSlide]
-  );
+  const currentSlideData = useMemo(() => {
+    // Mount olmadan önce güvenli fallback döndür
+    if (!mounted) {
+      return (
+        heroSlides[0] || {
+          headline: title || 'E-spor Dünyasında Öncü',
+          subtext:
+            subtitle ||
+            'Profesyonel oyuncu yönetimi, turnuva organizasyonu ve gaming içerik üretimi ile e-spor dünyasında fark yaratıyoruz.',
+          buttonText: ctaText || 'Hizmetlerimizi Keşfedin',
+          buttonLink: ctaLink || '/hizmetler',
+          backgroundImage: backgroundImage || '/bg/1.jpg',
+          overlay,
+        }
+      );
+    }
+    return heroSlides[currentSlide] || heroSlides[0];
+  }, [
+    heroSlides,
+    currentSlide,
+    mounted,
+    title,
+    subtitle,
+    ctaText,
+    ctaLink,
+    backgroundImage,
+    overlay,
+  ]);
 
   // Memoize background image and overlay to prevent unnecessary re-renders
   const { currentBackgroundImage, currentOverlay } = useMemo(() => {
     const hasSlides = slides && slides.length > 0;
     return {
-      currentBackgroundImage: hasSlides
-        ? currentSlideData.backgroundImage
-        : backgroundImage || '/bg/1.jpg',
-      currentOverlay: hasSlides ? currentSlideData.overlay : overlay,
+      currentBackgroundImage:
+        hasSlides && mounted
+          ? currentSlideData.backgroundImage
+          : backgroundImage || '/bg/1.jpg',
+      currentOverlay: hasSlides && mounted ? currentSlideData.overlay : overlay,
     };
-  }, [slides, currentSlideData, backgroundImage, overlay]);
+  }, [slides, currentSlideData, backgroundImage, overlay, mounted]);
+
+  // Hydration hatalarını önlemek için loading state
+  if (!mounted) {
+    return (
+      <section className="hero-section relative flex min-h-screen items-center justify-center overflow-hidden pt-0">
+        {/* Background Container */}
+        <HeroBackground
+          currentSlide={0}
+          backgroundImage={backgroundImage || '/bg/1.jpg'}
+          overlay={overlay}
+        />
+
+        {/* Content Container */}
+        <div className="container relative z-20 mx-auto flex min-h-screen items-center justify-center px-4 pt-0">
+          {/* Main Content */}
+          <HeroContent currentSlide={0}>
+            <HeroHeading
+              headline={title || 'E-spor Dünyasında Öncü'}
+              subtext={
+                subtitle ||
+                'Profesyonel oyuncu yönetimi, turnuva organizasyonu ve gaming içerik üretimi ile e-spor dünyasında fark yaratıyoruz.'
+              }
+            />
+
+            {/* CTA Buttons */}
+            {(ctaText || ctaLink) && (
+              <HeroCTA buttonText={ctaText} buttonLink={ctaLink} />
+            )}
+          </HeroContent>
+        </div>
+
+        {/* Scroll Indicator */}
+        <HeroScrollIndicator />
+      </section>
+    );
+  }
 
   return (
     <section className="hero-section relative flex min-h-screen items-center justify-center overflow-hidden pt-0">
@@ -96,14 +163,16 @@ export default function HeroSection({
         </HeroContent>
       </div>
 
-      {/* Navigation */}
-      <HeroNavigation
-        showArrows={showArrows}
-        showDots={showDots}
-        slidesLength={heroSlides.length}
-        currentSlide={currentSlide}
-        setCurrentSlide={setCurrentSlide}
-      />
+      {/* Navigation - sadece mount olduktan sonra göster */}
+      {heroSlides.length > 1 && (
+        <HeroNavigation
+          showArrows={showArrows}
+          showDots={showDots}
+          slidesLength={heroSlides.length}
+          currentSlide={currentSlide}
+          setCurrentSlide={setCurrentSlide}
+        />
+      )}
 
       {/* Scroll Indicator */}
       <HeroScrollIndicator />

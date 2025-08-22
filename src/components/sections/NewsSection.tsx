@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -11,6 +11,7 @@ import { useNewsData } from '@/lib/hooks/useNewsData';
 import {
   useAdvancedParallax,
   useMultiLayerParallax,
+  useTextParallax,
 } from '@/lib/hooks/useAdvancedParallax';
 import {
   Calendar,
@@ -291,14 +292,15 @@ export default function NewsSection({
 }: NewsSectionProps) {
   const { resolvedNews, loading, error } = useNewsData(selectedNews);
 
-  // Multi-layer parallax for background elements
-  const { ref: parallaxRef, offsets } = useMultiLayerParallax([
-    { speed: 0.2, direction: 'up' }, // Background image
-    { speed: 0.4, direction: 'up' }, // Pattern layer
-    { speed: 0.1, direction: 'down' }, // Floating elements
-  ]);
+  // Optimized parallax layers for better performance
+  const parallaxLayers = useMemo(() => [
+    { speed: 0.2, direction: 'up' as const, easing: 'ease-out' as const }, // Background image
+    { speed: 0.4, direction: 'up' as const, easing: 'ease-out' as const }, // Pattern layer
+    { speed: 0.1, direction: 'down' as const, easing: 'linear' as const }, // Floating elements
+  ], []);
 
-  // Advanced parallax for content
+  const { ref: parallaxRef, offsets } = useMultiLayerParallax(parallaxLayers);
+  const { ref: titleRef, offset: titleOffset } = useTextParallax(0.3);
   const { ref: contentRef, offset: contentOffset } = useAdvancedParallax({
     speed: 0.3,
     direction: 'up',

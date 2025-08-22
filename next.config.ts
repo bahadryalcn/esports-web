@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
   basePath: '',
   images: {
-    domains: ['res.cloudinary.com', 'cloudinary.com'],
+    domains: ['res.cloudinary.com', 'cloudinary.com', 'assets.tina.io'],
     formats: ['image/avif', 'image/webp'],
 
     remotePatterns: [
@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
         protocol: 'http',
         hostname: 'localhost',
         port: '3000',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.tina.io',
+        port: '',
         pathname: '/**',
       },
     ],

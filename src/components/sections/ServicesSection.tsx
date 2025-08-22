@@ -14,7 +14,11 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
+import {
+  useAdvancedParallax,
+  useMultiLayerParallax,
+} from '@/lib/hooks/useAdvancedParallax';
 
 interface Service {
   serviceId: string;
@@ -69,9 +73,26 @@ export default function ServicesSection({
   bottomCTALink = '/services',
 }: ServicesSectionProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const finalBackgroundImage = background?.image || null;
 
-  // Handle background image loading
+  // Optimized parallax layers for services section
+  const parallaxLayers = useMemo(
+    () => [
+      { speed: 0.2, direction: 'up' as const, easing: 'ease-out' as const },
+      { speed: 0.4, direction: 'up' as const, easing: 'ease-out' as const },
+      { speed: 0.1, direction: 'down' as const, easing: 'linear' as const },
+    ],
+    []
+  );
+
+  const { ref: parallaxRef, offsets } = useMultiLayerParallax(parallaxLayers);
+  const { ref: titleRef, offset: titleOffset } = useAdvancedParallax({
+    speed: 0.3,
+    direction: 'up',
+  });
+
+  // Optimized image loading with intersection observer
   useEffect(() => {
     if (!finalBackgroundImage) {
       setImageLoaded(true);
@@ -79,17 +100,27 @@ export default function ServicesSection({
     }
 
     setImageLoaded(false);
-    const img = new Image();
-    img.onload = () => {
-      console.log('✅ Services background loaded:', finalBackgroundImage);
-      setImageLoaded(true);
-    };
-    img.onerror = () => {
-      console.error('❌ Services background failed:', finalBackgroundImage);
-      setImageLoaded(false);
-    };
-    img.src = finalBackgroundImage;
-  }, [finalBackgroundImage]);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          const img = new Image();
+          img.onload = () => setImageLoaded(true);
+          img.onerror = () => setImageLoaded(false);
+          img.src = finalBackgroundImage;
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (parallaxRef.current) {
+      observer.observe(parallaxRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [finalBackgroundImage, parallaxRef]);
 
   // Mock services data - In real implementation, this would come from TinaCMS Services Collection
   const allServices = useMemo(
@@ -202,24 +233,28 @@ export default function ServicesSection({
     background.overlay.opacity > 0;
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      {/* Modern Background Layer */}
+    <section
+      ref={parallaxRef}
+      className="section-padding relative overflow-hidden will-change-transform"
+    >
+      {/* Optimized Background Layer with Parallax */}
       <div className="absolute inset-0">
-        {/* Background Image */}
+        {/* Background Image with Parallax */}
         {finalBackgroundImage && (
           <motion.div
-            className="bg-attachment-fixed absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 h-full w-full transform-gpu bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: `url("${finalBackgroundImage}")`,
+              transform: `translate3d(0, ${offsets[0] || 0}px, 0)`,
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: imageLoaded ? 1 : 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           />
         )}
 
-        {/* Fallback Gradient - çok hafif */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gaming-darker/25 via-gaming-dark/15 to-gaming-darker/25" />
+        {/* Optimized Fallback Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gaming-darker/20 via-gaming-dark/10 to-gaming-darker/20" />
 
         {/* Custom Overlay */}
         {shouldShowOverlay && (
@@ -227,11 +262,11 @@ export default function ServicesSection({
             className="absolute inset-0 z-10"
             style={{
               backgroundColor: background?.overlay?.color || '#000000',
-              opacity: Math.min(background?.overlay?.opacity || 0.3, 0.4), // Maximum 0.4 opacity
+              opacity: background?.overlay?.opacity ? Math.min(background.overlay.opacity, 0.4) : 0.3,
             }}
             initial={{ opacity: 0 }}
             animate={{
-              opacity: Math.min(background?.overlay?.opacity || 0.3, 0.4),
+              opacity: background?.overlay?.opacity ? Math.min(background.overlay.opacity, 0.4) : 0.3,
             }}
             transition={{ duration: 0.8, delay: 0.3 }}
           />
@@ -242,41 +277,54 @@ export default function ServicesSection({
           <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/25 via-transparent to-black/15" />
         )}
 
-        {/* Modern Animated Elements */}
+        {/* Optimized Animated Elements with Parallax */}
         <motion.div
-          className="z-5 absolute inset-0"
+          className="z-5 absolute inset-0 will-change-transform"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 0.5 }}
+          animate={{ opacity: isVisible ? 1 : 0 }}
+          transition={{ duration: 1.5, delay: 0.3 }}
+          style={{
+            transform: `translate3d(0, ${offsets[1] || 0}px, 0)`,
+          }}
         >
-          {/* Gaming themed floating elements */}
+          {/* Optimized Gaming Orbs */}
           <div
-            className="from-red-500/8 to-red-700/4 absolute right-20 top-20 h-96 w-96 animate-pulse rounded-full bg-gradient-to-br blur-3xl"
-            style={{ animationDuration: '6s' }}
+            className="from-red-500/6 to-red-700/3 absolute right-20 top-20 h-64 w-64 animate-float rounded-full bg-gradient-to-br backdrop-blur-sm"
+            style={{ animationDuration: '8s' }}
           />
           <div
-            className="from-red-600/6 to-red-400/3 absolute bottom-40 left-20 h-80 w-80 animate-pulse rounded-full bg-gradient-to-tl blur-2xl"
-            style={{ animationDuration: '8s', animationDelay: '1s' }}
-          />
-          <div
-            className="absolute left-1/3 top-1/3 h-64 w-64 animate-pulse rounded-full bg-gradient-to-br from-red-500/5 to-transparent blur-xl"
+            className="from-red-600/4 to-red-400/2 absolute bottom-40 left-20 h-48 w-48 animate-float rounded-full bg-gradient-to-tl backdrop-blur-sm"
             style={{ animationDuration: '10s', animationDelay: '2s' }}
           />
+        </motion.div>
 
-          {/* Geometric gaming elements */}
-          <div className="glass-effect absolute left-32 top-32 h-32 w-32 rounded-full border border-red-500/20" />
-          <div className="absolute bottom-32 right-32 h-24 w-24 rounded-full border border-red-400/15 glass-red" />
-          <div className="absolute right-1/4 top-2/3 h-20 w-20 rounded-full border border-red-600/25 glass-dark" />
+        {/* Geometric Elements with Counter-Parallax */}
+        <motion.div
+          className="z-5 absolute inset-0 will-change-transform"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isVisible ? 1 : 0 }}
+          transition={{ duration: 1.2, delay: 0.6 }}
+          style={{
+            transform: `translate3d(0, ${offsets[2] || 0}px, 0)`,
+          }}
+        >
+          <div className="glass-effect absolute left-32 top-32 h-24 w-24 rounded-full border border-red-500/15" />
+          <div className="absolute bottom-32 right-32 h-20 w-20 rounded-full border border-red-400/10 glass-red" />
         </motion.div>
       </div>
 
       <div className="container-gaming relative z-20">
-        {/* Section Header */}
+        {/* Section Header with Parallax */}
         <motion.div
+          ref={titleRef}
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="mb-12 text-center lg:mb-16"
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, margin: '-100px' }}
+          className="mb-12 text-center will-change-transform lg:mb-16"
+          style={{
+            transform: `translate3d(0, ${titleOffset.y}px, 0)`,
+          }}
         >
           {/* Gaming Badge */}
           <motion.div
@@ -321,28 +369,23 @@ export default function ServicesSection({
           />
         </motion.div>
 
-        {/* Services Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
-          className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-16 lg:gap-8 xl:grid-cols-3"
-        >
+        {/* Optimized Services Grid */}
+        <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:mb-16 lg:gap-8 xl:grid-cols-3">
           {validServices.map((service, index) => (
             <motion.div
               key={service.serviceId}
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-                ease: 'easeOut',
+                duration: 0.5,
+                delay: index * 0.08,
+                ease: [0.16, 1, 0.3, 1],
               }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: '-50px' }}
               className="group relative"
             >
-              {/* Service Card */}
-              <div className="hover-lift h-full rounded-3xl border border-red-500/20 p-6 transition-all duration-300 glass-dark hover:border-red-400/40 group-hover:glass-red lg:p-8">
+              {/* Optimized Service Card */}
+              <div className="h-full transform-gpu rounded-3xl border border-red-500/20 p-6 transition-all duration-300 glass-dark hover:-translate-y-2 hover:scale-105 hover:border-red-400/40 group-hover:glass-red lg:p-8">
                 {/* Service Icon */}
                 <motion.div
                   className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-300 glass-red group-hover:bg-gaming-gradient lg:h-20 lg:w-20"
@@ -402,15 +445,15 @@ export default function ServicesSection({
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Bottom CTA Section */}
+        {/* Optimized Bottom CTA Section */}
         {showBottomCTA && (
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, margin: '-100px' }}
             className="text-center"
           >
             {/* CTA Container */}

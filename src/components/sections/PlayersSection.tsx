@@ -1,6 +1,12 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -18,6 +24,7 @@ import { usePlayerData } from '@/lib/hooks/usePlayerData';
 import {
   useAdvancedParallax,
   useMultiLayerParallax,
+  useTextParallax,
 } from '@/lib/hooks/useAdvancedParallax';
 import {
   Trophy,
@@ -629,16 +636,21 @@ export default function PlayersSection({
   const router = useRouter();
   const { resolvedPlayers, loading, error } = usePlayerData(selectedPlayers);
 
-  // Enhanced parallax with more layers
-  const { ref: parallaxRef, offsets } = useMultiLayerParallax([
-    { speed: 0.5, direction: 'up' }, // Background
-    { speed: 1.5, direction: 'up' }, // Pattern
-    { speed: 0.8, direction: 'down' }, // Floating elements
-    { speed: 1.2, direction: 'up' }, // Additional layer
-  ]);
+  // Optimized parallax layers for better performance
+  const parallaxLayers = useMemo(
+    () => [
+      { speed: 0.3, direction: 'up' as const, easing: 'ease-out' as const }, // Background
+      { speed: 0.6, direction: 'up' as const, easing: 'ease-out' as const }, // Pattern
+      { speed: 0.4, direction: 'down' as const, easing: 'linear' as const }, // Floating elements
+      { speed: 0.5, direction: 'up' as const, easing: 'ease-out' as const }, // Additional layer
+    ],
+    []
+  );
 
+  const { ref: parallaxRef, offsets } = useMultiLayerParallax(parallaxLayers);
+  const { ref: titleRef, offset: titleOffset } = useTextParallax(0.4);
   const { ref: contentRef, offset: contentOffset } = useAdvancedParallax({
-    speed: 0.7,
+    speed: 0.5,
     direction: 'up',
     easing: 'ease-out',
   });
